@@ -1,4 +1,3 @@
-let ProfilePhoto = require("../../assets/profilePhoto.jpg")
 import { CompetitorData } from "@/store/slices/competitorSlice"
 
 type Props = {
@@ -35,7 +34,11 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
       <div className="flex w-full items-start gap-8">
         <div className="w-1/5">
           <div className="py-3">
-            <img className="rounded-xl" src={ProfilePhoto} alt="photo" />
+            <img
+              className="rounded-xl"
+              src={`assets/profilePage.png`}
+              alt="photo"
+            />
           </div>
           <div>
             <button className="w-full rounded-lg bg-secondary-500 py-2 shadow-md transition hover:bg-violet-500">

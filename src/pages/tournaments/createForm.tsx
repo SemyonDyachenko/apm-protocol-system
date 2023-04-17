@@ -89,7 +89,7 @@ const TournamentCreateForm = (props: Props) => {
               value={leagueOption}
               {...register("league")}
               className={inputStyles}
-              onChange={(e) => setLeagueOption(e.target.value)}
+              onChange={(e) => setLeagueOption(parseInt(e.target.value))}
             >
               {leagues?.map((element, index) => (
                 <option value={element.id} key={index}>
@@ -102,7 +102,7 @@ const TournamentCreateForm = (props: Props) => {
               {...register("main_secretary")}
               className={inputStyles}
               onChange={(e) => {
-                setSecretaryOption(e.target.value)
+                setSecretaryOption(parseInt(e.target.value))
               }}
             >
               {getUsersByMode(competitors, "secretary")?.map((element) => (
@@ -116,7 +116,7 @@ const TournamentCreateForm = (props: Props) => {
               {...register("main_referee")}
               className={inputStyles}
               onChange={(e) => {
-                setRefereeOption(e.target.value)
+                setRefereeOption(parseInt(e.target.value))
               }}
             >
               {getUsersByMode(competitors, "judge")?.map((element) => (
@@ -127,7 +127,6 @@ const TournamentCreateForm = (props: Props) => {
             </select>
 
             <input
-              name="photo"
               type="file"
               className="max-w-[250px]"
               {...register("photo", { required: true })}

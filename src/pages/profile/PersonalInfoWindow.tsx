@@ -1,4 +1,4 @@
-import ProfilePhoto from "../../assets/profilePhoto.jpg"
+let ProfilePhoto = require("../../assets/profilePhoto.jpg")
 import { CompetitorData } from "@/store/slices/competitorSlice"
 
 type Props = {

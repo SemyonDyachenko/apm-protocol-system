@@ -13,6 +13,8 @@ import TournamentsPage from "./pages/tournaments"
 import TournamentPage from "./pages/tournament"
 import MatchPage from "./pages/match"
 import TournamentSystem from "./pages/tournamentSystem"
+import LogoutPage from "./pages/logout"
+import { useEffect } from "react"
 
 function NavbarWrapper() {
   return (
@@ -71,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "match/",
         element: <MatchPage />,
+      },
+      {
+        path: "logout/",
+        element: <LogoutPage />,
       },
     ],
   },

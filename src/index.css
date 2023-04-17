@@ -7,6 +7,17 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.dark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  color: white;
+}
+
+.light {
+  background-color: #f1eff6;
+  color: black;
+}
+
 details[open] :not(summary) {
   animation: slide 0.3s ease-in-out;
 }

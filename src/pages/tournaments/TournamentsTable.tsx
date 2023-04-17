@@ -45,11 +45,11 @@ const TournamentsTable = ({ tournaments, leagues, status }: Props) => {
                 <td>
                   <Link
                     className={`${
-                      status === true && "bg-green-300"
-                    } rounded-2xl bg-primary-400 px-3 py-1 text-sm text-white transition-all hover:bg-primary-200`}
+                      status === true ? "bg-green-300" : "bg-primary-400"
+                    } rounded-2xl  px-3 py-1 text-sm text-white transition-all hover:bg-primary-200`}
                     to={`/tournaments/${element.id}`}
                   >
-                    Смотреть
+                    {status === false ? "Смотреть" : "Ведение турнира"}
                   </Link>
                 </td>
               </tr>

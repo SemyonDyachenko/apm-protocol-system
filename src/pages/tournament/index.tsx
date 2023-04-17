@@ -1,5 +1,6 @@
 import HText from "@/components/UI/HText"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
+import Competitor from "@/models/Competitor"
 import WeightClass from "@/models/WeightClass"
 import { competitorAPI } from "@/services/competitorService"
 import { matchAPI } from "@/services/matchService"
@@ -15,6 +16,7 @@ import {
   changeTournamentStatus,
   registerForTournament,
 } from "@/store/actions/tournamentAction"
+import { findCompetitorById } from "@/utils/dataUtils"
 import { getNormalizeDate } from "@/utils/date"
 import { calculateEloRating } from "@/utils/eloCalculation"
 import { useState } from "react"
@@ -28,24 +30,19 @@ const TournamentPage = (props: Props) => {
   const dispatch = useAppDispatch()
   const { tournamentId } = useParams()
   const { data: tournament } = tournamentAPI.useFetchTournamentQuery(
-    parseInt(typeof tournamentId === "string" ? tournamentId : "0")
+    parseInt(tournamentId?.valueOf() || "")
   )
   const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(1000)
   const { data: weightClasses } = weightClassAPI.useFetchWeightClassesQuery(10)
   const { data: tournamentRegistrations } =
     tournamentAPI.useFetchTournamentRegistrationQuery(
-      tournamentId ? parseInt(tournamentId) : 0
+      parseInt(tournamentId?.valueOf() || "")
     )
   const { data: matches } = matchAPI.useFetchMatchesQuery(
-    parseInt(typeof tournamentId === "string" ? tournamentId : "0")
+    parseInt(tournamentId?.valueOf() || "")
   )
 
   const [handSelect, setHandSelect] = useState("Right")
-
-  const findCompetitorById = (id: number) => {
-    if (competitors) return competitors.find((element) => element.id === id)
-    else return null
-  }
 
   const {
     competitor: user,
@@ -136,27 +133,35 @@ const TournamentPage = (props: Props) => {
 
   return (
     <div className="p-5">
-      {tournament && tournamentId ? (
+      {tournament && tournamentId && competitors ? (
         <div>
           <div className="">
-            <HText> {tournament.name}</HText>
+            <HText>{tournament.name}</HText>
           </div>
 
-          <div className="flex gap-4 py-2">
-            <div>Локация: {tournament.location} </div>
-            <div>Место: {tournament.address}</div>
+          <div className="my-2 flex gap-4 py-2">
+            <div className="rounded-full bg-gray-700 px-10 py-2 font-bold text-white">
+              {tournament.location}{" "}
+            </div>
+            <div className="flex items-center gap-2 p-2">
+              <p className="text-lg">Место:</p> {tournament.address}
+            </div>
           </div>
           <div className="flex gap-4">
             <div>
-              {findCompetitorById(tournament.main_secretary)?.first_name +
+              {findCompetitorById(competitors, tournament.main_secretary)
+                ?.first_name +
                 " " +
-                findCompetitorById(tournament.main_secretary)?.last_name}
+                findCompetitorById(competitors, tournament.main_secretary)
+                  ?.last_name}
             </div>
             <div>
               Судья:{" "}
-              {findCompetitorById(tournament.main_referee)?.first_name +
+              {findCompetitorById(competitors, tournament.main_referee)
+                ?.first_name +
                 " " +
-                findCompetitorById(tournament.main_referee)?.last_name}
+                findCompetitorById(competitors, tournament.main_referee)
+                  ?.last_name}
             </div>
           </div>
           <div>
@@ -229,13 +234,18 @@ const TournamentPage = (props: Props) => {
                       <tr key={index}>
                         <td>{element.id}</td>
                         <td>
-                          {findCompetitorById(element.competitor)?.first_name +
+                          {findCompetitorById(competitors, element.competitor)
+                            ?.first_name +
                             " " +
-                            findCompetitorById(element.competitor)?.last_name}
+                            findCompetitorById(competitors, element.competitor)
+                              ?.last_name}
                         </td>
                         <td>{getNormalizeDate(element.registration_date)}</td>
                         <td>
-                          {findCompetitorById(element.competitor)?.elo_rating}
+                          {
+                            findCompetitorById(competitors, element.competitor)
+                              ?.elo_rating
+                          }
                         </td>
                       </tr>
                     ))}
@@ -280,24 +290,34 @@ const TournamentPage = (props: Props) => {
                         <td>{getNormalizeDate(element.date)}</td>
                         <td>{element.hand === "Right" ? "Правая" : "Левая"}</td>
                         <td>
-                          {findCompetitorById(element.first_competitor)
-                            ?.first_name +
+                          {findCompetitorById(
+                            competitors,
+                            element.first_competitor
+                          )?.first_name +
                             " " +
-                            findCompetitorById(element.first_competitor)
-                              ?.last_name}
+                            findCompetitorById(
+                              competitors,
+                              element.first_competitor
+                            )?.last_name}
                         </td>
                         <td>
-                          {findCompetitorById(element.second_competitor)
-                            ?.first_name +
+                          {findCompetitorById(
+                            competitors,
+                            element.second_competitor
+                          )?.first_name +
                             " " +
-                            findCompetitorById(element.second_competitor)
-                              ?.last_name}
+                            findCompetitorById(
+                              competitors,
+                              element.second_competitor
+                            )?.last_name}
                         </td>
                         <td>
                           {element.winner &&
-                            findCompetitorById(element.winner)?.first_name +
+                            findCompetitorById(competitors, element.winner)
+                              ?.first_name +
                               " " +
-                              findCompetitorById(element.winner)?.last_name}
+                              findCompetitorById(competitors, element.winner)
+                                ?.last_name}
                         </td>
                       </tr>
                     ))}

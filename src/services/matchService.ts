@@ -23,6 +23,14 @@ export const matchAPI = createApi({
         },
       }),
     }),
+    fetchCompetitorMatches: build.query<Match[], number>({
+      query: (competitorId: number) => ({
+        url: "matcheslist/",
+        params: {
+          competitorId,
+        },
+      }),
+    }),
     createMatch: build.query<Match, Object>({
       query: (data: Object) => ({
         url: "matches/",

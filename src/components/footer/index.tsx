@@ -4,7 +4,7 @@ type Props = {}
 
 const Footer = (props: Props) => {
   return (
-    <footer className=" text-md bg-gray-700 pt-5 text-white">
+    <footer className=" text-md bg-gray-700 pt-5 text-white shadow-inner">
       <div className="mx-auto w-4/5 ">
         <div className="flex justify-between gap-4">
           <div className="col-md-4 col-sm-12">

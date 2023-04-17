@@ -7,4 +7,12 @@ export default interface Competitor {
   elo_rating: number
   kFactor: number
   mode: string
+  weight: number
+}
+
+export const getCompetitorFullname = (
+  competitor: Competitor | null | undefined
+) => {
+  if (competitor) return competitor.first_name + " " + competitor.last_name
+  else return null
 }

@@ -1,13 +1,14 @@
 import { loginUser } from "@/store/actions/authAction"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 
 type Props = {}
 
 const LoginPage = (props: Props) => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ const LoginPage = (props: Props) => {
 
   const onSubmit = (data: any) => {
     try {
-      dispatch(loginUser(data.email, data.password))
+      dispatch(loginUser(data.email, data.password)).then(() => navigate("/"))
     } catch (error: Error | any) {
       console.log(error.message)
     }

@@ -15,7 +15,6 @@ export type RefreshData = {
 }
 
 export type SignupData = {
-  mode: string
   first_name: string
   last_name: string
   email: string

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { getCompetitorData } from "@/store/actions/competitorAction"
+import SignupInfo from "@/components/signupInfo"
 
 type Props = {}
 
@@ -34,54 +35,66 @@ const LoginPage = (props: Props) => {
   }
 
   const inputStyles =
-    "w-[400px] rounded-md bg-secondary-400 my-2 p-3 py-2 text-lg text-white shadow-md outline-none placeholder:text-gray-50"
+    "rounded-md bg-gray-700 my-2 px-3 w-[500px] h-[50px] text-md text-white shadow-md outline-none placeholder:text-gray-200"
+  const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
     <div className="p-10">
       {!isAuth ? (
-        <div className="mx-auto flex w-2/5 flex-wrap justify-center">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="py-3">
-              <h1 className="text-center text-2xl">Авторизация</h1>
-            </div>
-            <div>
-              <div className="pt-1 text-gray-400">E-mail: </div>
-              <input
-                className={inputStyles}
-                placeholder="E-mail"
-                {...register("email")}
-              />
-            </div>
-            <div>
-              <div className="pt-1 text-gray-400">Пароль: </div>
-              <input
-                className={inputStyles}
-                placeholder="Password"
-                {...register("password", { required: true })}
-              />
-            </div>
-            <div className="my-4  flex items-start justify-between">
-              <button
-                className="rounded-xl bg-primary-500 px-16 py-3 text-lg text-white"
-                type="submit"
-              >
-                Войти
-              </button>
-              <div className="text-right">
-                <div className="text-sm text-gray-400">
-                  Еще нет учетной записи?
-                </div>
-                <div className="py-1 text-primary-500 transition-all">
-                  <Link
-                    className="transition hover:text-secondary-400"
-                    to="/signup"
-                  >
-                    Создать аккаунт
-                  </Link>
-                </div>
+        <div className="mx-auto flex w-5/6 items-start justify-between rounded-xl bg-gray-200 px-5 py-5 shadow-md">
+          <div>
+            <form onSubmit={handleSubmit(onSubmit)} className="max-w-[500px]">
+              <div className="flex justify-center pb-2 text-2xl font-bold text-gray-600">
+                Вход в учетную запись
               </div>
-            </div>
-          </form>
+              <div className="flex w-full justify-center pb-3 text-sm text-gray-400">
+                Еще нет учетную запись ?
+                <Link
+                  className="px-2 text-secondary-500 underline transition hover:text-primary-500"
+                  to="/login"
+                >
+                  Авторизоваться
+                </Link>
+              </div>
+
+              <div>
+                <label className={labelStyles}>E-mail: </label>
+                <input
+                  id="email"
+                  type="email"
+                  className={inputStyles}
+                  {...register("email")}
+                />
+              </div>
+              <div>
+                <label className={labelStyles}>Пароль: </label>
+                <input
+                  className={inputStyles}
+                  type="password"
+                  id="password"
+                  {...register("password", { required: true })}
+                />
+              </div>
+              <div className="pt-2 text-sm font-medium text-gray-700">
+                Забыли пароль ?
+                <Link
+                  className="px-1 text-secondary-500 underline"
+                  to="/password-restore"
+                >
+                  Восстановление пароля
+                </Link>
+              </div>
+              <div className="my-4  flex items-start justify-between">
+                <button
+                  className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg text-white transition hover:bg-primary-500"
+                  type="submit"
+                >
+                  Войти
+                </button>
+              </div>
+            </form>
+          </div>
+          <SignupInfo />
         </div>
       ) : (
         <div></div>

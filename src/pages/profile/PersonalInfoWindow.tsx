@@ -1,5 +1,5 @@
 import { CompetitorData } from "@/store/slices/competitorSlice"
-
+import profilePhoto from "/assets/profilePage.png"
 type Props = {
   competitor: CompetitorData | null
 }
@@ -34,11 +34,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
       <div className="flex w-full items-start gap-8">
         <div className="w-1/5">
           <div className="py-3">
-            <img
-              className="rounded-xl"
-              src={`assets/profilePage.png`}
-              alt="photo"
-            />
+            <img className="rounded-xl" src={profilePhoto} alt="photo" />
           </div>
           <div>
             <button className="w-full rounded-lg bg-secondary-500 py-2 shadow-md transition hover:bg-violet-500">

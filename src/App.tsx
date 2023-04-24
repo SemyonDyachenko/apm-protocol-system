@@ -15,6 +15,8 @@ import MatchPage from "./pages/match"
 import TournamentSystem from "./pages/tournamentSystem"
 import LogoutPage from "./pages/logout"
 import { useEffect } from "react"
+import CompetitorCardPage from "./pages/competitorCard"
+import LeaguePage from "./pages/league"
 
 function NavbarWrapper() {
   return (
@@ -77,6 +79,14 @@ const router = createBrowserRouter([
       {
         path: "logout/",
         element: <LogoutPage />,
+      },
+      {
+        path: "competitor/:competitorId",
+        element: <CompetitorCardPage />,
+      },
+      {
+        path: "league/:leagueId",
+        element: <LeaguePage />,
       },
     ],
   },

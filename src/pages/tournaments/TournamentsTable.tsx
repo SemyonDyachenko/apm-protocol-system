@@ -49,7 +49,7 @@ const TournamentsTable = ({ tournaments, leagues, status }: Props) => {
                     } rounded-2xl  px-3 py-1 text-sm text-white transition-all hover:bg-primary-200`}
                     to={`/tournaments/${element.id}`}
                   >
-                    {status === false ? "Смотреть" : "Ведение турнира"}
+                    Смотреть
                   </Link>
                 </td>
               </tr>

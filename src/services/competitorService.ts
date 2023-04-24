@@ -14,5 +14,10 @@ export const competitorAPI = createApi({
         },
       }),
     }),
+    fetchCompetitorData: build.query<Competitor, number>({
+      query: (competitorId: number) => ({
+        url: `competitors/${competitorId}`,
+      }),
+    }),
   }),
 })

@@ -1,6 +1,6 @@
 import HText from "@/components/UI/HText"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
-import { refreshLogin } from "@/store/actions/authAction"
+import { logoutUser, refreshLogin } from "@/store/actions/authAction"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 import {
   faHouse,
@@ -9,9 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import ProfileMenuItem from "./ProfileMenuItem"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import PersonalInfoWindow from "./PersonalInfoWindow"
 import CompetitorMatchList from "./CompetitorMatchList"
+import { ColorRing } from "react-loader-spinner"
 
 type Props = {}
 
@@ -36,6 +37,7 @@ const profileSettingsItems = [
 ]
 
 const ProfilePage = (props: Props) => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
@@ -44,17 +46,39 @@ const ProfilePage = (props: Props) => {
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      window.location.replace("/login")
+      navigate("/login")
     } else {
       try {
         dispatch(refreshLogin()).then(() => {
-          dispatch(getCompetitorData(localStorage.getItem("token")))
+          dispatch(getCompetitorData(localStorage.getItem("token"))).then(
+            (value) => {
+              if (!value) {
+                dispatch(logoutUser())
+                navigate("/login")
+              }
+            }
+          )
         })
       } catch (err) {
         console.log(err)
       }
     }
   }, [])
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center p-40">
+        <ColorRing
+          visible={true}
+          height="140"
+          width="140"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      </div>
+    )
 
   return (
     <div>

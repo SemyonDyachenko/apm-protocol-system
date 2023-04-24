@@ -3,54 +3,57 @@ import { SocialIcon } from "react-social-icons"
 type Props = {}
 
 const Footer = (props: Props) => {
+  const titleStyles = "pb-3 text-lg"
+  const liStyles = "pb-1 text-sm"
+
   return (
     <footer className=" text-md bg-gray-700 pt-5 text-white shadow-inner">
       <div className="mx-auto w-4/5 ">
         <div className="flex justify-between gap-4">
           <div className="col-md-4 col-sm-12">
-            <h4 className="pb-3 text-xl">О нас</h4>
-            <p>
+            <h4 className={titleStyles}>О нас</h4>
+            <p className={liStyles}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
               pharetra varius quam sit amet vulputate. Quisque mauris augue,
               molestie tincidunt condimentum vitae, gravida a libero.
             </p>
           </div>
           <div className="">
-            <h4 className="pb-3 text-xl">Меню</h4>
+            <h4 className={titleStyles}>Меню</h4>
             <ul className="quick-links">
-              <li className="pb-1">
+              <li className={liStyles}>
                 <a href="#">Главная</a>
               </li>
-              <li className="pb-1">
+              <li className={liStyles}>
                 <a href="#">Блог</a>
               </li>
-              <li className="pb-1">
+              <li className={liStyles}>
                 <a href="#">Обратная связь</a>
               </li>
-              <li className="pb-1">
+              <li className={liStyles}>
                 <a href="#">Privacy Policy</a>
               </li>
             </ul>
           </div>
           <div className="">
-            <h4 className="pb-3 text-xl">Поддержка</h4>
+            <h4 className={titleStyles}>Поддержка</h4>
             <ul className="quick-links">
-              <li className="pb-1">
+              <li className={liStyles}>
                 <a href="#">Помощь</a>
               </li>
-              <li className="pb-1">
+              <li className={liStyles}>
                 <a href="#">Terms of Service</a>
               </li>
-              <li className="pb-1">
+              <li className={liStyles}>
                 <a href="#">FAQ</a>
               </li>
             </ul>
           </div>
           <div className="">
-            <h4 className="pb-3 text-xl">Контакты</h4>
-            <p className="pb-1">Матвеевская 42к4, Москва, РФ</p>
-            <p className="pb-1">+7 (918)-064-33-82</p>
-            <p className="pb-1">contact@apm.com</p>
+            <h4 className={titleStyles}>Контакты</h4>
+            <p className={liStyles}>Матвеевская 42к4, Москва, РФ</p>
+            <p className={liStyles}>+7 (918)-064-33-82</p>
+            <p className={liStyles}>contact@apm.com</p>
           </div>
         </div>
       </div>
@@ -65,16 +68,32 @@ const Footer = (props: Props) => {
             </div>
             <div className="flex gap-2">
               <div>
-                <SocialIcon url="https://twitter.com/jaketrent" />
+                <SocialIcon
+                  bgColor="#1DA1F2"
+                  style={{ width: "40px", height: "40px" }}
+                  url="https://twitter.com/jaketrent"
+                />
               </div>
               <div>
-                <SocialIcon url="https://instagram.com" />
+                <SocialIcon
+                  bgColor="#E1306C"
+                  style={{ width: "40px", height: "40px" }}
+                  url="https://instagram.com"
+                />
               </div>
               <div>
-                <SocialIcon url="https://vk.com" />
+                <SocialIcon
+                  bgColor="#0077FF"
+                  style={{ width: "40px", height: "40px" }}
+                  url="https://vk.com"
+                />
               </div>
               <div>
-                <SocialIcon url="https://youtube.com" />
+                <SocialIcon
+                  bgColor="#FF0000"
+                  style={{ width: "40px", height: "40px" }}
+                  url="https://youtube.com"
+                />
               </div>
             </div>
           </div>
@@ -85,23 +104,3 @@ const Footer = (props: Props) => {
 }
 
 export default Footer
-
-/*  <div className=" bg-gray-700 py-10">
-      <div className="flex w-full items-center justify-center text-lg text-white">
-        All Right Reserved @ Copyright 2023
-      </div>
-      <div className="flex items-center justify-center  gap-2 pt-3 text-xl text-white">
-        <div>
-          <SocialIcon url="https://twitter.com/jaketrent" />
-        </div>
-        <div>
-          <SocialIcon url="https://instagram.com" />
-        </div>
-        <div>
-          <SocialIcon url="https://vk.com" />
-        </div>
-        <div>
-          <SocialIcon url="https://youtube.com" />
-        </div>
-      </div>
-    </div>*/

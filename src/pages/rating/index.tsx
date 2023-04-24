@@ -1,6 +1,7 @@
 import { competitorAPI } from "@/services/competitorService"
 import { Table } from "react-bootstrap"
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
+import { Link } from "react-router-dom"
 
 type Props = {}
 
@@ -28,8 +29,15 @@ const RatingList = (props: Props) => {
           <tbody>
             {competitors &&
               competitors.map((element, index) => (
-                <tr key={index}>
-                  <td>{element.id}</td>
+                <tr key={index} className="hover:bg-secondary-400">
+                  <td>
+                    <Link
+                      className="absolute block w-full hover:text-black"
+                      to={`/competitor/${element.id}`}
+                    >
+                      {element.id}
+                    </Link>
+                  </td>
                   <td>
                     {element.first_name} {element.last_name}
                   </td>

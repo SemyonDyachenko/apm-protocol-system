@@ -1,6 +1,7 @@
 import { leagueAPI } from "@/services/leaugeService"
 import { Table } from "react-bootstrap"
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
+import { Link } from "react-router-dom"
 
 type Props = {}
 
@@ -23,6 +24,7 @@ const LeagueList = (props: Props) => {
           >
             <thead>
               <tr>
+                <th>№</th>
                 <th>Название</th>
                 <th>Страна</th>
                 <th>Описание</th>
@@ -33,7 +35,18 @@ const LeagueList = (props: Props) => {
             <tbody>
               {leagues &&
                 leagues.map((element, index) => (
-                  <tr className="h-[60px] bg-white" key={index}>
+                  <tr
+                    className="h-[55px] cursor-pointer hover:bg-secondary-400"
+                    key={index}
+                  >
+                    <td>
+                      <Link
+                        className="absolute block w-full hover:text-black"
+                        to={`/league/${element.id}`}
+                      >
+                        &nbsp;
+                      </Link>
+                    </td>
                     <td>{element.name}</td>
                     <td>
                       {element.country + " "}

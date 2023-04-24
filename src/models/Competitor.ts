@@ -8,6 +8,7 @@ export default interface Competitor {
   kFactor: number
   mode: string
   weight: number
+  country?: string
 }
 
 export const getCompetitorFullname = (

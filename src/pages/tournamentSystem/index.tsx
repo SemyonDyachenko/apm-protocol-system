@@ -80,7 +80,7 @@ const TournamentSystem = (props: Props) => {
       }
 
       const length = group.length % 2 ? group.length : group.length - 1
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < length; i += 2) {
         if (i + 1 < length) {
           const match = {
             hand: "Right",

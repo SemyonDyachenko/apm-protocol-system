@@ -29,7 +29,7 @@ const RatingList = (props: Props) => {
           <tbody>
             {competitors &&
               competitors.map((element, index) => (
-                <tr key={index} className="hover:bg-secondary-400">
+                <tr key={index} className="relative hover:bg-secondary-400">
                   <td>
                     <Link
                       className="absolute block w-full hover:text-black"

@@ -36,7 +36,7 @@ const LeagueList = (props: Props) => {
               {leagues &&
                 leagues.map((element, index) => (
                   <tr
-                    className="h-[55px] cursor-pointer hover:bg-secondary-400"
+                    className="relative h-[50px] cursor-pointer hover:bg-secondary-400"
                     key={index}
                   >
                     <td>

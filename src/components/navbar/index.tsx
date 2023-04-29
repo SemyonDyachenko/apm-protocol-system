@@ -55,18 +55,18 @@ const Navbar = (props: Props) => {
   }, [theme])
 
   const buttonStyles =
-    "text-md rounded-lg bg-primary-500 px-8 py-2 text-white transition hover:bg-secondary-400"
+    " rounded-md  font-medium bg-secondary-500 px-8 py-2 text-white transition hover:bg-primary-400 text-md"
 
   return (
     <nav className="w-full bg-gray-700">
-      <div className="flex items-center justify-between py-4 px-10">
+      <div className="flex items-center justify-between py-4 px-24">
         <div>
           <img
-            className="h-[55px] w-[350px] "
+            className="h-[40px] w-[240px] "
             src="https://static.tildacdn.com/tild3164-3739-4534-b466-346531666636/_.png"
           />
         </div>
-        <div className="flex items-center justify-center gap-5 text-sm text-white">
+        <div className="flex items-center justify-center text-sm font-bold text-white">
           {navLinks.map((element, index) => (
             <Link
               key={`${element}+${index}`}
@@ -79,8 +79,8 @@ const Navbar = (props: Props) => {
                 }`}
                 key={index}
               >
-                <div className="flex items-center gap-2">
-                  <FontAwesomeIcon className="text-lg" icon={element.icon} />{" "}
+                <div className="mx-3 flex items-center gap-2">
+                  <FontAwesomeIcon className="text-md" icon={element.icon} />{" "}
                   <div>{element.title}</div>
                 </div>
               </div>
@@ -96,8 +96,10 @@ const Navbar = (props: Props) => {
             </div>
           ) : (
             <div className="flex gap-2">
-              <Link to="/login">
-                <div className={buttonStyles}>Войти</div>
+              <Link className="text-white " to="/login">
+                <div className="text-md px-6 py-2 font-medium  transition hover:text-secondary-500">
+                  Войти
+                </div>
               </Link>
 
               <Link to="/signup">

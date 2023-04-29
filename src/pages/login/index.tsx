@@ -13,8 +13,8 @@ const LoginPage = (props: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm()
+    formState: { errors, isValid, isDirty },
+  } = useForm({ mode: "onTouched" })
 
   const dispatch = useAppDispatch()
   const { access, refresh, loading, error } = useAppSelector(
@@ -35,7 +35,7 @@ const LoginPage = (props: Props) => {
   }
 
   const inputStyles =
-    "rounded-md bg-gray-700 my-2 px-3 w-[500px] h-[50px] text-md text-white shadow-md outline-none placeholder:text-gray-200"
+    "rounded-md bg-gray-600 my-2 px-3 w-[500px] h-[50px] text-md text-white shadow-md outline-none placeholder:text-gray-200"
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
@@ -48,34 +48,64 @@ const LoginPage = (props: Props) => {
                 Вход в учетную запись
               </div>
               <div className="flex w-full justify-center pb-3 text-sm text-gray-400">
-                Еще нет учетную запись ?
+                Еще нет учетной записи ?
                 <Link
                   className="px-2 text-secondary-500 underline transition hover:text-primary-500"
-                  to="/login"
+                  to="/signup"
                 >
-                  Авторизоваться
+                  Регистрация
                 </Link>
               </div>
 
               <div>
-                <label className={labelStyles}>E-mail: </label>
+                <div className="flex w-full items-center justify-between">
+                  <label className={labelStyles}>E-mail: </label>
+                  {errors.email && (
+                    <span className="text-sm text-primary-400">
+                      {errors.email.message?.valueOf() ||
+                        "* E-mail должен быть заполнен"}
+                    </span>
+                  )}
+                </div>
                 <input
                   id="email"
                   type="email"
                   className={inputStyles}
-                  {...register("email")}
+                  {...register("email", {
+                    required: true,
+                    minLength: 6,
+                    pattern: {
+                      value:
+                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: "* E-mail в формате example@mail.ru",
+                    },
+                  })}
                 />
               </div>
               <div>
-                <label className={labelStyles}>Пароль: </label>
+                <div className="flex w-full items-center justify-between">
+                  <label className={labelStyles}>Пароль: </label>
+                  {errors.password && (
+                    <span className="text-sm text-primary-400">
+                      {errors.password.message?.valueOf() ||
+                        "* Пароль должен быть заполнен"}
+                    </span>
+                  )}
+                </div>
                 <input
                   className={inputStyles}
                   type="password"
                   id="password"
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: true,
+                    minLength: {
+                      value: 8,
+                      message: "* Длина пароля меньше 8 символов",
+                    },
+                  })}
                 />
               </div>
-              <div className="pt-2 text-sm font-medium text-gray-700">
+              <div className="pt-2 text-sm  text-gray-400">
                 Забыли пароль ?
                 <Link
                   className="px-1 text-secondary-500 underline"
@@ -86,8 +116,9 @@ const LoginPage = (props: Props) => {
               </div>
               <div className="my-4  flex items-start justify-between">
                 <button
-                  className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg text-white transition hover:bg-primary-500"
+                  className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg font-medium text-white transition hover:bg-primary-500 disabled:bg-gray-700 disabled:opacity-70"
                   type="submit"
+                  disabled={!isValid || !isDirty}
                 >
                   Войти
                 </button>

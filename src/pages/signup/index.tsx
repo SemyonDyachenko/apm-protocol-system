@@ -40,7 +40,7 @@ const formElements = [
       pattern: {
         value:
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        message: "Please enter a valid email",
+        message: "* E-mail в формате example@mail.ru",
       },
     },
   },
@@ -51,7 +51,7 @@ const formElements = [
     type: "password",
     requirements: {
       required: true,
-      minLength: 8,
+      minLength: { value: 8, message: "* Длина пароля меньше 8 символов" },
     },
   },
 ]
@@ -62,7 +62,7 @@ const SignupPage = (props: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
   } = useForm({ mode: "onTouched" })
 
   const onSubmit = (data: any) => {
@@ -83,7 +83,7 @@ const SignupPage = (props: Props) => {
   }
 
   const inputStyles =
-    "rounded-md bg-gray-700 my-2 px-3 w-[500px] h-[50px] text-md text-white shadow-md outline-none placeholder:text-gray-200"
+    "rounded-md bg-gray-600 my-2 px-3 w-[500px] h-[50px] text-md text-white shadow-md outline-none placeholder:text-gray-200"
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
@@ -157,8 +157,9 @@ const SignupPage = (props: Props) => {
 
             <div className="my-4 flex items-start justify-between">
               <button
-                className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg text-white transition hover:bg-primary-500"
+                className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg font-medium text-white transition hover:bg-primary-500 disabled:bg-gray-700 disabled:opacity-50"
                 type="submit"
+                disabled={!isValid || !isDirty}
               >
                 Создать аккаунт
               </button>

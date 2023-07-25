@@ -17,11 +17,6 @@ type Props = {}
 const navLinks = [
   {
     path: "/",
-    title: "Главная",
-    icon: faHome,
-  },
-  {
-    path: "/rating",
     title: "Таблица рейтинга",
     icon: faTable,
   },

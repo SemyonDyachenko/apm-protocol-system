@@ -32,7 +32,6 @@ const CompetitorCardPage = (props: Props) => {
     )
 
   useEffect(() => {
-    console.log(competitor)
     if (!competitorId || dataError) navigate("/")
   }, [competitorId, dataError])
 
@@ -60,16 +59,16 @@ const CompetitorCardPage = (props: Props) => {
               <div className="text-xl font-bold uppercase text-white">
                 {getCompetitorFullname(competitor)}
               </div>
-              <div className=" cursor-default rounded-full bg-primary-400  px-3 py-1 text-lg font-bold text-white">
+              <div className=" cursor-default rounded-full bg-secondary-500  px-3 py-1 text-lg font-bold text-white">
                 {competitor.elo_rating}
               </div>
             </div>
-            <div className="  bg-primary-500 py-3 px-4 text-xl font-bold text-white">
+            <div className="  bg-secondary-500 py-3 px-4 text-xl font-bold text-white">
               {getUnicodeFlagIcon("RU")} {competitor.country}
             </div>
           </div>
           <div className="flex gap-10">
-            <div className="w-auto">
+            <div className="w-auto pt-3">
               <img className="max-w-[300px] rounded-xl" src={profilePhoto} />
             </div>
             <div className="w-full">
@@ -170,34 +169,7 @@ const CompetitorCardPage = (props: Props) => {
         </div>
       </div>
     )
+  return <div></div>
 }
-
-/*
-
-  <div>
-                {!isMatchesLoading && matches ? (
-                  <MatchesList competitor={competitor} matches={matches} />
-                ) : (
-                  <div className="flex w-full items-center justify-center py-16">
-                    <ColorRing
-                      visible={true}
-                      height="140"
-                      width="140"
-                      ariaLabel="blocks-loading"
-                      wrapperStyle={{}}
-                      wrapperClass="blocks-wrapper"
-                      colors={[
-                        "#e15b64",
-                        "#f47e60",
-                        "#f8b26a",
-                        "#abbd81",
-                        "#849b87",
-                      ]}
-                    />
-                  </div>
-                )}
-              </div>
-
-*/
 
 export default CompetitorCardPage

@@ -33,19 +33,11 @@ const router = createBrowserRouter([
     element: <NavbarWrapper />,
     children: [
       {
-        path: "/", // yes, again
-        element: <Main />,
-      },
-      {
-        path: "/control",
-        element: <ControlPanel />,
-      },
-      {
         path: "/login",
         element: <LoginPage />,
       },
       {
-        path: "/rating",
+        path: "/",
         element: <RatingList />,
       },
       {

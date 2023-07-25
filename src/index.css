@@ -14,8 +14,9 @@
 }
 
 .light {
+  --tw-bg-opacity: 1;
   background-color: #f1eff6;
-  color: black;
+  color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
 details[open] :not(summary) {

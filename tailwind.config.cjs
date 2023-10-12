@@ -6,8 +6,11 @@ module.exports = {
       colors: {
         "gray-20": "#F8F4EB",
         "gray-50": "#EFE6E6",
+        "gray-70": "#F6F6F6",
         "gray-100": "#DFCCCC",
         "gray-500": "#5E0000",
+        "gray-input": "#C9CFD8",
+        "gray-disabled": "#9CA3AF",
         "back-0": "#fcfcfc",
         "primary-100": "#FFE1E0",
         "primary-200": "#f8a6a3",

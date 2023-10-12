@@ -83,7 +83,7 @@ const SignupPage = (props: Props) => {
   }
 
   const inputStyles =
-    "rounded-md bg-gray-600 my-2 px-3 w-[500px] h-[50px] text-md text-white shadow-md outline-none placeholder:text-gray-200"
+    "rounded-md bg-gray-input my-2 px-3 w-[500px] h-[50px] text-md text-gray-700 font-medium shadow-md outline-none placeholder:text-gray-200"
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (

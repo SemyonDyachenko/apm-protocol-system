@@ -1,64 +1,26 @@
+import { Link, NavLink } from "react-router-dom"
 import { SocialIcon } from "react-social-icons"
 
 type Props = {}
 
 const Footer = (props: Props) => {
-  const titleStyles = "pb-3 text-lg"
+  const titleStyles = "pb-3 text-md underline"
   const liStyles = "pb-1 text-sm"
 
   return (
-    <footer className=" text-md bg-gray-700 pt-5 text-white shadow-inner">
+    <footer className="text-md relative z-10 bg-gray-700 pt-5 font-medium uppercase text-white shadow-inner">
       <div className="mx-auto w-4/5 ">
         <div className="flex justify-between gap-4">
           <div className="col-md-4 col-sm-12">
-            <h4 className={titleStyles}>О нас</h4>
-            <p className={liStyles}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-              pharetra varius quam sit amet vulputate. Quisque mauris augue,
-              molestie tincidunt condimentum vitae, gravida a libero.
-            </p>
+            <h4 className={"text-md pb-3"}>Armwrestling Promotion Machine</h4>
           </div>
-          <div className="">
-            <h4 className={titleStyles}>Меню</h4>
-            <ul className="quick-links">
-              <li className={liStyles}>
-                <a href="#">Главная</a>
-              </li>
-              <li className={liStyles}>
-                <a href="#">Блог</a>
-              </li>
-              <li className={liStyles}>
-                <a href="#">Обратная связь</a>
-              </li>
-              <li className={liStyles}>
-                <a href="#">Privacy Policy</a>
-              </li>
-            </ul>
-          </div>
-          <div className="">
-            <h4 className={titleStyles}>Поддержка</h4>
-            <ul className="quick-links">
-              <li className={liStyles}>
-                <a href="#">Помощь</a>
-              </li>
-              <li className={liStyles}>
-                <a href="#">Terms of Service</a>
-              </li>
-              <li className={liStyles}>
-                <a href="#">FAQ</a>
-              </li>
-            </ul>
-          </div>
-          <div className="">
-            <h4 className={titleStyles}>Контакты</h4>
-            <p className={liStyles}>Матвеевская 42к4, Москва, РФ</p>
-            <p className={liStyles}>+7 (918)-064-33-82</p>
-            <p className={liStyles}>contact@apm.com</p>
-          </div>
+
+          <div className=""></div>
+          <div className=""></div>
         </div>
       </div>
       <div className="mx-auto w-4/5">
-        <div className="py-5">
+        <div className="py-14">
           <div className="flex items-center justify-between">
             <div className="">
               <p>

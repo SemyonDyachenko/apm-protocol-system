@@ -8,7 +8,7 @@ const SignupInfo = (props: Props) => {
   return (
     <div className="flex max-w-[450px] flex-wrap">
       <div className="text-lg font-bold text-gray-700">
-        Welcome to Alpaca Broker API!
+        Для чего нужна учетная запись?
       </div>
       <div className="py-4">
         <div className="py-3">
@@ -17,8 +17,8 @@ const SignupInfo = (props: Props) => {
             size="lg"
             className="w-[25px] pr-2 text-green-700"
           />
-          Sign up with your name and email and start exploring Alpaca's Broker
-          APIs.
+          Возможность просмотра трансляциий и тренировок в качестве гостя или
+          спортсмена
         </div>
         <div className="py-3">
           <FontAwesomeIcon
@@ -26,9 +26,8 @@ const SignupInfo = (props: Props) => {
             size="lg"
             className="w-[25px] pr-2 text-green-700"
           />
-          Want to build a trading app? Integrate trading into a banking app, or
-          a payroll app? We got you covered. Our APIs are super flexible and
-          scalable.
+          Возможность принимать участие в турнирах в роли спортсмена, судьи или
+          секретаря, повышать свой рейтинг
         </div>
         <div className="py-3">
           <FontAwesomeIcon
@@ -36,8 +35,7 @@ const SignupInfo = (props: Props) => {
             size="lg"
             className="w-[25px] pr-2 text-green-700"
           />
-          Ready to go live? Migrate your app to production whenever you're
-          ready.
+          Возможность стать организатором турнира, создать свою лигу или команду
         </div>
         <div className="py-2 text-sm text-gray-700">
           Есть проблемы с регистрацией ?{" "}

@@ -9,9 +9,15 @@
 
 .dark {
   --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  background-color: #f1eff6;
   color: white;
 }
+
+.link-disabled {
+  pointer-events: none;
+}
+
+
 
 .light {
   --tw-bg-opacity: 1;

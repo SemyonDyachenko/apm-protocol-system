@@ -4,6 +4,7 @@ import {
   faHome,
   faList,
   faMoon,
+  faRightToBracket,
   faSun,
   faTable,
 } from "@fortawesome/free-solid-svg-icons"
@@ -16,8 +17,13 @@ type Props = {}
 
 const navLinks = [
   {
+    path: "/landing",
+    title: "Главная",
+    icon: faTable,
+  },
+  {
     path: "/",
-    title: "Таблица рейтинга",
+    title: "Рейтинг",
     icon: faTable,
   },
   {
@@ -30,11 +36,31 @@ const navLinks = [
     title: "Лиги",
     icon: faBuilding,
   },
+  {
+    path: "/news",
+    title: "Новости",
+    icon: faBuilding,
+    disabled: true,
+  },
+  {
+    path: "/streams",
+    title: "Трансляции",
+    icon: faBuilding,
+    disabled: true,
+  },
+  {
+    path: "/trainers",
+    title: "Тренировки",
+    icon: faBuilding,
+    disabled: true,
+  },
 ]
 
 const Navbar = (props: Props) => {
   const location = useLocation()
   const [theme, setTheme] = useState("light")
+  const [hidden, setHidden] = useState("")
+  const [scrollPrev, setScrollPrev] = useState(0)
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -49,24 +75,38 @@ const Navbar = (props: Props) => {
     document.body.className = theme
   }, [theme])
 
+  window.addEventListener("scroll", () => {
+    let scrolled: number = window.scrollY
+    console.log(scrolled)
+    if (scrolled > 100 && scrolled > scrollPrev) {
+      setHidden("-translate-y-[80px]")
+    } else {
+      setHidden("")
+    }
+    setScrollPrev(scrolled)
+  })
+
   const buttonStyles =
-    " rounded-md  font-medium bg-secondary-500 px-8 py-2 text-white transition hover:bg-primary-400 text-md"
+    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]  text-gray-700 transition hover:bg-secondary-400 text-md"
 
   return (
-    <nav className="w-full bg-gray-700">
-      <div className="flex items-center justify-between py-4 px-24">
+    <nav
+      className={` ${hidden} center fixed left-1/2  z-20 mt-3 w-11/12  -translate-x-1/2 rounded-[25px]  bg-gray-700 shadow-md transition`}
+    >
+      <div className="flex items-center justify-between py-3 px-16">
         <div>
-          <img
-            className="h-[40px] w-[240px] "
-            src="https://static.tildacdn.com/tild3164-3739-4534-b466-346531666636/_.png"
-          />
+          <img className="h-[50px]" src="assets/logo/mainlogo.png" />
         </div>
-        <div className="flex items-center justify-center text-sm font-bold text-white">
+        <div className="flex items-center justify-center text-sm font-medium text-white">
           {navLinks.map((element, index) => (
             <Link
               key={`${element}+${index}`}
               to={element.path}
-              className="hover:text-secondary-400"
+              className={`${
+                !element.disabled
+                  ? "transition hover:text-secondary-400"
+                  : "link-disabled hover:text-gray-disabled"
+              }`}
             >
               <div
                 className={`${
@@ -74,15 +114,22 @@ const Navbar = (props: Props) => {
                 }`}
                 key={index}
               >
-                <div className="mx-3 flex items-center gap-2">
-                  <FontAwesomeIcon className="text-md" icon={element.icon} />{" "}
+                <div
+                  className={`mx-3 flex items-center gap-2 ${
+                    element.disabled && "text-gray-disabled"
+                  }`}
+                >
                   <div>{element.title}</div>
                 </div>
               </div>
             </Link>
           ))}
         </div>
-        <div className="flex  justify-center gap-3">
+
+        <div className="flex  items-center justify-center gap-3">
+          <div className="px-3">
+            <div className="cursor-pointer font-semibold text-white">RUS</div>
+          </div>
           {isAuth() ? (
             <div>
               <Link to="/profile">
@@ -90,25 +137,15 @@ const Navbar = (props: Props) => {
               </Link>
             </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="flex gap-2 ">
               <Link className="text-white " to="/login">
-                <div className="text-md px-6 py-2 font-medium  transition hover:text-secondary-500">
-                  Войти
+                <div className="text-md flex items-center gap-2 rounded-lg px-0 py-2 font-medium transition hover:text-secondary-500">
+                  <div>Войти</div>
+                  <FontAwesomeIcon icon={faRightToBracket} />
                 </div>
-              </Link>
-
-              <Link to="/signup">
-                <div className={buttonStyles}>Регистрация</div>
               </Link>
             </div>
           )}
-          <button className="px-2 text-2xl text-white" onClick={toggleTheme}>
-            {theme === "light" ? (
-              <FontAwesomeIcon icon={faMoon} />
-            ) : (
-              <FontAwesomeIcon icon={faSun} />
-            )}
-          </button>
         </div>
       </div>
     </nav>

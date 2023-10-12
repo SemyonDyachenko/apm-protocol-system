@@ -17,6 +17,7 @@ import LogoutPage from "./pages/logout"
 import { useEffect } from "react"
 import CompetitorCardPage from "./pages/competitorCard"
 import LeaguePage from "./pages/league"
+import StartPage from "./pages/landing"
 
 function NavbarWrapper() {
   return (
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/landing",
+        element: <StartPage />,
       },
       {
         path: "/",

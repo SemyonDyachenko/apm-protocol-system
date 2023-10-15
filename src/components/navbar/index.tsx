@@ -61,6 +61,7 @@ const Navbar = (props: Props) => {
   const [theme, setTheme] = useState("light")
   const [hidden, setHidden] = useState("")
   const [scrollPrev, setScrollPrev] = useState(0)
+  const [fixed, setFixed] = useState("")
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -73,7 +74,14 @@ const Navbar = (props: Props) => {
 
   useEffect(() => {
     document.body.className = theme
+    console.log(location.pathname)
   }, [theme])
+
+  window.addEventListener("click", () => {
+    if (location.pathname == "/landing")
+      setFixed("fixed left-1/2 -translate-x-1/2")
+    else setFixed("")
+  })
 
   window.addEventListener("scroll", () => {
     let scrolled: number = window.scrollY
@@ -91,11 +99,15 @@ const Navbar = (props: Props) => {
 
   return (
     <nav
-      className={` ${hidden} center fixed left-1/2  z-20 mt-3 w-11/12  -translate-x-1/2 rounded-[25px]  bg-gray-700 shadow-md transition`}
+      className={` ${hidden} center ${fixed}  z-20 mx-auto mt-3 w-11/12   rounded-[25px]  bg-gray-700 shadow-md transition`}
     >
       <div className="flex items-center justify-between py-3 px-16">
         <div>
-          <img className="h-[50px]" src="assets/logo/mainlogo.png" />
+          <img
+            className="h-[50px]"
+            src="assets/logo/mainlogo.png"
+            alt="image"
+          />
         </div>
         <div className="flex items-center justify-center text-sm font-medium text-white">
           {navLinks.map((element, index) => (

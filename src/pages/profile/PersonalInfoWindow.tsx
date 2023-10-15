@@ -12,9 +12,9 @@ type InputProps = {
 const PersonalDataInput = ({ value, title }: InputProps) => {
   return (
     <div>
-      <p className="pb-2  text-sm text-gray-300">{title}: </p>
+      <p className="pb-2  text-sm text-gray-400">{title}: </p>
       <input
-        className="w-[260px] rounded-lg  px-4 py-2  text-gray-700 outline-none"
+        className="w-[260px] rounded-lg  px-4 py-2  font-medium text-gray-700 outline-none"
         value={value}
         disabled
       />
@@ -25,14 +25,14 @@ const PersonalDataInput = ({ value, title }: InputProps) => {
 const PersonalInfoWindow = ({ competitor }: Props) => {
   return (
     <div>
-      <div className="flex items-center justify-between text-sm text-gray-300">
+      <div className="flex items-center justify-between text-sm text-gray-400">
         <div>Фотография профиля</div>
         <div className="cursor-pointer underline transition hover:opacity-50">
           Редактировать
         </div>
       </div>
       <div className="flex w-full items-start gap-8">
-        <div className="w-1/5">
+        <div className="w-1/5 text-center">
           <div className="py-3">
             <img className="rounded-xl" src={profilePhoto} alt="photo" />
           </div>
@@ -46,7 +46,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
           </div>
         </div>
         <div className="py-3 pl-10">
-          <div className="text-lg text-gray-300">Основная информация</div>
+          <div className="text-lg text-gray-400">Основная информация</div>
           <div className="grid grid-cols-2 gap-4 py-4">
             <PersonalDataInput value={competitor?.email} title="E-mail" />
             <PersonalDataInput value={competitor?.first_name} title="Имя" />

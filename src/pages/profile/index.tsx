@@ -8,15 +8,18 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
-import ProfileMenuItem from "./ProfileMenuItem"
+
 import { Link, useNavigate } from "react-router-dom"
 import PersonalInfoWindow from "./PersonalInfoWindow"
 import CompetitorMatchList from "./CompetitorMatchList"
 import { ColorRing } from "react-loader-spinner"
+import UpMenuBar, { upMenuItem } from "@/components/upMenu/upMenuBar"
+import { sidebarItemData } from "@/components/sidebarMenu/sidebarItem"
+import SideBarMenu from "@/components/sidebarMenu"
 
 type Props = {}
 
-const profileSettingsItems = [
+const profileSettingsItems: Array<upMenuItem> = [
   {
     title: "Основная информация",
     selected: true,
@@ -31,7 +34,7 @@ const profileSettingsItems = [
     selected: false,
   },
   {
-    title: "Дополнительно",
+    title: "О себе",
     selected: false,
   },
 ]
@@ -43,6 +46,28 @@ const ProfilePage = (props: Props) => {
     (state) => state.competitors
   )
   const [profileWindow, setProfileWindow] = useState("personal")
+
+  let sidebarItems: Array<sidebarItemData> = [
+    {
+      onClick: () => setProfileWindow("personal"),
+      selected: true,
+      icon: faHouse,
+      children: "Профиль",
+    },
+    {
+      onClick: () => setProfileWindow("matches"),
+      selected: false,
+      icon: faList,
+      children: "Турниры",
+    },
+    {
+      onClick: () => {},
+      selected: false,
+      icon: faRightFromBracket,
+      children: "Выйти",
+      link: "/logout",
+    },
+  ]
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -83,8 +108,8 @@ const ProfilePage = (props: Props) => {
   return (
     <div>
       {competitor && (
-        <div className="px-20 py-10">
-          <div className="flex items-center justify-between pr-10">
+        <div className="mx-auto w-11/12 py-10">
+          <div className="flex items-center justify-between px-10">
             <HText>
               Добро пожаловать,{" "}
               {competitor?.first_name + " " + competitor?.last_name}
@@ -96,52 +121,12 @@ const ProfilePage = (props: Props) => {
             </div>
           </div>
           <div className="flex w-full justify-between gap-4 py-5">
-            <div className="w-1/5 rounded-xl shadow-md  shadow-teal-100">
-              <div className="w-full py-3">
-                <ProfileMenuItem
-                  onClick={() => {
-                    setProfileWindow("personal")
-                  }}
-                  icon={faHouse}
-                  selected
-                >
-                  Профиль
-                </ProfileMenuItem>
-                <ProfileMenuItem
-                  onClick={() => {
-                    setProfileWindow("matches")
-                  }}
-                  icon={faList}
-                >
-                  Матчи
-                </ProfileMenuItem>
-                <Link to="/logout" className="hover:text-gray-300">
-                  <ProfileMenuItem icon={faRightFromBracket}>
-                    Выйти
-                  </ProfileMenuItem>
-                </Link>
-              </div>
+            <div className="w-1/5 rounded-xl  ">
+              <SideBarMenu classname="w-full py-3" items={sidebarItems} />
             </div>
-            <div className="w-4/5 rounded-xl shadow-md shadow-teal-100">
+            <div className="w-4/5 rounded-xl shadow-md">
               <div className="py-2 px-5">
-                <div className="flex items-center gap-8">
-                  {profileSettingsItems.map((element, index) => (
-                    <div className="py-3">
-                      <button
-                        key={index}
-                        className={`${
-                          element.selected
-                            ? "rounded-lg border-2 border-secondary-400 text-secondary-400"
-                            : "text-gray-300"
-                        } text-md px-3 py-2  transition hover:text-secondary-400
-                    `}
-                      >
-                        {element.title}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                <div className="h-[0.5px] w-full bg-gray-100"></div>
+                <UpMenuBar items={profileSettingsItems} />
                 <div className="pt-4">
                   {profileWindow === "personal" ? (
                     <PersonalInfoWindow competitor={competitor} />

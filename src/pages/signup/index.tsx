@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/hooks/redux"
 import { signupUser } from "@/store/actions/authAction"
-import React from "react"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -64,6 +64,12 @@ const SignupPage = (props: Props) => {
     handleSubmit,
     formState: { errors, isValid, isDirty },
   } = useForm({ mode: "onTouched" })
+
+  const isAuth = localStorage.getItem("token")
+
+  useEffect(() => {
+    if (isAuth) window.location.replace("/")
+  }, [])
 
   const onSubmit = (data: any) => {
     if (data) {

@@ -2,65 +2,51 @@ import { leagueAPI } from "@/services/leaugeService"
 import { Table } from "react-bootstrap"
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { Link } from "react-router-dom"
+import FilterBar from "@/components/filterBar"
 
 type Props = {}
+
+const leaguePropsList = ["Название", "Президент", "Страна", "Статус", "Рейтинг"]
 
 const LeagueList = (props: Props) => {
   const { data: leagues, isLoading: loading } =
     leagueAPI.useFetchAllLeaguesQuery(100)
 
   return (
-    <div className="p-5">
-      <div className="rounded-xl bg-secondary-400 p-2">
-        {loading ? (
-          <div className="mx-auto flex w-5/6 justify-center text-xl">
-            LOADING
-          </div>
-        ) : (
-          <Table
-            striped
-            hover
-            className="mx-auto rounded-lg  bg-white px-10 pb-0"
-          >
-            <thead>
-              <tr>
-                <th>№</th>
-                <th>Название</th>
-                <th>Страна</th>
-                <th>Описание</th>
-                <th>Президент</th>
-                <th>Уровень</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leagues &&
-                leagues.map((element, index) => (
-                  <tr
-                    className="relative h-[50px] cursor-pointer hover:bg-secondary-400"
-                    key={index}
-                  >
-                    <td>
-                      <Link
-                        className="absolute block w-full hover:text-black"
-                        to={`/league/${element.id}`}
-                      >
-                        &nbsp;
-                      </Link>
-                    </td>
-                    <td>{element.name}</td>
-                    <td>
-                      {element.country + " "}
-                      {getUnicodeFlagIcon("RU")}
-                    </td>
-                    <td>{element.description}</td>
-                    <td>{element.president}</td>
-                    <td>{element.level}</td>
-                  </tr>
+    <div className="p-2">
+      {loading ? (
+        <div className="mx-auto flex w-5/6 justify-center text-xl">LOADING</div>
+      ) : (
+        <div className="mx-auto flex w-11/12 justify-between py-8">
+          <FilterBar />
+          {/* main bar*/}
+          <div className="w-9/12">
+            {/* upper bar*/}
+            <div className="">
+              <div className="w-full rounded-[10px] border-2 border-gray-300 bg-white shadow-sm">
+                <div className="flex items-center justify-between py-[10px] px-10">
+                  {leaguePropsList.map((element) => (
+                    <div
+                      className={`font-semibold text-gray-700 `}
+                      key={element}
+                    >
+                      {element}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            {/* competitors list*/}
+            <div>
+              <div className=" my-4 max-h-[600px] ">
+                {leagues?.map((league) => (
+                  <Link to={`competitor/${league.id}`}></Link>
                 ))}
-            </tbody>
-          </Table>
-        )}
-      </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

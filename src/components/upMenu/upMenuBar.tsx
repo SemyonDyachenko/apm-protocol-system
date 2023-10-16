@@ -13,9 +13,8 @@ const UpMenuBar = ({ items }: Props) => {
     <div>
       <div className="flex items-center gap-3">
         {items.map((element, index) => (
-          <div className="py-3">
+          <div key={index} className="py-3">
             <button
-              key={index}
               className={`${
                 element.selected
                   ? " border-secondary-400 text-secondary-400"

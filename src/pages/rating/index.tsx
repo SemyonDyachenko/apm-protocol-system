@@ -43,9 +43,9 @@ const RatingList = (props: Props) => {
         {/* competitors list*/}
         <div>
           <div className=" my-4 max-h-[600px] ">
-            {competitors?.map((competitor) => (
-              <Link to={`competitor/${competitor.id}`}>
-                <CompetitorListNode data={competitor} />
+            {competitors?.map((competitor, index) => (
+              <Link to={`/competitor/${competitor.id}`}>
+                <CompetitorListNode place={index + 1} data={competitor} />
               </Link>
             ))}
           </div>

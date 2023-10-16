@@ -17,12 +17,12 @@ type Props = {}
 
 const navLinks = [
   {
-    path: "/landing",
+    path: "/",
     title: "Главная",
     icon: faTable,
   },
   {
-    path: "/",
+    path: "/rating",
     title: "Рейтинг",
     icon: faTable,
   },
@@ -74,18 +74,16 @@ const Navbar = (props: Props) => {
 
   useEffect(() => {
     document.body.className = theme
-    console.log(location.pathname)
   }, [theme])
 
   window.addEventListener("click", () => {
-    if (location.pathname == "/landing")
-      setFixed("fixed left-1/2 -translate-x-1/2")
+    if (location.pathname == "/") setFixed("fixed left-1/2 -translate-x-1/2")
     else setFixed("")
   })
 
   window.addEventListener("scroll", () => {
     let scrolled: number = window.scrollY
-    console.log(scrolled)
+
     if (scrolled > 100 && scrolled > scrollPrev) {
       setHidden("-translate-y-[80px]")
     } else {
@@ -103,11 +101,13 @@ const Navbar = (props: Props) => {
     >
       <div className="flex items-center justify-between py-3 px-16">
         <div>
-          <img
-            className="h-[50px]"
-            src="assets/logo/mainlogo.png"
-            alt="image"
-          />
+          <Link to="/">
+            <img
+              className="h-[50px]"
+              src="assets/logo/mainlogo.png"
+              alt="image"
+            />
+          </Link>
         </div>
         <div className="flex items-center justify-center text-sm font-medium text-white">
           {navLinks.map((element, index) => (

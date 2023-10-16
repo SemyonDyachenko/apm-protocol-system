@@ -38,12 +38,12 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: "/landing",
-        element: <StartPage />,
+        path: "/rating",
+        element: <RatingList />,
       },
       {
         path: "/",
-        element: <RatingList />,
+        element: <StartPage />,
       },
       {
         path: "/leagues",

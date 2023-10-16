@@ -56,7 +56,7 @@ export const refreshLogin = () => async (dispatch: AppDispatch) => {
           refresh: localStorage.getItem("refresh"),
         }
       )
-      console.log(response.data.access)
+
       localStorage.setItem("token", response.data.access)
       dispatch(authSlice.actions.refreshTeken(response.data.access))
       dispatch(authSlice.actions.setAuth(true))
@@ -84,7 +84,6 @@ export const signupUser =
         `${SERVER_URL}/competitors/`,
         data
       )
-      console.log(response)
     } catch (error: Error | any) {
       console.log(error.message)
     }

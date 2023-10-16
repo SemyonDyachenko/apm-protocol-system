@@ -7,6 +7,7 @@ type Props = {
 const CompetitorMatchList = ({ competitorId }: Props) => {
   const { data: matches } =
     matchAPI.useFetchCompetitorMatchesQuery(competitorId)
+
   return (
     <div>
       {matches && (

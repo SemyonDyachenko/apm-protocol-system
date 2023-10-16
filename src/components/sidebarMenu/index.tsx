@@ -10,9 +10,9 @@ const SideBarMenu = ({ classname, items }: Props) => {
   return (
     <div className={classname}>
       <div className="w-full py-3">
-        {items.map((element) =>
+        {items.map((element, index) =>
           element.link ? (
-            <Link to={element.link}>
+            <Link key={index} to={element.link}>
               <SideBarItem
                 selected={element.selected}
                 onClick={element.onClick}
@@ -23,6 +23,7 @@ const SideBarMenu = ({ classname, items }: Props) => {
             </Link>
           ) : (
             <SideBarItem
+              key={index}
               selected={element.selected}
               onClick={element.onClick}
               icon={element.icon}

@@ -16,6 +16,39 @@ export const getCompetitor = async (id: number) => {
   }
 }
 
+export const updateCompetitorImage =
+  (id: number, image: File) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<Competitor>(
+        `${SERVER_URL}/updateProfileImage/${id}/`,
+        { id, image },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+
+      console.log(response)
+    } catch (e: AxiosError | any) {
+      console.log(e.message)
+    }
+  }
+
+export const updateCompetitorProfile =
+  (id: number, firstname: string, lastname: string, country: string) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<Competitor>(
+        `${SERVER_URL}/updateProfile/${id}/`,
+        { id, firstname, lastname, country }
+      )
+      console.log(response)
+    } catch (e: AxiosError | any) {
+      console.log(e.message)
+    }
+  }
+
 export const getCompetitorData =
   (accessToken: string | null) => async (dispatch: AppDispatch) => {
     if (accessToken) {

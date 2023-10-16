@@ -3,6 +3,8 @@ import { Table } from "react-bootstrap"
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { Link } from "react-router-dom"
 import FilterBar from "@/components/filterBar"
+import { ColorRing } from "react-loader-spinner"
+import LeagueListNode from "./ListNode"
 
 type Props = {}
 
@@ -15,7 +17,17 @@ const LeagueList = (props: Props) => {
   return (
     <div className="p-2">
       {loading ? (
-        <div className="mx-auto flex w-5/6 justify-center text-xl">LOADING</div>
+        <div className="flex items-center justify-center p-40">
+          <ColorRing
+            visible={true}
+            height="120"
+            width="120"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={["#FFC132", "#FFC132", "#FFC132", "#FFC132", "#FFC132"]}
+          />
+        </div>
       ) : (
         <div className="mx-auto flex w-11/12 justify-between py-8">
           <FilterBar />
@@ -40,7 +52,9 @@ const LeagueList = (props: Props) => {
             <div>
               <div className=" my-4 max-h-[600px] ">
                 {leagues?.map((league) => (
-                  <Link to={`competitor/${league.id}`}></Link>
+                  <Link to={`/league/${league.id}`}>
+                    <LeagueListNode data={league} />
+                  </Link>
                 ))}
               </div>
             </div>

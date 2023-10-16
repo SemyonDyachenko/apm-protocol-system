@@ -95,12 +95,12 @@ const ProfilePage = (props: Props) => {
       <div className="flex items-center justify-center p-40">
         <ColorRing
           visible={true}
-          height="140"
-          width="140"
+          height="120"
+          width="120"
           ariaLabel="blocks-loading"
           wrapperStyle={{}}
           wrapperClass="blocks-wrapper"
-          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          colors={["#FFC132", "#FFC132", "#FFC132", "#FFC132", "#FFC132"]}
         />
       </div>
     )

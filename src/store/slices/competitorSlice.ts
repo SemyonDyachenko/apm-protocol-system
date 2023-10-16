@@ -3,6 +3,7 @@ import Competitor from "../../models/Competitor"
 import { fetchCompetitors } from "../thunks/competitors"
 
 export interface CompetitorData {
+  image: File | null
   id: number
   first_name: string
   last_name: string

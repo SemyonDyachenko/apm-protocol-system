@@ -74,12 +74,15 @@ const Navbar = (props: Props) => {
 
   useEffect(() => {
     document.body.className = theme
+    navbarPositionListner()
   }, [theme])
 
-  window.addEventListener("click", () => {
+  const navbarPositionListner = () => {
     if (location.pathname == "/") setFixed("fixed left-1/2 -translate-x-1/2")
     else setFixed("")
-  })
+  }
+
+  window.addEventListener("click", navbarPositionListner)
 
   window.addEventListener("scroll", () => {
     let scrolled: number = window.scrollY

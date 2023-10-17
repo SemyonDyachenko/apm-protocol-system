@@ -21,7 +21,8 @@ const CompetitorListNode = ({ place, data }: Props) => {
         <div className="">
           <img
             className="h-[65px] w-[65px]  rounded-full border-2"
-            src="assets/profilePage.png"
+            src={data.image}
+            alt="image"
           />
         </div>
         <div className={`${baseNodeLabelStyles}`}>

@@ -13,6 +13,13 @@ export interface CompetitorData {
   country: string
   is_active: boolean
   is_staff: boolean
+  trainer?: number
+  city?: string
+  birthdate?: Date
+  career_start_date?: Date
+  height?: number
+  description?: string
+  weight: number
 }
 
 export interface competitorState {

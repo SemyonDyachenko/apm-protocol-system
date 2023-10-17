@@ -14,6 +14,7 @@ import {
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons"
 import UpMenuBar from "@/components/upMenu/upMenuBar"
+import { getNormalizeDate } from "@/utils/date"
 
 type Props = {}
 
@@ -47,6 +48,10 @@ const CompetitorCardPage = (props: Props) => {
       parseInt(competitorId?.valueOf() || "")
     )
 
+  const { data: trainer } = competitorAPI.useFetchCompetitorDataQuery(
+    Number(competitor?.trainer)
+  )
+
   useEffect(() => {
     if (!competitorId || dataError) navigate("/")
   }, [competitorId, dataError])
@@ -56,23 +61,23 @@ const CompetitorCardPage = (props: Props) => {
   let competitorPropElements = [
     {
       title: "Вес",
-      value: competitor?.weight,
+      value: competitor?.weight + " Кг",
     },
     {
       title: "Рост",
-      value: "182 См",
+      value: competitor?.height + " См",
     },
     {
       title: "Начало карьеры",
-      value: "2014 Год",
+      value: new Date(competitor?.career_start_date).getFullYear() + " Год",
     },
     {
       title: "Город",
-      value: "Москва",
+      value: competitor?.city,
     },
     {
       title: "Дата рождения",
-      value: "13 Февраля 1989",
+      value: getNormalizeDate(competitor?.birthdate),
     },
 
     {
@@ -86,8 +91,8 @@ const CompetitorCardPage = (props: Props) => {
     {
       title: "Тренер",
       value: (
-        <Link className={linkStyles} to="/">
-          Валентин Морозов
+        <Link className={linkStyles} to={`/competitor/${trainer?.id}`}>
+          {getCompetitorFullname(trainer)}
         </Link>
       ),
     },
@@ -123,10 +128,10 @@ const CompetitorCardPage = (props: Props) => {
             </div>
           </div>
           <div className="flex gap-10 py-2">
-            <div className="w-auto py-3">
+            <div className="w-auto py-3 pl-4">
               <img
                 className="h-[450px] max-w-[320px] rounded-xl"
-                src={profilePhoto}
+                src={competitor.image}
               />
             </div>
             <div className="w-full">
@@ -138,25 +143,17 @@ const CompetitorCardPage = (props: Props) => {
               </div>
               <div>
                 <div className="font-semibo text-smld w-11/12 py-2 text-gray-400">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Sapiente molestiae aspernatur totam dolorum qui nostrum? Quasi
-                  iusto, delectus doloribus expedita neque cum quisquam ipsam
-                  earum ullam omnis, ipsa eius? Iusto dolore eius nemo quaerat
-                  eum repudiandae provident accusantium debitis est illum soluta
-                  quod excepturi esse, cumque officia placeat perspiciatis qui!
-                  earum ullam omnis, ipsa eius? Iusto dolore eius nemo quaerat
-                  eum repudiandae provident accusantium debitis est illum soluta
-                  quod excepturi esse, cumque officia placeat perspiciatis qui!
+                  {competitor.description}
                 </div>
               </div>
               <div className="flex w-11/12 justify-between gap-12 py-4">
                 <div className="grid grid-cols-4 grid-rows-2 gap-12">
-                  {competitorPropElements.map((element) => (
-                    <div className="flex flex-col gap-1">
+                  {competitorPropElements.map((element, index) => (
+                    <div key={index} className="flex flex-col gap-1">
                       <div className="text-sm text-gray-400">
                         {element.title}
                       </div>
-                      <div className="text-md my-1  font-medium text-gray-700">
+                      <div className="text-md my-1 min-w-[180px]  font-medium text-gray-700">
                         {element.value}
                       </div>
                     </div>

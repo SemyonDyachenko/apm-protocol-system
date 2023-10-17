@@ -16,7 +16,7 @@ const competitorPropsList = [
   "Пол",
   "Страна",
   "Звание",
-  "Рейтинг",
+  "________",
 ]
 
 const RatingList = (props: Props) => {

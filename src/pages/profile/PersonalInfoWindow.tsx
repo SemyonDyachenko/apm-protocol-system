@@ -7,41 +7,10 @@ import {
   updateCompetitorImage,
   updateCompetitorProfile,
 } from "@/store/actions/competitorAction"
+import PersonalDataInput from "./PersonalDataInput"
 
 type Props = {
   competitor: CompetitorData | null
-}
-
-type InputProps = {
-  value: string | undefined
-  title: string
-  disabled?: boolean
-  onChange?: (target: any) => void
-}
-
-const PersonalDataInput = ({
-  value,
-  title,
-  disabled = true,
-  onChange,
-}: InputProps) => {
-  return (
-    <div>
-      <p
-        className={`pb-2 text-sm ${
-          disabled ? "text-gray-400" : "font-medium text-gray-700"
-        }`}
-      >
-        {title}:{" "}
-      </p>
-      <input
-        className="w-[260px] rounded-lg  px-4 py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:bg-none"
-        value={value}
-        disabled={disabled}
-        onChange={onChange}
-      />
-    </div>
-  )
 }
 
 const PersonalInfoWindow = ({ competitor }: Props) => {
@@ -100,25 +69,29 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
           <div className="py-3">
             {competitor && (
               <img
-                className="h-[300px] rounded-xl"
+                className="h-[300px] w-full rounded-xl"
                 src={competitor.image?.toString()}
                 alt="user pictures"
               />
             )}
           </div>
           <div>
-            <input
-              type="file"
-              onChange={(e) => {
-                if (e.target.files) {
-                  updateProfileImage(e.target.files[0])
-                }
-              }}
-              accept="image/png, image/jpeg"
-              className="w-full rounded-lg bg-secondary-500 py-2 shadow-md transition hover:bg-secondary-300"
-            />
+            <label className="w-full cursor-pointer rounded-lg bg-secondary-500 py-2 font-medium text-gray-700 transition hover:bg-secondary-400 ">
+              <input
+                type="file"
+                onChange={(e) => {
+                  if (e.target.files) {
+                    updateProfileImage(e.target.files[0])
+                  }
+                  window.location.reload()
+                }}
+                accept="image/png, image/jpeg"
+                className="hidden w-full rounded-lg bg-secondary-500 py-2 shadow-md transition hover:bg-secondary-300"
+              />
+              Обновить фото
+            </label>
 
-            <button className="px-10 pt-2 text-sm text-gray-300 hover:text-gray-700">
+            <button className="px-10 pt-3 text-sm text-gray-400 hover:text-gray-700">
               Удалить фото
             </button>
           </div>

@@ -11,6 +11,12 @@ export default interface Competitor {
   weight: number
   country?: string
   rank: string
+  trainer?: number
+  city?: string
+  birthdate?: Date
+  career_start_date: Date
+  height?: number
+  description?: string
 }
 
 export const getCompetitorFullname = (

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type upMenuItem = {
   selected: boolean
   title: string
@@ -6,15 +8,31 @@ export type upMenuItem = {
 
 type Props = {
   items: Array<upMenuItem>
+  changeTarget?: (target: any) => void
 }
 
-const UpMenuBar = ({ items }: Props) => {
+const UpMenuBar = ({ items, changeTarget }: Props) => {
+  const handleChangeTarget = (value: any) => {
+    if (changeTarget) changeTarget(value)
+  }
+
+  const selectElement = (element: upMenuItem) => {
+    items.forEach((element) => {
+      if (element.selected) element.selected = false
+    })
+    element.selected = true
+  }
+
   return (
     <div>
       <div className="flex items-center gap-3">
         {items.map((element, index) => (
           <div key={index} className="py-3">
             <button
+              onClick={() => {
+                handleChangeTarget(element.target)
+                selectElement(element)
+              }}
               className={`${
                 element.selected
                   ? " border-secondary-400 text-secondary-400"

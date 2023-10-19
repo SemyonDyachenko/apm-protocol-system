@@ -76,6 +76,8 @@ const ProfilePage = (props: Props) => {
   ]
 
   useEffect(() => {
+    setProfileWindow("personal")
+    setTargetWindow("general")
     if (!localStorage.getItem("token")) {
       navigate("/login")
     } else {
@@ -121,7 +123,7 @@ const ProfilePage = (props: Props) => {
               {competitor?.first_name + " " + competitor?.last_name}
             </HText>
             <div className="flex items-center gap-4 text-lg text-gray-700">
-              <div className="cursor-default rounded-full bg-secondary-400 px-5 py-2 text-lg font-bold text-white shadow-md transition">
+              <div className="cursor-default rounded-full bg-secondary-400 px-5 py-2 text-xl font-extrabold text-white shadow-md transition">
                 {competitor?.elo_rating}
               </div>
             </div>

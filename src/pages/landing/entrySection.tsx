@@ -15,17 +15,20 @@ const EntrySection = (props: Props) => {
             онлайн
             <span className="text-secondary-500">платформа</span>
           </div>
-          <div className="w-4/5 py-8 text-lg font-semibold tracking-wider">
+          <div className="w-4/5 py-8 text-lg font-semibold tracking-normal">
             <p>
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts and visual
-              mockups. Lorem ipsum is placeholder text commonly used in the
-              graphic.
+              Наша веб-платформа создана с учетом потребностей как
+              профессиональных спортсменов, так и любителей, чтобы обеспечить им
+              всестороннюю поддержку в достижении спортивных высот. Мы
+              предоставляем вам инструменты и ресурсы, необходимые для
+              аккуратного и полноценного ведения спортивных данных, а также
               <span className="text-secondary-500">
-                Lorem ipsum is placeholder text commonly used in the graphic,
-                print, and publishing industries for previewing layouts and
-                visual mockups. Lorem ipsum is placeholder text commonly used in
-                the graphic, print.
+                {" "}
+                возможность создать уникальные персональные кабинеты для
+                спортсменов, чтобы они могли контролировать свой прогресс,
+                взаимодействовать с фанатами и коллегами, и подниматься в
+                мировом рейтинге, получая заслуженное признание и уважение в
+                спортивном сообществе
               </span>
             </p>
           </div>

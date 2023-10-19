@@ -21,7 +21,7 @@ const CompetitorListNode = ({ place, data }: Props) => {
         <div className="">
           <img
             className="h-[65px] w-[65px]  rounded-full border-2"
-            src={data.image}
+            src={data.image?.toString()}
             alt="image"
           />
         </div>

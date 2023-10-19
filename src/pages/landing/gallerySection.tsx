@@ -2,6 +2,18 @@ import React from "react"
 
 type Props = {}
 
+const galleryImages = [
+  {
+    url: "gallery1.jpg",
+  },
+  {
+    url: "gallery2.jpg",
+  },
+  {
+    url: "gallery6.jpg",
+  },
+]
+
 const GallerySection = (props: Props) => {
   return (
     <div className="relative h-screen max-w-full bg-gray-700 text-white">
@@ -24,13 +36,13 @@ const GallerySection = (props: Props) => {
           </div>
         </div>
         <div>
-          <div className="my-4 h-[476px] w-full bg-gray-700 bg-opacity-50">
-            <div className="itemse-console.error(first) mx-auto flex w-2/3 justify-between py-10">
-              {new Array(1, 2, 3).map((element) => (
-                <div>
+          <div className="my-4 flex h-auto w-full justify-center bg-gray-700 bg-opacity-50">
+            <div className="grid grid-cols-3 grid-rows-1 gap-y-6 gap-x-24 py-20">
+              {galleryImages.map((element, index) => (
+                <div key={index}>
                   <img
-                    className="max-h-[400px] border-4 border-secondary-500"
-                    src="assets/landing/gallery.png"
+                    className="h-[400px] w-[380px]  border-4 border-secondary-500"
+                    src={`assets/landing/gallery/${element.url}`}
                     alt="image"
                   />
                 </div>

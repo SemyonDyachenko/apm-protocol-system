@@ -82,8 +82,8 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                 onChange={(e) => {
                   if (e.target.files) {
                     updateProfileImage(e.target.files[0])
+                    window.location.reload()
                   }
-                  window.location.reload()
                 }}
                 accept="image/png, image/jpeg"
                 className="hidden w-full rounded-lg bg-secondary-500 py-2 shadow-md transition hover:bg-secondary-300"

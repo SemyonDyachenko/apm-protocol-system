@@ -16,33 +16,18 @@ const StartPage = (props: Props) => {
       <InformationSection
         label="ОРАНИЗАТОРАМ"
         img="assets/landing/image20.png"
-        text="   Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing industries for previewing layouts and
-                  visual mockups.
-                    Lorem ipsum is placeholder text commonly used in the
-                    graphic, print, and publishing industries for previewing
-                    layouts and visual mockups. Lorem ipsum is placeholder text
-                    commonly used in the graphic, print, and publishing.
-                  Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing.Lorem ipsum is placeholder text commonly
-                  used in the graphic, print, and publishing"
+        text="С нашей платформой, вы сможете создать свою собственную спортивную лигу, организовать увлекательные турниры, пригласить спортсменов для участия в ваших событиях, использовать инновационную программу протоколов, добавить ваш турнир в мировой рейтинг и создать свою собственную спортивную команду  "
       />
       <InformationSection
         label="СПОРТСМЕНАМ"
         img="assets/landing/image20.png"
-        text="   Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing industries for previewing layouts and
-                  visual mockups.
-                    Lorem ipsum is placeholder text commonly used in the
-                    graphic, print, and publishing industries for previewing
-                    layouts and visual mockups. Lorem ipsum is placeholder text
-                    commonly used in the graphic, print, and publishing.
-                  Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing.Lorem ipsum is placeholder text commonly
-                  used in the graphic, print, and publishing"
+        text=" Создать свой профиль спортсмена и выделиться.
+        Присоединиться к абсолютному мировому рейтингу и достичь мирового признания.
+        Зарегистрироваться на турниры и проявить свое мастерство.
+        Вступить в спортивные команды и разделить успехи.
+        Стать частью спортивных лиг и взаимодействовать с сообществом"
       />
       <PartnersSection />
-      <ContactSection />
     </div>
   )
 }

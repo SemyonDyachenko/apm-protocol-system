@@ -62,7 +62,7 @@ const LoginPage = (props: Props) => {
                   <label className={labelStyles}>E-mail: </label>
                   {errors.email && (
                     <span className="text-sm text-primary-400">
-                      {errors.email.message?.valueOf() ||
+                      {errors.email.message?.valueOf().toString() ||
                         "* E-mail должен быть заполнен"}
                     </span>
                   )}
@@ -87,7 +87,7 @@ const LoginPage = (props: Props) => {
                   <label className={labelStyles}>Пароль: </label>
                   {errors.password && (
                     <span className="text-sm text-primary-400">
-                      {errors.password.message?.valueOf() ||
+                      {errors.password.message?.valueOf().toString() ||
                         "* Пароль должен быть заполнен"}
                     </span>
                   )}

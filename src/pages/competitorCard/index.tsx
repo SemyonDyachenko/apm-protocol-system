@@ -22,14 +22,17 @@ let upMenuButtons = [
   {
     selected: true,
     title: "Основная информация",
+    target: "competitorMain",
   },
   {
     selected: false,
     title: "Характеристики",
+    target: "competitorStats",
   },
   {
     selected: false,
     title: "Лиги",
+    target: "competitorLeagues",
   },
 ]
 
@@ -69,7 +72,9 @@ const CompetitorCardPage = (props: Props) => {
     },
     {
       title: "Начало карьеры",
-      value: new Date(competitor?.career_start_date).getFullYear() + " Год",
+      value:
+        competitor?.career_start_date &&
+        new Date(competitor?.career_start_date).getFullYear() + " Год",
     },
     {
       title: "Город",
@@ -77,7 +82,9 @@ const CompetitorCardPage = (props: Props) => {
     },
     {
       title: "Дата рождения",
-      value: getNormalizeDate(competitor?.birthdate),
+      value:
+        competitor?.birthdate &&
+        getNormalizeDate(competitor?.birthdate.toString()),
     },
 
     {
@@ -129,10 +136,12 @@ const CompetitorCardPage = (props: Props) => {
           </div>
           <div className="flex gap-10 py-2">
             <div className="w-auto py-3 pl-4">
-              <img
-                className="h-[450px] max-w-[320px] rounded-xl"
-                src={competitor.image}
-              />
+              {competitor.image && (
+                <img
+                  className="h-[450px] max-w-[320px] rounded-xl"
+                  src={competitor.image.toString()}
+                />
+              )}
             </div>
             <div className="w-full">
               <UpMenuBar items={upMenuButtons} />

@@ -116,7 +116,7 @@ const SignupPage = (props: Props) => {
                   <label className={labelStyles}>{element.label}: </label>
                   {errors[element.name] && (
                     <span className="text-sm text-primary-400">
-                      {errors[element.name]?.message?.valueOf() ||
+                      {errors[element.name]?.message?.valueOf().toString() ||
                         "* Поле должно быть заполнено"}
                     </span>
                   )}

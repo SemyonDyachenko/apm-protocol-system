@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { SocialIcon } from "react-social-icons"
+import LangSwitch from "./langSwitch"
 
 type Props = {}
 
@@ -62,6 +63,7 @@ const Navbar = (props: Props) => {
   const [hidden, setHidden] = useState("")
   const [scrollPrev, setScrollPrev] = useState(0)
   const [fixed, setFixed] = useState("")
+  const [langHidden, setLangHidden] = useState(false)
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -83,7 +85,6 @@ const Navbar = (props: Props) => {
   }
 
   window.addEventListener("click", navbarPositionListner)
-
   window.addEventListener("scroll", () => {
     let scrolled: number = window.scrollY
 
@@ -143,7 +144,13 @@ const Navbar = (props: Props) => {
 
         <div className="flex  items-center justify-center gap-3">
           <div className="px-3">
-            <div className="cursor-pointer font-semibold text-white">RUS</div>
+            <div
+              onClick={() => setLangHidden(!langHidden)}
+              className="cursor-pointer font-semibold text-white"
+            >
+              RUS
+            </div>
+            <LangSwitch active={langHidden} />
           </div>
           {isAuth() ? (
             <div>

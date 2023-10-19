@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 
 export type upMenuItem = {
   selected: boolean
@@ -22,6 +22,10 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
     })
     element.selected = true
   }
+
+  useEffect(() => {
+    selectElement(items[0])
+  }, [])
 
   return (
     <div>

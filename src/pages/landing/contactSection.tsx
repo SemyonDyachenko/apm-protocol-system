@@ -5,12 +5,6 @@ type Props = {}
 const ContactSection = (props: Props) => {
   return (
     <div className="h-screen max-w-full bg-gray-700 text-white">
-      <div className="absolute -left-[198px]">
-        <img src="assets/landing/Vector 5.png" />
-      </div>
-      <div className="absolute right-16 scale-x-[1.1365]">
-        <img src="assets/landing/Vector 6.png" />
-      </div>
       <div className="flex items-center justify-center py-5 ">
         <div className="z-10 flex flex-col justify-center">
           <span className="text-center text-4xl font-extrabold uppercase">
@@ -30,7 +24,7 @@ const ContactSection = (props: Props) => {
               />
             </div>
             <div className="py-3 text-xl font-bold underline">ТЕЛЕФОН</div>
-            <div className="text-lg font-medium">+7 918 064 00 32</div>
+            <div className="text-lg font-medium">+7-(999)-999-99-99</div>
           </div>
           <div className="flex flex-col justify-center text-center">
             <div className="flex justify-center">
@@ -54,7 +48,7 @@ const ContactSection = (props: Props) => {
             <div className="py-3 text-xl font-bold underline">АДРЕС</div>
             <div className="text-lg font-medium">
               127025 г. Москва,
-              <br /> улица Кремль д. 1
+              <br /> проспект д.82
             </div>
           </div>
         </div>

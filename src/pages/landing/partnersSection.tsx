@@ -10,7 +10,7 @@ const partnersImages = [
     url: "image34.png",
   },
   {
-    url: "image34.png",
+    url: "image35.png",
   },
 ]
 
@@ -29,13 +29,13 @@ const PartnersSection = (props: Props) => {
           <span className="text-center text-4xl font-extrabold uppercase">
             ПАРТНЕРЫ
           </span>
-          <div className="h-2 w-[360px] rounded-lg bg-gray-700"></div>
+          <div className="h-2 w-[300px] rounded-lg bg-gray-700"></div>
         </div>
       </div>
       <div className="relative z-10 my-4 h-[476px] w-full bg-gray-700 bg-opacity-50">
-        <div className="mx-auto flex h-full w-2/3 items-center justify-between">
+        <div className="mx-auto flex h-full w-8/12 items-center justify-between">
           {partnersImages.map((element, index) => (
-            <div key={index} className="h-2/3 max-w-[300px]">
+            <div key={index} className="h-2/3 w-1/3 max-w-[300px]">
               <img src={`assets/landing/${element.url}`} />
             </div>
           ))}
@@ -47,12 +47,12 @@ const PartnersSection = (props: Props) => {
             <span className="text-center text-4xl font-extrabold uppercase">
               КОНТАКТЫ
             </span>
-            <div className="h-2 w-[360px] rounded-lg bg-secondary-500"></div>
+            <div className="h-2 w-[300px] rounded-lg bg-secondary-500"></div>
           </div>
         </div>
         <div className="relative z-10 my-4 h-[476px] w-full bg-gray-700 bg-opacity-50">
-          <div className="mx-auto flex h-full w-3/5 items-center justify-between">
-            <div className="flex flex-col justify-center text-center">
+          <div className="mx-auto flex h-full w-9/12 items-center justify-between">
+            <div className="flex w-1/3 flex-col justify-center text-center">
               <div className="flex justify-center">
                 <img
                   alt="image"
@@ -63,7 +63,7 @@ const PartnersSection = (props: Props) => {
               <div className="py-3 text-xl font-bold underline">ТЕЛЕФОН</div>
               <div className="text-lg font-medium">+7-(999)-999-99-99</div>
             </div>
-            <div className="flex flex-col justify-center text-center">
+            <div className="flex w-1/3 flex-col justify-center text-center">
               <div className="flex justify-center">
                 <img
                   alt="image"
@@ -74,7 +74,7 @@ const PartnersSection = (props: Props) => {
               <div className="py-3 text-xl font-bold underline">ПОЧТА</div>
               <div className="text-lg font-medium">apm@league.com</div>
             </div>
-            <div className="flex flex-col justify-center text-center">
+            <div className=" flex w-1/3 flex-col justify-center text-center">
               <div className="flex justify-center">
                 <img
                   alt="image"
@@ -85,7 +85,7 @@ const PartnersSection = (props: Props) => {
               <div className="py-3 text-xl font-bold underline">АДРЕС</div>
               <div className="text-lg font-medium">
                 127025 г. Москва,
-                <br /> проспект д.82
+                <br /> проспект Вернадского д.82
               </div>
             </div>
           </div>

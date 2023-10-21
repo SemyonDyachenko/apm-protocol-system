@@ -136,12 +136,13 @@ const CompetitorCardPage = (props: Props) => {
           </div>
           <div className="flex gap-10 py-2">
             <div className="w-auto py-3 pl-4">
-              {competitor.image && (
-                <img
-                  className="h-[450px] max-w-[320px] rounded-xl"
-                  src={competitor.image.toString()}
-                />
-              )}
+              <img
+                className="h-full max-w-[320px] rounded-lg"
+                src={
+                  competitor.image?.toString() ||
+                  "assets/utils/nonuserimage.png"
+                }
+              />
             </div>
             <div className="w-full">
               <UpMenuBar items={upMenuButtons} />

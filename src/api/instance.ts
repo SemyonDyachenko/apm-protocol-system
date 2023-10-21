@@ -1,8 +1,13 @@
 import axios from "axios"
 
+const PRODUCTION_URL = "https://apm-tech.ru/api/"
+const BASE_URL = "http://127.0.0.1:8000/api/"
+
 export const $api = axios.create({
-  baseURL: "http://213.171.8.93/api/",
-  withCredentials: true,
+  baseURL: BASE_URL,
 })
 
-export const SERVER_URL = "http://213.171.8.93/api"
+export const DEBUG = true
+export const SERVER_URL = DEBUG
+  ? "http://127.0.0.1:8000/api"
+  : "https://apm-tech.ru/api"

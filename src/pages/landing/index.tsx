@@ -4,7 +4,6 @@ import EntrySection from "./entrySection"
 import GallerySection from "./gallerySection"
 import InformationSection from "./informationSection"
 import PartnersSection from "./partnersSection"
-import ContactSection from "./contactSection"
 
 type Props = {}
 

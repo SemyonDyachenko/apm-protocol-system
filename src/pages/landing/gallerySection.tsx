@@ -32,7 +32,7 @@ const GallerySection = (props: Props) => {
             <span className="text-center text-4xl font-extrabold uppercase">
               Галерея
             </span>
-            <div className="h-1 w-[200px] bg-secondary-500"></div>
+            <div className="h-2 w-[240px] rounded-lg bg-secondary-500"></div>
           </div>
         </div>
         <div>
@@ -41,7 +41,7 @@ const GallerySection = (props: Props) => {
               {galleryImages.map((element, index) => (
                 <div key={index}>
                   <img
-                    className="h-[400px] w-[380px]  border-4 border-secondary-500"
+                    className="h-[400px]  w-[380px] border-4 border-secondary-500 transition"
                     src={`assets/landing/gallery/${element.url}`}
                     alt="image"
                   />

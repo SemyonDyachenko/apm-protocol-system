@@ -40,10 +40,10 @@ const SignupInfo = (props: Props) => {
         <div className="py-2 text-sm text-gray-700">
           Есть проблемы с регистрацией ?{" "}
           <Link
-            className="text-secondary-500 underline hover:text-primary-500"
+            className="text-secondary-500 underline transition hover:text-primary-500"
             to="/"
           >
-            Задать вопросы
+            Обратная связь
           </Link>
         </div>
       </div>

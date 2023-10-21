@@ -15,8 +15,14 @@ const Footer = (props: Props) => {
             <h4 className={"text-md pb-3"}>Armwrestling Promotion Machine</h4>
           </div>
 
-          <div className=""></div>
-          <div className=""></div>
+          <div className="flex-column flex justify-end text-right">
+            <div className="cursor-pointer underline transition hover:text-secondary-500 ">
+              политика конфиденциальности
+            </div>
+            <div className="cursor-pointer underline transition hover:text-secondary-500">
+              поддержка
+            </div>
+          </div>
         </div>
       </div>
       <div className="mx-auto w-4/5">

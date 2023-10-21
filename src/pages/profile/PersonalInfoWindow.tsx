@@ -70,7 +70,10 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
             {competitor && (
               <img
                 className="h-[300px] w-full rounded-xl"
-                src={competitor.image?.toString()}
+                src={
+                  competitor.image?.toString() ||
+                  "assets/utils/nonuserimage.jpg"
+                }
                 alt="user pictures"
               />
             )}
@@ -82,7 +85,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                 onChange={(e) => {
                   if (e.target.files) {
                     updateProfileImage(e.target.files[0])
-                    window.location.reload()
+                    //window.location.reload()
                   }
                 }}
                 accept="image/png, image/jpeg"
@@ -110,7 +113,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
               disabled={formIsDisabled}
               value={lastnameValue}
               onChange={(e) => setLastnameValue(e.target.value)}
-              title="Фамилмя"
+              title="Фамилия"
             />
             <PersonalDataInput
               disabled={formIsDisabled}

@@ -152,6 +152,7 @@ const Navbar = (props: Props) => {
             </div>
             <LangSwitch active={langHidden} />
           </div>
+
           {isAuth() ? (
             <div>
               <Link to="/profile">

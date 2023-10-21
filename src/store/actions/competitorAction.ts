@@ -49,6 +49,38 @@ export const updateCompetitorProfile =
     }
   }
 
+export const updateCompetitorProps =
+  (
+    id: number,
+    trainer: number,
+    birthdate: Date,
+    height: number,
+    city: string,
+    weight: number,
+    career_start_date: Date,
+    description: string
+  ) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<Competitor>(
+        `${SERVER_URL}/updateProfileProps/${id}/`,
+        {
+          id,
+          trainer,
+          birthdate,
+          height,
+          city,
+          weight,
+          career_start_date,
+          description,
+        }
+      )
+      console.log(response)
+    } catch (e: AxiosError | any) {
+      console.log(e.message)
+    }
+  }
+
 export const getCompetitorData =
   (accessToken: string | null) => async (dispatch: AppDispatch) => {
     if (accessToken) {

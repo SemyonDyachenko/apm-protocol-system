@@ -10,8 +10,16 @@ const TournamentsPage = (props: Props) => {
   const { data: tournaments } = tournamentAPI.useFetchAllTournamentsQuery(10)
   const { data: leagues } = leagueAPI.useFetchAllLeaguesQuery(100)
   return (
-    <div className="p-5">
-      <div className="mx-auto">
+    <div className="flex min-h-[650px] items-center justify-center p-5">
+      <h1 className=" animate-pulse text-5xl font-semibold text-gray-700">
+        Coming soon
+      </h1>
+    </div>
+  )
+}
+
+/*
+ <div className="mx-auto">
         <section id="old w-full">
           <div className="flex justify-between">
             <div className="pb-4">
@@ -55,8 +63,6 @@ const TournamentsPage = (props: Props) => {
         </section>
         <TournamentCreateForm />
       </div>
-    </div>
-  )
-}
+*/
 
 export default TournamentsPage

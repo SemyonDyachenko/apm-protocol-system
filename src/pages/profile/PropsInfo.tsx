@@ -1,30 +1,64 @@
 import { CompetitorData } from "@/store/slices/competitorSlice"
-import React from "react"
+
 import PersonalDataInput from "./PersonalDataInput"
 import { getCompetitorFullname } from "@/models/Competitor"
 import { competitorAPI } from "@/services/competitorService"
+import { useAppDispatch } from "@/hooks/redux"
+import { useForm } from "react-hook-form"
+import { useState } from "react"
+import { updateCompetitorProps } from "@/store/actions/competitorAction"
+import { isDataView } from "util/types"
 
 type Props = {
   competitor: CompetitorData
 }
 
 const PropsInfo = ({ competitor }: Props) => {
+  const dispatch = useAppDispatch()
+
   const { data: trainer } = competitorAPI.useFetchCompetitorDataQuery(
     Number(competitor.trainer)
   )
 
+  const [trainerInput, setTrainer] = useState(getCompetitorFullname(trainer))
+  const [birthdateInput, setBirthdate] = useState(competitor.birthdate)
+  const [height, setHeight] = useState(competitor.height)
+  const [weight, setWeight] = useState(competitor.weight)
+  const [city, setCity] = useState(competitor.city)
+  const [career, setCareer] = useState(competitor.career_start_date)
+  const [description, setDescription] = useState(competitor.description)
+
   const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(10)
+  const [isDisabled, setIsDisabled] = useState(true)
+  const updateProps = () => {
+    competitor &&
+      dispatch(
+        updateCompetitorProps(
+          competitor.id,
+          Number(trainerInput),
+          birthdateInput,
+          Number(height),
+          city,
+          Number(weight),
+          career,
+          description
+        )
+      )
+  }
 
   return (
     <div>
       <div className="w-full py-2">
         <div className="flex items-center justify-between">
           <div className="text-lg text-gray-400">Подробная информацию</div>
-          <div className="cursor-pointer text-sm text-gray-400 underline transition hover:text-gray-700">
-            Редактировать
+          <div
+            onClick={() => setIsDisabled(!isDisabled)}
+            className="cursor-pointer text-sm text-gray-400 underline transition hover:text-gray-700"
+          >
+            {isDisabled ? "Редактировать" : "Отменить"}
           </div>
         </div>
-        <div className="grid w-2/3 grid-cols-3 gap-4 pt-4">
+        <div className=" grid w-2/3 grid-cols-3 gap-4 pt-4">
           <div>
             <div
               className={`"text-gray-400" } 
@@ -35,44 +69,55 @@ const PropsInfo = ({ competitor }: Props) => {
             </div>
             <select
               className=" rounded-lg border-r-8 border-gray-200 bg-gray-200 py-[10px] px-3 font-medium text-gray-700"
-              defaultValue="Тренер"
+              defaultValue={trainerInput?.toString()}
+              onChange={(e) => setTrainer(e.target.value)}
+              disabled={isDisabled}
             >
               {competitors &&
                 competitors.map((element, index) => (
-                  <option className="font-medium text-gray-700" key={index}>
+                  <option
+                    value={element.id}
+                    className="font-medium text-gray-700"
+                    key={index}
+                  >
                     {getCompetitorFullname(element)}
                   </option>
                 ))}
             </select>
           </div>
           <PersonalDataInput
-            value={competitor?.birthdate}
+            value={birthdateInput}
+            onChange={(e) => setBirthdate(e.target.value)}
             type="date"
             title="Дата рождения"
-            disabled={false}
+            disabled={isDisabled}
           />
           <PersonalDataInput
-            value={competitor?.height?.toString()}
+            value={height?.toString()}
+            onChange={(e) => setHeight(e.target.value)}
             title="Рост"
-            disabled={false}
+            disabled={isDisabled}
           />
 
           <PersonalDataInput
-            disabled={false}
-            value={competitor?.city}
+            disabled={isDisabled}
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
             title="Город"
           />
           <PersonalDataInput
-            value={competitor?.weight.toString()}
+            value={weight.toString()}
             title="Вес"
-            disabled={false}
+            onChange={(e) => setWeight(e.target.value)}
+            disabled={isDisabled}
           />
 
           <PersonalDataInput
-            value={competitor?.career_start_date}
+            value={career}
+            onChange={(e) => setCareer(e.target.value)}
             title="Начало карьеры"
             type="date"
-            disabled={false}
+            disabled={isDisabled}
           />
           <div>
             <div
@@ -82,12 +127,18 @@ const PropsInfo = ({ competitor }: Props) => {
             >
               Описание:
             </div>
-            <textarea className=" w-[500px] rounded-lg border-none bg-gray-200 px-4 py-2 font-medium text-gray-700 outline-none"></textarea>
+            <textarea
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-[500px] rounded-lg border-none px-4 py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:overflow-hidden"
+              defaultValue={description}
+              disabled={isDisabled}
+            ></textarea>
           </div>
         </div>
         <div className="py-3">
           <button
-            disabled={true}
+            onClick={() => updateProps()}
+            disabled={isDisabled}
             className="rounded-lg px-8 py-2 font-medium text-gray-700 transition enabled:bg-secondary-500 enabled:hover:bg-secondary-400 disabled:bg-gray-400 "
           >
             Сохранить

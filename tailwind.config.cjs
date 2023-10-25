@@ -7,6 +7,7 @@ module.exports = {
         "gray-20": "#F8F4EB",
         "gray-50": "#EFE6E6",
         "gray-70": "#F6F6F6",
+        "gray-80": "#F1EFF6",
         "gray-100": "#DFCCCC",
         "gray-400": "#9CA3AF",
         "gray-500": "#5E0000",
@@ -23,6 +24,7 @@ module.exports = {
         "secondary-300": "#fcd72b",
         "secondary-400": "#FFCD58",
         "secondary-500": "#FFC132",
+        "secondary-600": "#DAAE28",
       },
       fontFamily: {
         dmsans: ["DM Sans", "sans-serif"],

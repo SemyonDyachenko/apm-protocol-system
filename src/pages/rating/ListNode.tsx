@@ -13,7 +13,7 @@ const CompetitorListNode = ({ place, data }: Props) => {
   const baseNodeLabelStyles = "font-medium text-gray-700 text-md"
 
   return (
-    <ListNode>
+    <ListNode classname="shadow-sm">
       <div className={`font-extrabold ${baseNodeLabelStyles} w-1/12 text-lg `}>
         {place}
       </div>
@@ -21,7 +21,7 @@ const CompetitorListNode = ({ place, data }: Props) => {
         <div className="">
           <img
             className="h-[65px] w-[65px]  rounded-full border-2"
-            src={"assets/utils/nonuserimage.jpg"}
+            src={data.image?.toString() || "assets/utils/nonuserimage.jpg"}
             alt="image"
           />
         </div>

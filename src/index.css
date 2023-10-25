@@ -1,3 +1,4 @@
+@import "react-perfect-scrollbar/dist/css/styles.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +10,7 @@
 
 .dark {
   --tw-bg-opacity: 1;
-  background-color: #f1eff6;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
   color: white;
 }
 
@@ -17,11 +18,9 @@
   pointer-events: none;
 }
 
-
-
 .light {
   --tw-bg-opacity: 1;
-  background-color: #f1eff6;
+  background-color:#FFFFFF;
   color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 

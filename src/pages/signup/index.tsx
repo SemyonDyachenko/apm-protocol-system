@@ -1,16 +1,14 @@
 import { useAppDispatch } from "@/hooks/redux"
-import { signupUser } from "@/store/actions/authAction"
-import { useEffect } from "react"
+import { loginUser, signupUser } from "@/store/actions/authAction"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 
-import { faCheck } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import SignupInfo from "@/components/signupInfo"
 
 type Props = {}
 
-const formElements = [
+let formElements = [
   {
     label: "Имя",
     id: "firstName",
@@ -58,12 +56,14 @@ const formElements = [
 
 const SignupPage = (props: Props) => {
   const navigate = useNavigate()
-  const disptach = useAppDispatch()
+  const dispatch = useAppDispatch()
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
   } = useForm({ mode: "onTouched" })
+
+  const [emailError, setEmailError] = useState("")
 
   const isAuth = localStorage.getItem("token")
 
@@ -74,7 +74,7 @@ const SignupPage = (props: Props) => {
   const onSubmit = (data: any) => {
     if (data) {
       const { first_name, last_name, email, gender, password } = data
-      disptach(
+      dispatch(
         signupUser({
           first_name,
           last_name,
@@ -82,9 +82,19 @@ const SignupPage = (props: Props) => {
           gender,
           password,
         })
-      ).then((value) => {
-        navigate("/login")
-      })
+      )
+        .catch((error) => console.log(error))
+        .then((response) => {
+          switch (response) {
+            case 400:
+              setEmailError("Пользователь с данным E-mail уже существует")
+              break
+            case undefined:
+              dispatch(loginUser(data.email, data.password)).then(() =>
+                navigate("/profile")
+              )
+          }
+        })
     }
   }
 
@@ -93,8 +103,8 @@ const SignupPage = (props: Props) => {
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
-    <div className="p-10">
-      <div className="mx-auto flex w-5/6 items-start justify-between rounded-xl bg-gray-200 px-5 py-5 shadow-md">
+    <div className="py-10">
+      <div className="mx-auto flex w-11/12 items-start justify-between rounded-xl bg-gray-70 px-5 py-5 shadow-md md:w-5/6">
         <div className="flex flex-wrap justify-center">
           <form onSubmit={handleSubmit(onSubmit)} className="max-w-[500px]">
             <div className="flex justify-center pb-2 text-2xl font-bold text-gray-600">
@@ -114,12 +124,11 @@ const SignupPage = (props: Props) => {
               <div key={index}>
                 <div className="flex w-full items-center justify-between">
                   <label className={labelStyles}>{element.label}: </label>
-                  {errors[element.name] && (
-                    <span className="text-sm text-primary-400">
-                      {errors[element.name]?.message?.valueOf().toString() ||
-                        "* Поле должно быть заполнено"}
-                    </span>
-                  )}
+                  <span className="text-sm text-primary-400">
+                    {errors[element.name] &&
+                      (errors[element.name]?.message?.valueOf().toString() ||
+                        "* Поле должно быть заполнено")}
+                  </span>
                 </div>
                 <input
                   className={`${inputStyles}`}
@@ -160,10 +169,14 @@ const SignupPage = (props: Props) => {
               </div>
               {errors.gender && <span>Обязательное поле</span>}
             </div>
-
+            {emailError && (
+              <div className="pt-3 text-sm font-medium text-primary-500">
+                {emailError}
+              </div>
+            )}
             <div className="my-4 flex items-start justify-between">
               <button
-                className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg font-medium text-white transition hover:bg-primary-500 disabled:bg-gray-700 disabled:opacity-50"
+                className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg font-semibold text-gray-700 transition hover:bg-secondary-600 active:translate-y-1  disabled:bg-gray-700 disabled:text-gray-400 disabled:opacity-50"
                 type="submit"
                 disabled={!isValid || !isDirty}
               >

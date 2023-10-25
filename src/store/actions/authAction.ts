@@ -44,6 +44,7 @@ export const loginUser =
       dispatch(authSlice.actions.setAuthSuccess(response.data))
     } catch (error: Error | any) {
       dispatch(authSlice.actions.setAuthError(error.message))
+      return error.request
     }
   }
 
@@ -74,6 +75,7 @@ export const logoutUser = () => async (dispatch: AppDispatch) => {
     localStorage.removeItem("refresh")
   } catch (error: Error | any) {
     console.log(error.message)
+    return error.request.status
   }
 }
 
@@ -85,6 +87,7 @@ export const signupUser =
         data
       )
     } catch (error: Error | any) {
-      console.log(error.message)
+      if (error.request.status === 400) return 400
+      if (error === null) return 200
     }
   }

@@ -7,10 +7,11 @@ export const tournamentAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: SERVER_URL }),
   endpoints: (build) => ({
     fetchAllTournaments: build.query<Tournament[], number>({
-      query: (limit: number = 5000) => ({
+      query: (league?: number) => ({
         url: "tournaments/",
         params: {
-          _limit: limit,
+          _limit: 1000,
+          league,
         },
       }),
     }),

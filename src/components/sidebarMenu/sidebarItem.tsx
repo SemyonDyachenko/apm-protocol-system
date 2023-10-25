@@ -3,7 +3,7 @@ import React from "react"
 
 export type sidebarItemData = {
   onClick: () => void
-  selected: boolean
+  selected?: boolean
   icon: any
   children: React.ReactNode
   link?: string

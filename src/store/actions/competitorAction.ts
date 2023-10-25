@@ -53,12 +53,12 @@ export const updateCompetitorProps =
   (
     id: number,
     trainer: number,
-    birthdate: Date,
+    birthdate: Date | undefined,
     height: number,
-    city: string,
+    city: string | undefined,
     weight: number,
-    career_start_date: Date,
-    description: string
+    career_start_date: Date | undefined,
+    description: string | undefined
   ) =>
   async (dispatch: AppDispatch) => {
     try {

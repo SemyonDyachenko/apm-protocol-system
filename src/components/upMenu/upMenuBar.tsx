@@ -49,7 +49,7 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
           </div>
         ))}
       </div>
-      <div className="h-[0.5px] w-full bg-gray-100"></div>
+      <div className="h-[0.5px] w-full bg-gray-80"></div>
     </div>
   )
 }

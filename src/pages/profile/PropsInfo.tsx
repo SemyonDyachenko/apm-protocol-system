@@ -50,7 +50,7 @@ const PropsInfo = ({ competitor }: Props) => {
     <div>
       <div className="w-full py-2">
         <div className="flex items-center justify-between">
-          <div className="text-lg text-gray-400">Подробная информацию</div>
+          <div className="text-lg text-gray-400">Подробная информация</div>
           <div
             onClick={() => setIsDisabled(!isDisabled)}
             className="cursor-pointer text-sm text-gray-400 underline transition hover:text-gray-700"
@@ -61,7 +61,7 @@ const PropsInfo = ({ competitor }: Props) => {
         <div className=" grid w-2/3 grid-cols-3 gap-4 pt-4">
           <div>
             <div
-              className={`"text-gray-400" } 
+              className={`${isDisabled && "text-gray-400"} 
              pb-2
               text-sm font-medium`}
             >
@@ -137,7 +137,10 @@ const PropsInfo = ({ competitor }: Props) => {
         </div>
         <div className="py-3">
           <button
-            onClick={() => updateProps()}
+            onClick={() => {
+              updateProps()
+              setIsDisabled(true)
+            }}
             disabled={isDisabled}
             className="rounded-lg px-8 py-2 font-medium text-gray-700 transition enabled:bg-secondary-500 enabled:hover:bg-secondary-400 disabled:bg-gray-400 "
           >

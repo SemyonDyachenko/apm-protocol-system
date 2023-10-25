@@ -2,7 +2,7 @@ import { loginUser } from "@/store/actions/authAction"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 import SignupInfo from "@/components/signupInfo"
 
@@ -20,6 +20,7 @@ const LoginPage = (props: Props) => {
   const { access, refresh, loading, error } = useAppSelector(
     (state) => state.auth
   )
+  const [authError, setAuthError] = useState("")
   const isAuth = localStorage.getItem("token")
 
   useEffect(() => {
@@ -28,7 +29,15 @@ const LoginPage = (props: Props) => {
 
   const onSubmit = (data: any) => {
     try {
-      dispatch(loginUser(data.email, data.password)).then(() => navigate("/"))
+      dispatch(loginUser(data.email, data.password)).then((res) => {
+        if (res) {
+          if (res.response.status !== 200 || 201) {
+            setAuthError("Введен неверный E-mail или пароль")
+          }
+        } else {
+          navigate("/profile")
+        }
+      })
     } catch (error: Error | any) {
       console.log(error.message)
     }
@@ -39,9 +48,9 @@ const LoginPage = (props: Props) => {
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
-    <div className="p-10">
+    <div className="py-10">
       {!isAuth ? (
-        <div className="mx-auto flex w-5/6 items-start justify-between rounded-xl bg-gray-200 px-5 py-5 shadow-md">
+        <div className="mx-auto flex w-11/12 items-start justify-between rounded-xl bg-gray-70 px-5 py-5 shadow-md md:w-5/6">
           <div>
             <form onSubmit={handleSubmit(onSubmit)} className="max-w-[500px]">
               <div className="flex justify-center pb-2 text-2xl font-bold text-gray-600">
@@ -114,13 +123,18 @@ const LoginPage = (props: Props) => {
                   Восстановление пароля
                 </Link>
               </div>
+              {authError && (
+                <div className="flex items-center pt-3 text-sm font-medium text-primary-500">
+                  {authError}
+                </div>
+              )}
               <div className="my-4  flex items-start justify-between">
                 <button
-                  className="w-full rounded-xl bg-secondary-500 px-16 py-3 text-lg font-medium text-white transition hover:bg-primary-500 disabled:bg-gray-700 disabled:opacity-70"
+                  className="disabled:opacity-7 w-full rounded-xl  bg-secondary-500 px-16 py-3 text-lg font-semibold text-gray-700 transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-700 disabled:text-gray-400 disabled:opacity-50"
                   type="submit"
                   disabled={!isValid || !isDirty}
                 >
-                  Войти
+                  Авторизоваться
                 </button>
               </div>
             </form>

@@ -1,18 +1,12 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { competitorAPI } from "@/services/competitorService"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { ColorRing } from "react-loader-spinner"
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { getCompetitorFullname } from "@/models/Competitor"
-import MatchesList from "./MatchesList"
+
 import { matchAPI } from "@/services/matchService"
 
-import profilePhoto from "/assets/profilePage.png"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-  faArrowLeftLong,
-  faArrowRightLong,
-} from "@fortawesome/free-solid-svg-icons"
 import UpMenuBar from "@/components/upMenu/upMenuBar"
 import { getNormalizeDate } from "@/utils/date"
 
@@ -22,23 +16,24 @@ let upMenuButtons = [
   {
     selected: true,
     title: "Основная информация",
-    target: "competitorMain",
+    target: "main",
   },
   {
     selected: false,
     title: "Характеристики",
-    target: "competitorStats",
+    target: "stats",
   },
   {
     selected: false,
     title: "Лиги",
-    target: "competitorLeagues",
+    target: "leagues",
   },
 ]
 
 const CompetitorCardPage = (props: Props) => {
   const navigate = useNavigate()
   const { competitorId } = useParams()
+  const [targetWindow, setTargetWindow] = useState("main")
   const {
     isLoading,
     data: competitor,
@@ -122,8 +117,8 @@ const CompetitorCardPage = (props: Props) => {
 
   if (competitor)
     return (
-      <div className="w-full p-8">
-        <div className="mx-auto h-auto w-5/6 rounded-xl shadow-xl">
+      <div className="w-full py-8">
+        <div className="mx-auto h-auto w-11/12 rounded-xl shadow-xl md:w-5/6">
           <div className="rounded-t-xl bg-gray-700">
             <div className="flex items-center justify-between py-3 px-5">
               <div className="text-xl font-bold uppercase text-white">
@@ -145,7 +140,7 @@ const CompetitorCardPage = (props: Props) => {
               />
             </div>
             <div className="w-full">
-              <UpMenuBar items={upMenuButtons} />
+              <UpMenuBar items={upMenuButtons} changeTarget={setTargetWindow} />
               <div className="flex gap-6 pt-3 pb-2 text-lg">
                 <div className="text-xl font-extrabold text-gray-700">
                   Информация о спортсмене

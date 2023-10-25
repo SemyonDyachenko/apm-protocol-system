@@ -14,5 +14,13 @@ export const leagueAPI = createApi({
         },
       }),
     }),
+    fetchLeague: build.query<League,number>({
+      query: (id,limit: number = 1) => ({
+        url: `leagues/${id}`,
+        params: {
+          _limit: limit,
+        },
+      }),
+    }),
   }),
 })

@@ -1,4 +1,8 @@
-    Options -MultiViews
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.html [QSA,L]
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|gif)$
+RewriteCond %{REQUEST_URI} !^/index.html$
+RewriteRule ^(.*)$ /index.html [L,QSA]
+RewriteRule ^other-route/(\w+)/?$ index.html [L]
+RewriteRule ^another-route/(\d+)/(\w+)/?$ index.html [L]
+RewriteRule ^competitors/(\d+)/?$ index.html [L]

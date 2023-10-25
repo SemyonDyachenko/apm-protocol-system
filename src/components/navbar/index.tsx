@@ -1,22 +1,35 @@
 import { useAppSelector } from "@/hooks/redux"
 import {
+  faBackspace,
+  faBars,
   faBuilding,
+  faCircleXmark,
   faHome,
   faList,
   faMoon,
   faRightToBracket,
   faSun,
   faTable,
+  faUser,
+  faUserCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { SocialIcon } from "react-social-icons"
 import LangSwitch from "./langSwitch"
+import SideBarHeader from "./sidebarHeader"
 
 type Props = {}
 
-const navLinks = [
+export type NavLink = {
+  path: string
+  title: string
+  icon: any
+  disabled?: boolean
+}
+
+const navLinks: Array<NavLink> = [
   {
     path: "/",
     title: "Главная",
@@ -64,6 +77,7 @@ const Navbar = (props: Props) => {
   const [scrollPrev, setScrollPrev] = useState(0)
   const [fixed, setFixed] = useState("")
   const [langHidden, setLangHidden] = useState(false)
+  const [sidebarOpened, openSidebar] = useState(false)
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -80,7 +94,8 @@ const Navbar = (props: Props) => {
   }, [theme])
 
   const navbarPositionListner = () => {
-    if (location.pathname == "/") setFixed("fixed left-1/2 -translate-x-1/2")
+    if (location.pathname == "/")
+      setFixed("fixed left-[50%] translate-x-[-50%]")
     else setFixed("")
   }
 
@@ -97,81 +112,99 @@ const Navbar = (props: Props) => {
   })
 
   const buttonStyles =
-    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]  text-gray-700 transition hover:bg-secondary-400 text-md"
+    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]  text-gray-700 transition  hover:bg-secondary-400 text-md"
 
   return (
-    <nav
-      className={` ${hidden} center ${fixed}  z-20 mx-auto mt-3 w-11/12   rounded-[25px]  bg-gray-700 shadow-md transition`}
-    >
-      <div className="flex items-center justify-between py-3 px-16">
-        <div>
-          <Link to="/">
-            <img
-              className="h-[50px]"
-              src="assets/logo/mainlogo.png"
-              alt="image"
-            />
-          </Link>
-        </div>
-        <div className="flex items-center justify-center text-sm font-medium text-white">
-          {navLinks.map((element, index) => (
-            <Link
-              key={`${element}+${index}`}
-              to={element.path}
-              className={`${
-                !element.disabled
-                  ? "transition hover:text-secondary-400"
-                  : "link-disabled hover:text-gray-disabled"
-              }`}
-            >
-              <div
+    <div>
+      <nav
+        className={` ${hidden} center ${fixed}  z-20 mx-auto mt-3 w-11/12 rounded-[25px]  bg-gray-700 shadow-md transition duration-300 `}
+      >
+        <div className="flex items-center justify-between py-3 px-16">
+          <div>
+            <Link to="/">
+              <img
+                className="h-[50px]"
+                src="assets/logo/mainlogo.png"
+                alt="image"
+              />
+            </Link>
+          </div>
+          <div className="hidden items-center justify-center text-sm font-medium text-white md:flex">
+            {navLinks.map((element, index) => (
+              <Link
+                key={`${element}+${index}`}
+                to={element.path}
                 className={`${
-                  element.path === location.pathname && "text-secondary-400"
-                }`}
-                key={index}
+                  !element.disabled
+                    ? "transition hover:text-secondary-400"
+                    : "link-disabled hover:text-gray-disabled"
+                }  `}
               >
                 <div
-                  className={`mx-3 flex items-center gap-2 ${
-                    element.disabled && "text-gray-disabled"
+                  className={`${
+                    element.path === location.pathname && "text-secondary-400"
                   }`}
+                  key={index}
                 >
-                  <div>{element.title}</div>
+                  <div
+                    className={`mx-3 flex items-center gap-2 ${
+                      element.disabled && "text-gray-disabled"
+                    }`}
+                  >
+                    <div>{element.title}</div>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex  items-center justify-center gap-3">
-          <div className="px-3">
-            <div
-              onClick={() => setLangHidden(!langHidden)}
-              className="cursor-pointer font-semibold text-white"
-            >
-              RUS
-            </div>
-            <LangSwitch active={langHidden} />
+              </Link>
+            ))}
           </div>
 
-          {isAuth() ? (
-            <div>
-              <Link to="/profile">
-                <div className={buttonStyles}>Профиль</div>
-              </Link>
+          <div className="hidden  items-center justify-center gap-3 md:flex">
+            <div className="px-3">
+              <div
+                onClick={() => setLangHidden(!langHidden)}
+                className="cursor-pointer font-semibold text-white"
+              >
+                RUS
+              </div>
+              <LangSwitch active={langHidden} />
             </div>
-          ) : (
-            <div className="flex gap-2 ">
-              <Link className="text-white " to="/login">
-                <div className="text-md flex items-center gap-2 rounded-lg px-0 py-2 font-medium transition hover:text-secondary-500">
-                  <div>Войти</div>
-                  <FontAwesomeIcon icon={faRightToBracket} />
-                </div>
-              </Link>
-            </div>
-          )}
+
+            {isAuth() ? (
+              <div>
+                <Link to="/profile">
+                  <div className={`${buttonStyles} flex items-center gap-2`}>
+                    <FontAwesomeIcon icon={faUserCircle} />
+                    <div>Профиль</div>
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <div className="flex gap-2 ">
+                <Link className="text-white " to="/login">
+                  <div className="text-md flex items-center gap-2 rounded-lg px-0 py-2 font-medium transition hover:text-secondary-500">
+                    <div>Войти</div>
+                    <FontAwesomeIcon icon={faRightToBracket} />
+                  </div>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <div className="md:hidden">
+            <FontAwesomeIcon
+              onClick={() => openSidebar(!sidebarOpened)}
+              className="cursor-pointer text-xl text-secondary-500"
+              icon={faBars}
+            />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+      <SideBarHeader
+        openSidebar={openSidebar}
+        sidebarOpened={sidebarOpened}
+        navLinks={navLinks}
+      />
+    </div>
   )
 }
 

@@ -1,12 +1,8 @@
 import { competitorAPI } from "@/services/competitorService"
-import { Table } from "react-bootstrap"
-import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { Link } from "react-router-dom"
-import Input from "react-select/dist/declarations/src/components/Input"
 import CompetitorListNode from "./ListNode"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import FilterBar from "@/components/filterBar"
+import PerfectScrollbar from "react-perfect-scrollbar"
 
 type Props = {}
 
@@ -42,13 +38,17 @@ const RatingList = (props: Props) => {
         </div>
         {/* competitors list*/}
         <div>
-          <div className=" my-4 max-h-[600px] ">
+        <PerfectScrollbar>
+          <div className="my-4 max-h-[550px]">
+            <div className="pr-4">
             {competitors?.map((competitor, index) => (
               <Link to={`/competitor/${competitor.id}`}>
                 <CompetitorListNode place={index + 1} data={competitor} />
               </Link>
             ))}
+            </div>
           </div>
+          </PerfectScrollbar>
         </div>
       </div>
     </div>

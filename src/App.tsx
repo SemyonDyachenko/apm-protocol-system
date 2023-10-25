@@ -18,6 +18,7 @@ import { useEffect } from "react"
 import CompetitorCardPage from "./pages/competitorCard"
 import LeaguePage from "./pages/league"
 import StartPage from "./pages/landing"
+import PageNotFound from "./pages/404/PageNotFound"
 
 function NavbarWrapper() {
   return (
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "league/:leagueId",
         element: <LeaguePage />,
+      },
+      {
+        path: "*",
+        element: <PageNotFound />,
       },
     ],
   },

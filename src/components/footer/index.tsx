@@ -8,14 +8,14 @@ const Footer = (props: Props) => {
   const liStyles = "pb-1 text-sm"
 
   return (
-    <footer className="text-md relative z-10 bg-gray-700 pt-5 font-medium uppercase text-white shadow-inner">
+    <footer className="text-md relative bottom-0 z-10 bg-gray-700 pt-5 pb-3 font-medium uppercase text-white shadow-inner">
       <div className="mx-auto w-4/5 ">
-        <div className="flex justify-between gap-4">
+        <div className="justify-between gap-4 md:flex">
           <div className="col-md-4 col-sm-12">
             <h4 className={"text-md pb-3"}>Armwrestling Promotion Machine</h4>
           </div>
 
-          <div className="flex-column flex justify-end text-right">
+          <div className="flex-column  mt-4 flex justify-end md:mt-0 md:text-right">
             <div className="cursor-pointer underline transition hover:text-secondary-500 ">
               политика конфиденциальности
             </div>
@@ -27,14 +27,14 @@ const Footer = (props: Props) => {
       </div>
       <div className="mx-auto w-4/5">
         <div className="py-14">
-          <div className="flex items-center justify-between">
+          <div className="items-center justify-between md:flex">
             <div className="">
               <p>
                 &copy; 2023 Всероссийская Федерация Армрестлинга. All Rights
                 Reserved.
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="mt-4 flex gap-2 md:mt-0">
               <div>
                 <SocialIcon
                   bgColor="#1DA1F2"

@@ -4,45 +4,51 @@ import { Link } from "react-router-dom"
 type Props = {}
 
 const EntrySection = (props: Props) => {
+  const outlineButtonStyles =
+    "flex items-center justify-center md:text-md text-sm rounded-lg  border-2 border-secondary-500 py-[12px] font-semibold text-secondary-500 transition hover:animate-pulse hover:bg-secondary-500 hover:text-gray-700"
   return (
     <div className="relative flex w-full bg-gray-700">
       <div className="z-10 mx-auto h-auto min-h-screen w-11/12 px-4 pt-[160px] pb-[50px] text-white">
-        <div className="relative w-3/5">
-          <div className="space-x-2  text-6xl  font-bold leading-tight tracking-wider">
+        <div className="relative w-full md:w-3/5">
+          <div className="w-full space-x-2 text-3xl font-bold  leading-tight tracking-wider md:text-6xl">
             <div>
               АРМ-
-              <span className=" animate-pulse text-secondary-500">РЕЙТ</span> -
+              <span className="animate-pulse text-secondary-500">РЕЙТ</span> -
               Российская
             </div>
             онлайн
             <span className=" animate-pulse text-secondary-500">платформа</span>
           </div>
-          <div className="w-4/5 py-8 text-lg font-semibold tracking-normal">
-            <p className="text-xl">
-              <div className="pb-2">Платформа объединяет в себе:</div>
-              - Цифровой электронный паспорт спортсмена
-              <br /> - Систему ведения протоколов
-              <br /> - Объединенный рейтинг спортсменов
-              <br /> - Базу данных всех поединков со сквозной аналитикой
+          <div className="text-md w-full py-8 font-semibold tracking-normal md:w-4/5">
+            <p className="text-md md:text-xl">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur.
+              <span className="animate-pulse text-secondary-500">
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                qui officia deserunt mollit anim id est laborum. velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </span>
             </p>
           </div>
           <div className="my-4">
-            <div className="flex w-8/12 justify-between gap-4">
+            <div className="flex w-full justify-between gap-2 md:w-8/12 md:gap-4">
               <Link to="/leagues" className="w-6/12 transition">
-                <div className=" flex items-center justify-center rounded-lg  border-2 border-secondary-500 py-[12px] font-semibold text-secondary-500 transition hover:animate-pulse hover:bg-secondary-500 hover:text-gray-700">
-                  Лиги
-                </div>
+                <div className={outlineButtonStyles}>Лиги</div>
               </Link>
 
               <Link to="/tournaments" className="w-6/12  transition">
-                <div className="flex items-center justify-center rounded-lg  border-2 border-secondary-500 py-[12px] font-semibold text-secondary-500 transition hover:animate-pulse hover:bg-secondary-500 hover:text-gray-700">
-                  Турниры
-                </div>
+                <div className={outlineButtonStyles}>Турниры</div>
               </Link>
             </div>
             <div className="py-4">
               <Link to="/signup" className="">
-                <div className="flex w-8/12 items-center justify-center rounded-lg border-2  border-secondary-500 bg-secondary-500 py-[18px] font-semibold text-white shadow-sm transition hover:animate-pulse hover:bg-transparent hover:text-secondary-500">
+                <div className="flex w-full items-center justify-center rounded-lg border-2 border-secondary-500 bg-secondary-500 py-[16px] text-sm font-semibold text-gray-700 shadow-md transition hover:animate-pulse hover:bg-transparent hover:text-secondary-500 md:w-8/12 md:text-lg">
                   СТАТЬ ЧЕМПИОНОМ
                 </div>
               </Link>

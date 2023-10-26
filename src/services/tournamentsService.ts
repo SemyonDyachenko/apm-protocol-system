@@ -15,6 +15,14 @@ export const tournamentAPI = createApi({
         },
       }),
     }),
+    fetchTournaments: build.query<Tournament[], number>({
+      query: () => ({
+        url: "tournaments/",
+        params: {
+          _limit: 1000,
+        },
+      }),
+    }),
     fetchTournament: build.query<Tournament, number>({
       query: (id: number) => ({
         url: "tournaments/" + id.toString(),

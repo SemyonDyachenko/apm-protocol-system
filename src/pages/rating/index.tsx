@@ -26,7 +26,7 @@ const RatingList = (props: Props) => {
       <div className="w-9/12">
         {/* upper bar*/}
         <div className="">
-          <div className="w-full rounded-[10px] border-2 border-gray-300 bg-white shadow-sm">
+          <div className="w-full rounded-[10px]  border-gray-300 bg-white shadow-md">
             <div className="flex items-center justify-between py-[10px] px-10">
               {competitorPropsList.map((element) => (
                 <div className={`font-semibold text-gray-700 `} key={element}>
@@ -38,16 +38,16 @@ const RatingList = (props: Props) => {
         </div>
         {/* competitors list*/}
         <div>
-        <PerfectScrollbar>
-          <div className="my-4 max-h-[550px]">
-            <div className="pr-4">
-            {competitors?.map((competitor, index) => (
-              <Link to={`/competitor/${competitor.id}`}>
-                <CompetitorListNode place={index + 1} data={competitor} />
-              </Link>
-            ))}
+          <PerfectScrollbar>
+            <div className="my-4 max-h-[550px]">
+              <div className="pr-4">
+                {competitors?.map((competitor, index) => (
+                  <Link to={`/competitor/${competitor.id}`}>
+                    <CompetitorListNode place={index + 1} data={competitor} />
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
           </PerfectScrollbar>
         </div>
       </div>

@@ -1,68 +1,67 @@
-import HText from "@/components/UI/HText"
-import { tournamentAPI } from "@/services/tournamentsService"
-import TournamentsTable from "./TournamentsTable"
+import FilterBar from "@/components/filterBar"
 import { leagueAPI } from "@/services/leaugeService"
-import TournamentCreateForm from "./createForm"
+import { tournamentAPI } from "@/services/tournamentsService"
+import { faList, faTable } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import SectionsTournamentsView from "./sectionsView"
+import ListTournamentsView from "./listView"
 
 type Props = {}
 
 const TournamentsPage = (props: Props) => {
-  const { data: tournaments } = tournamentAPI.useFetchAllTournamentsQuery(10)
-  const { data: leagues } = leagueAPI.useFetchAllLeaguesQuery(100)
+  const { data: tournaments } = tournamentAPI.useFetchTournamentsQuery(0)
+  const [tournamentsView, setTournamentsView] = useState("list")
+
+  const getTournamentsView = () => {
+    if (tournaments) {
+      switch (tournamentsView) {
+        case "list":
+          return <ListTournamentsView tournaments={tournaments} />
+        case "sections":
+          return <SectionsTournamentsView tournaments={tournaments} />
+        default:
+          return (
+            <div className="text-2xl font-bold text-secondary-500">
+              NOT FOUND
+            </div>
+          )
+      }
+    }
+  }
+
   return (
-    <div className="flex min-h-[650px] items-center justify-center p-5">
-      <h1 className=" animate-pulse text-5xl font-semibold text-gray-700">
-        Coming soon
-      </h1>
+    <div className="mx-auto flex min-h-[650px] w-11/12 items-start justify-between py-5">
+      <div className="">
+        <FilterBar />
+      </div>
+      <div className="w-9/12">
+        <div className="flex w-full justify-between pr-5">
+          <div className="text-3xl font-bold">Актуальные турниры</div>
+          <div className="flex gap-2 text-xl font-medium  ">
+            <div
+              onClick={() => setTournamentsView("sections")}
+              className={`cursor-pointer transition hover:text-secondary-500 ${
+                tournamentsView === "sections" && "text-secondary-500"
+              }`}
+            >
+              <FontAwesomeIcon icon={faTable} />
+            </div>
+            <div
+              onClick={() => setTournamentsView("list")}
+              className={`cursor-pointer transition hover:text-secondary-500  ${
+                tournamentsView === "list" && "text-secondary-500"
+              }`}
+            >
+              <FontAwesomeIcon icon={faList} />
+            </div>
+          </div>
+        </div>
+        {getTournamentsView()}
+      </div>
     </div>
   )
 }
-
-/*
- <div className="mx-auto">
-        <section id="old w-full">
-          <div className="flex justify-between">
-            <div className="pb-4">
-              <HText>Список всех турниров</HText>
-            </div>
-          </div>
-          <details className="rounded-xl bg-secondary-400 ">
-            <summary className="rounded-lg bg-secondary-400 px-10 py-2 text-lg text-white ">
-              Раскрыть список
-            </summary>
-            <div id="table" className="p-2">
-              {tournaments && leagues && (
-                <TournamentsTable
-                  status={false}
-                  leagues={leagues}
-                  tournaments={tournaments}
-                />
-              )}
-            </div>
-          </details>
-        </section>
-
-        <section id="new" className="mt-4">
-          <div className="pb-4">
-            <HText>Список активных турниров</HText>
-          </div>
-          <details className="rounded-xl bg-secondary-400 ">
-            <summary className="rounded-lg bg-secondary-400 px-10 py-2 text-lg text-white ">
-              Раскрыть список
-            </summary>
-            <div id="table" className="p-2">
-              {tournaments && leagues && (
-                <TournamentsTable
-                  status={true}
-                  leagues={leagues}
-                  tournaments={tournaments}
-                />
-              )}
-            </div>
-          </details>
-        </section>
-        <TournamentCreateForm />
-      </div>
-*/
 
 export default TournamentsPage

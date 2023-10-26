@@ -7,7 +7,7 @@ type Props = {}
 const FilterBar = (props: Props) => {
   return (
     <div className="w-[350px]">
-      <div className=" mr-4  rounded-[10px] border-2 border-gray-300 bg-white p-4">
+      <div className=" mr-4  rounded-[10px]  bg-white p-4 shadow-md">
         <div>
           <div className="flex cursor-pointer items-center justify-between">
             <div className="text-lg font-semibold text-gray-700">Рука</div>

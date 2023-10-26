@@ -35,7 +35,7 @@ const LeagueList = (props: Props) => {
           <div className="w-9/12">
             {/* upper bar*/}
             <div className="">
-              <div className="w-full rounded-[10px] border-2 border-gray-300 bg-white shadow-sm">
+              <div className="border-1 w-full rounded-[10px] border-gray-300 bg-white shadow-sm">
                 <div className="flex items-center justify-between py-[10px] px-10">
                   {leaguePropsList.map((element) => (
                     <div

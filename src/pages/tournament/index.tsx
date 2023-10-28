@@ -20,6 +20,7 @@ import { sidebarItemData } from "@/components/sidebarMenu/sidebarItem"
 import { useState } from "react"
 import UpBanner from "@/components/upbanner"
 import TournamentInfoPage from "./informationPage"
+import TournamentCompetitorsPage from "./competitorsPage"
 
 type Props = {}
 
@@ -57,9 +58,13 @@ const TournamentPage = (props: Props) => {
   ]
 
   const getWindow = () => {
-    switch (selectedWindow) {
-      case "general":
-        return <TournamentInfoPage />
+    if (tournament) {
+      switch (selectedWindow) {
+        case "general":
+          return <TournamentInfoPage tournament={tournament} />
+        case "users":
+          return <TournamentCompetitorsPage tournament={tournament} />
+      }
     }
   }
 

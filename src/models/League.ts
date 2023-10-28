@@ -6,6 +6,9 @@ export default interface League {
   president: string
   level: string
   average_rating: number
+  creation_date?: Date
+  phone?: string
+  email?: string
 }
 
 export const getLeagueLevel = (league: League) => {

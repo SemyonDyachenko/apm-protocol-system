@@ -1,4 +1,5 @@
 import { SERVER_URL } from "@/api/instance"
+import Competitor from "@/models/Competitor"
 import Tournament, { TournamentRegistration } from "@/models/Tournament"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
@@ -28,9 +29,9 @@ export const tournamentAPI = createApi({
         url: "tournaments/" + id.toString(),
       }),
     }),
-    fetchTournamentRegistration: build.query<TournamentRegistration[], number>({
+    fetchTournamentRegistration: build.query<Competitor[], number>({
       query: (tournamentId: number) => ({
-        url: "tournament_registration/",
+        url: "tournamentCompetitors/",
         params: {
           tournamentId,
         },

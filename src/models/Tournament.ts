@@ -14,6 +14,8 @@ export default interface Tournament {
   date: string
   league: number
   is_started: boolean
+  level: string
+  phone: string
 }
 
 export interface TournamentRegistration {
@@ -22,4 +24,10 @@ export interface TournamentRegistration {
   competitor: number
   weight_class: number
   registration_date: string
+}
+
+export const getTournamentLevel = (tournament: Tournament) => {
+  return tournament.level.toLocaleLowerCase() === "pro"
+    ? "Профессиональный"
+    : "Любительский"
 }

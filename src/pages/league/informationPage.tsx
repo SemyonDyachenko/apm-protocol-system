@@ -5,6 +5,7 @@ import { competitorAPI } from "@/services/competitorService"
 import React from "react"
 import { Link } from "react-router-dom"
 import RatingInfo from "./ratingInfo"
+import { getNormalizeDate } from "@/utils/date"
 
 type Props = {
   league: League
@@ -37,7 +38,9 @@ const LeagueInformationWindow = ({ league }: Props) => {
     },
     {
       title: "Дата создания",
-      value: "23 сентября 2015",
+      value:
+        league.creation_date &&
+        getNormalizeDate(new Date(league.creation_date).toDateString()),
     },
     {
       title: "Статус",
@@ -49,11 +52,11 @@ const LeagueInformationWindow = ({ league }: Props) => {
     },
     {
       title: "Телефон",
-      value: "+7 (918)-064-33-82",
+      value: league.phone,
     },
     {
       title: "Почта",
-      value: "apm@league.com",
+      value: league.email,
     },
     {
       title: "Телефон",

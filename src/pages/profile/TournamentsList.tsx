@@ -1,38 +1,31 @@
-import UpMenuBar, { upMenuItem } from "@/components/upMenu/upMenuBar"
-import League from "@/models/League"
-import RatingInfo from "./ratingInfo"
-import { tournamentAPI } from "@/services/tournamentsService"
 import ListNode from "@/components/listNode"
-import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
+import UpMenuBar, { upMenuItem } from "@/components/upMenu/upMenuBar"
+import { useState } from "react"
+import { tournamentAPI } from "@/services/tournamentsService"
 import { getNormalizeDate } from "@/utils/date"
+import { Link } from "react-router-dom"
 
 type Props = {
-  league: League
+  competitorId: number
 }
 
-const items: Array<upMenuItem> = [
+const profileSettingsItems: Array<upMenuItem> = [
   {
     title: "Актуальные",
-    target: "present",
     selected: true,
+    target: "present",
   },
   {
     title: "Прошедшие",
-    target: "past",
     selected: false,
+    target: "pas",
   },
 ]
 
-const LeagueTournaments = ({ league }: Props) => {
-  const { data: tournaments } = tournamentAPI.useFetchAllTournamentsQuery(
-    league.id
-  )
-  const [tournamentsTarget, changeTournamentsTarget] = useState("present")
-
-  useEffect(() => {
-    changeTournamentsTarget("present")
-  }, [])
+const CompetitorTournamentsList = ({ competitorId }: Props) => {
+  const { data: tournaments } =
+    tournamentAPI.useFetchCompetitorTournamentsQuery(competitorId)
+  const [targetWindow, setTargetWindow] = useState("general")
 
   const getFilteredTournaments = (target: string) => {
     const date = new Date()
@@ -48,18 +41,19 @@ const LeagueTournaments = ({ league }: Props) => {
 
   return (
     <div>
-      <div className="flex w-full">
-        <div className="w-1/2">
-          <UpMenuBar changeTarget={changeTournamentsTarget} items={items} />
-        </div>
-        <RatingInfo count={"63"} rating={"1333"} />
-      </div>
       <div>
-        {getFilteredTournaments(tournamentsTarget)?.map((element, index) => (
+        <UpMenuBar
+          changeTarget={setTargetWindow}
+          items={profileSettingsItems}
+        />
+      </div>
+
+      <div className="pt-4">
+        {getFilteredTournaments(targetWindow)?.map((element, index) => (
           <Link
-            key={index}
             className="hover:text-gray-700"
             to={`/tournaments/${element.id}`}
+            key={index}
           >
             <ListNode>
               <div className="text-md w-1/3 py-2 font-semibold">
@@ -82,4 +76,4 @@ const LeagueTournaments = ({ league }: Props) => {
   )
 }
 
-export default LeagueTournaments
+export default CompetitorTournamentsList

@@ -6,6 +6,8 @@ import ListNode from "@/components/listNode"
 import { competitorAPI } from "@/services/competitorService"
 import Competitor, { getCompetitorFullname } from "@/models/Competitor"
 import { useEffect } from "react"
+import CompetitorLinkItem from "@/components/competitorLink"
+import { getAvarageRating } from "@/utils/eloCalculation"
 
 type Props = {
   tournament: Tournament
@@ -50,40 +52,17 @@ const TournamentCompetitorsPage = ({ tournament }: Props) => {
           <div className="w-4/5">
             <UpMenuBar items={items} />
           </div>
-          <RatingInfo />
+          {competitors && (
+            <RatingInfo
+              rating={getAvarageRating(competitors).toString()}
+              count={competitors?.length.toString()}
+            />
+          )}
         </div>
         <div>
           {competitors &&
             competitors.map((competitor, index) => (
-              <ListNode key={index}>
-                <div className="flex w-1/4 items-center gap-8">
-                  <div>
-                    <img
-                      className="h-[65px] w-[65px] rounded-full"
-                      src={competitor.image?.toString() || ""}
-                    />
-                  </div>
-                  <div className="text-md font-semibold">
-                    {getCompetitorFullname(competitor)}
-                  </div>
-                </div>
-                <div className="flex w-1/6 justify-start font-medium">
-                  {competitor.city}
-                </div>
-                <div className="flex w-1/6 justify-start font-medium">
-                  {competitor.rank}
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="text-3xl font-black text-secondary-500 ">
-                    {competitor.elo_rating}
-                  </div>
-                  <div className="text-md font-semibold">
-                    Рейтинг
-                    <br />
-                    Спортсмена
-                  </div>
-                </div>
-              </ListNode>
+              <CompetitorLinkItem key={index} competitor={competitor} />
             ))}
         </div>
       </div>

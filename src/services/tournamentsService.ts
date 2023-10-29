@@ -37,5 +37,13 @@ export const tournamentAPI = createApi({
         },
       }),
     }),
+    fetchCompetitorTournaments: build.query<Tournament[], number>({
+      query: (competitorId: number) => ({
+        url: "competitorTournaments/",
+        params: {
+          competitorId,
+        },
+      }),
+    }),
   }),
 })

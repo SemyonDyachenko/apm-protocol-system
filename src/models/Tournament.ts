@@ -24,6 +24,7 @@ export interface TournamentRegistration {
   competitor: number
   weight_class: number
   registration_date: string
+  category: string
 }
 
 export const getTournamentLevel = (tournament: Tournament) => {

@@ -8,6 +8,8 @@ import { competitorAPI } from "@/services/competitorService"
 import { getLeagueLevel } from "@/models/League"
 import { getCompetitorFullname } from "@/models/Competitor"
 import GridItem from "@/components/gridItem"
+import { getAvarageRating } from "@/utils/eloCalculation"
+import { tournamentAPI } from "@/services/tournamentsService"
 
 type Props = {
   tournament: Tournament
@@ -29,6 +31,8 @@ const TournamentInfoPage = ({ tournament }: Props) => {
   const { data: secretary } = competitorAPI.useFetchCompetitorDataQuery(
     tournament.main_secretary
   )
+  const { data: competitors } =
+    tournamentAPI.useFetchTournamentRegistrationQuery(tournament.id)
 
   const gridItems = [
     {
@@ -91,7 +95,12 @@ const TournamentInfoPage = ({ tournament }: Props) => {
         <div className="w-1/2">
           <UpMenuBar items={items} />
         </div>
-        <RatingInfo />
+        {competitors && (
+          <RatingInfo
+            rating={getAvarageRating(competitors).toString()}
+            count={competitors?.length.toString()}
+          />
+        )}
       </div>
       <div>
         <div>

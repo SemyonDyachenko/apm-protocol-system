@@ -1,8 +1,10 @@
 import { useAppSelector } from "@/hooks/redux"
 import {
+  faArrowDown,
   faBackspace,
   faBars,
   faBuilding,
+  faCaretDown,
   faCircleXmark,
   faHome,
   faList,
@@ -159,12 +161,12 @@ const Navbar = (props: Props) => {
           </div>
 
           <div className="hidden  items-center justify-center gap-3 md:flex">
-            <div className="px-3">
+            <div className="px-3 text-white ">
               <div
                 onClick={() => setLangHidden(!langHidden)}
-                className="cursor-pointer font-semibold text-white"
+                className="cursor-pointer font-semibold transition hover:text-secondary-500"
               >
-                RUS
+                RUS <FontAwesomeIcon icon={faCaretDown} />
               </div>
               <LangSwitch active={langHidden} />
             </div>

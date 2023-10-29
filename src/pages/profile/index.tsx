@@ -11,38 +11,15 @@ import { useEffect, useState } from "react"
 
 import { Link, useNavigate } from "react-router-dom"
 import PersonalInfoWindow from "./PersonalInfoWindow"
-import CompetitorMatchList from "./CompetitorMatchList"
+import CompetitorMatchList from "./TournamentsList"
 import { ColorRing } from "react-loader-spinner"
 import UpMenuBar, { upMenuItem } from "@/components/upMenu/upMenuBar"
 import { sidebarItemData } from "@/components/sidebarMenu/sidebarItem"
 import SideBarMenu from "@/components/sidebarMenu"
 import InfoWindow from "./InfoWindow"
+import CompetitorTournamentsList from "./TournamentsList"
 
 type Props = {}
-
-const profileSettingsItems: Array<upMenuItem> = [
-  {
-    title: "Основная информация",
-    selected: true,
-    target: "general",
-  },
-  {
-    title: "Безопасность",
-    selected: false,
-    target: "security",
-  },
-
-  {
-    title: "Уведомления",
-    selected: false,
-    target: "notification",
-  },
-  {
-    title: "О себе",
-    selected: false,
-    target: "about",
-  },
-]
 
 const ProfilePage = (props: Props) => {
   const navigate = useNavigate()
@@ -51,7 +28,6 @@ const ProfilePage = (props: Props) => {
     (state) => state.competitors
   )
   const [profileWindow, setProfileWindow] = useState("personal")
-  const [targetWindow, setTargetWindow] = useState("general")
 
   let sidebarItems: Array<sidebarItemData> = [
     {
@@ -61,7 +37,7 @@ const ProfilePage = (props: Props) => {
       children: "Профиль",
     },
     {
-      onClick: () => setProfileWindow("matches"),
+      onClick: () => setProfileWindow("tournaments"),
       selected: false,
       icon: faList,
       children: "Турниры",
@@ -77,7 +53,7 @@ const ProfilePage = (props: Props) => {
 
   useEffect(() => {
     setProfileWindow("personal")
-    setTargetWindow("general")
+
     if (!localStorage.getItem("token")) {
       navigate("/login")
     } else {
@@ -97,6 +73,19 @@ const ProfilePage = (props: Props) => {
       }
     }
   }, [])
+
+  const getCurrentWindow = () => {
+    if (competitor) {
+      switch (profileWindow) {
+        case "personal":
+          return <InfoWindow competitor={competitor} />
+        case "tournaments":
+          return <CompetitorTournamentsList competitorId={competitor.id} />
+      }
+    } else {
+      return <div>NOT FOUND</div>
+    }
+  }
 
   if (loading)
     return (
@@ -134,19 +123,7 @@ const ProfilePage = (props: Props) => {
             </div>
             <div className="w-4/5 rounded-xl shadow-md">
               <div className="py-2 px-5">
-                <UpMenuBar
-                  changeTarget={setTargetWindow}
-                  items={profileSettingsItems}
-                />
-                <div className="pt-4">
-                  {profileWindow === "personal" ? (
-                    <InfoWindow target={targetWindow} competitor={competitor} />
-                  ) : (
-                    <CompetitorMatchList
-                      competitorId={competitor.id?.valueOf() | 0}
-                    />
-                  )}
-                </div>
+                <div className="">{getCurrentWindow()}</div>
               </div>
             </div>
           </div>

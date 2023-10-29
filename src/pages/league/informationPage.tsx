@@ -74,7 +74,7 @@ const LeagueInformationWindow = ({ league }: Props) => {
         <div className="w-1/2">
           <UpMenuBar items={items} />
         </div>
-        <RatingInfo league={league} />
+        <RatingInfo count={"63"} rating={"1333"} />
       </div>
       <div>
         <div className="py-2">

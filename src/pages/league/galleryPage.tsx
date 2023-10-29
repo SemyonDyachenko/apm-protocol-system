@@ -20,7 +20,7 @@ const LeagueGallery = (props: Props) => {
         <div className="w-1/2">
           <UpMenuBar items={menuItems} />
         </div>
-        <RatingInfo />
+        <RatingInfo count={"63"} rating={"1333"} />
       </div>
       <div className="flex flex-wrap">
         {new Array(1, 2, 3, 4).map((_, index) => (

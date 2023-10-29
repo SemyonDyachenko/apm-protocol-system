@@ -1,3 +1,6 @@
+import Competitor from "@/models/Competitor"
+import { CommonExecOptions } from "child_process"
+
 export const calculateEloRating = (
   competitor1: number,
   competitor2: number,
@@ -23,4 +26,12 @@ export const calculateEloRating = (
       (1 - outcome - expectedOpponentScore)
   console.log(updatedOpponentRating)
   return [Math.round(updatedPlayerRating), Math.round(updatedOpponentRating)]
+}
+
+export const getAvarageRating = (competitors: Array<Competitor>) => {
+  const totalRating = competitors.reduce(
+    (accum, competitor) => accum + competitor.elo_rating,
+    0
+  )
+  return Math.round(totalRating / competitors.length)
 }

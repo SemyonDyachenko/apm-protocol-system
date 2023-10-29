@@ -2,15 +2,16 @@ import League from "@/models/League"
 import React from "react"
 
 type Props = {
-  league?: League
+  rating?: string
+  count?: string
 }
 
-const RatingInfo = ({ league }: Props) => {
+const RatingInfo = ({ rating, count }: Props) => {
   return (
     <div className="w-1/2 justify-end">
       <div className="flex items-center justify-end gap-8">
         <div className="mt-1 flex gap-3">
-          <div className="text-4xl font-black text-secondary-500">1230</div>
+          <div className="text-4xl font-black text-secondary-500">{rating}</div>
           <div className="text-sm font-semibold">
             Средний
             <br />
@@ -18,7 +19,7 @@ const RatingInfo = ({ league }: Props) => {
           </div>
         </div>
         <div className="mt-1 flex justify-end gap-3">
-          <div className="text-4xl font-black">63</div>
+          <div className="text-4xl font-black">{count}</div>
           <div className="text-sm font-semibold">
             Количество
             <br />

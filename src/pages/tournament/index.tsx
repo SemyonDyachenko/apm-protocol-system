@@ -21,6 +21,7 @@ import { useState } from "react"
 import UpBanner from "@/components/upbanner"
 import TournamentInfoPage from "./informationPage"
 import TournamentCompetitorsPage from "./competitorsPage"
+import TournamentRegisterWindow from "./tournamentRegisterWindow"
 
 type Props = {}
 
@@ -32,6 +33,7 @@ const TournamentPage = (props: Props) => {
   )
 
   const [selectedWindow, setSelectedItem] = useState("general")
+  const [registerWindow, openRegisterWindow] = useState(false)
 
   let menuItems: Array<sidebarItemData> = [
     {
@@ -70,8 +72,17 @@ const TournamentPage = (props: Props) => {
 
   return (
     <div className="mx-auto w-11/12">
-      <UpBanner name={tournament?.name} logo={Logo} banner={Image} />
-
+      <UpBanner
+        name={tournament?.name}
+        logo={Logo}
+        banner={Image}
+        onClick={() => openRegisterWindow(true)}
+      />
+      <TournamentRegisterWindow
+        tournamentId={tournament?.id}
+        opened={registerWindow}
+        closeFunc={() => openRegisterWindow(false)}
+      />
       <div className=" flex w-full justify-between py-8">
         <div className="w-2/12">
           <SideBarMenu classname="" items={menuItems} />

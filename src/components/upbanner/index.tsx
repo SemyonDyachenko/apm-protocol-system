@@ -6,9 +6,10 @@ type Props = {
   name?: string
   logo: string
   banner: string
+  onClick?: () => void
 }
 
-const UpBanner = ({ name, logo, banner }: Props) => {
+const UpBanner = ({ name, logo, banner, onClick }: Props) => {
   return (
     <div className="relative mt-12 h-[380px] w-full rounded-t-xl rounded-b-2xl shadow-lg">
       <div className="z-[1] ">
@@ -47,7 +48,10 @@ const UpBanner = ({ name, logo, banner }: Props) => {
           </div>
           <div className="px-10 py-4">
             <div>
-              <button className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-400 active:translate-y-1">
+              <button
+                onClick={onClick}
+                className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-400 active:translate-y-1"
+              >
                 Подать заявку
               </button>
             </div>

@@ -4,6 +4,8 @@ import PersonalInfoWindow from "./PersonalInfoWindow"
 import { CompetitorData } from "@/store/slices/competitorSlice"
 import PropsInfo from "./PropsInfo"
 import UpMenuBar, { upMenuItem } from "@/components/upMenu/upMenuBar"
+import SecurityPage from "./securityPage"
+import NotificationPage from "./notificationPage"
 
 type Props = {
   competitor: CompetitorData
@@ -46,6 +48,10 @@ const InfoWindow = ({ competitor }: Props) => {
         return <PersonalInfoWindow competitor={competitor} />
       case "about":
         return <PropsInfo competitor={competitor} />
+      case "security":
+        return <SecurityPage />
+      case "notification":
+        return <NotificationPage />
       default:
         return <div></div>
     }

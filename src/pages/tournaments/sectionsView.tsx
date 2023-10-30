@@ -14,7 +14,7 @@ const SectionsTournamentsView = ({ tournaments }: Props) => {
         tournaments.map((element, index) => (
           <div
             key={index}
-            className="relative h-[350px] w-[380px] rounded-2xl shadow-md"
+            className="relative h-auto min-h-[360px] w-[380px] rounded-2xl shadow-md"
           >
             <div className="z-1 absolute h-full w-full rounded-2xl">
               <div className="absolute h-full w-full rounded-2xl bg-black opacity-30"></div>
@@ -23,8 +23,8 @@ const SectionsTournamentsView = ({ tournaments }: Props) => {
                 src="assets/landing/gallery/gallery1.jpg"
               />
             </div>
-            <div className="relative mt-4 flex h-full w-full items-end rounded-2xl">
-              <div className="h-3/6 w-full rounded-2xl bg-white px-4 py-2 pb-2 shadow-md">
+            <div className="relative mt-4  flex h-full w-full items-end rounded-2xl">
+              <div className=" w-full rounded-2xl bg-white px-4 py-2 pb-2 shadow-md">
                 <div className="text-md py-2 font-semibold text-gray-700">
                   {element.name}
                 </div>
@@ -42,7 +42,7 @@ const SectionsTournamentsView = ({ tournaments }: Props) => {
                     {element.location}
                   </div>
                 </div>
-                <div className="pt-3">
+                <div className="py-3">
                   <Link
                     className="hover:text-gray-700"
                     to={`/tournaments/${element.id}`}

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import SideBarItem, { sidebarItemData } from "./sidebarItem"
-import { useReducer } from "react"
+import { useEffect, useCallback, useState } from "react"
+import { motion } from "framer-motion"
 
 type Props = {
   classname: string
@@ -8,48 +9,52 @@ type Props = {
 }
 
 const SideBarMenu = ({ classname, items }: Props) => {
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0)
-  const selectItem = (item: sidebarItemData) => {
-    items.map((element) => {
-      if (element !== item) {
-        if (element.selected) element.selected = false
-      } else element.selected = true
-    })
-  }
+  const [selected, setSelected] = useState(0)
+
+  useEffect(() => {
+    if (selected !== null) {
+      items[selected].onClick()
+    }
+  }, [selected])
+
   return (
-    <div className={classname}>
-      <div className="w-full py-3">
-        {items.map((element, index) =>
-          element.link ? (
-            <Link key={index} to={element.link}>
+    <motion.div
+      initial={{ opacity: 0.5 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.1 }}
+      viewport={{ once: true, amount: 0.5 }}
+    >
+      <div className={classname}>
+        <div className="w-full py-3">
+          {items.map((element, index) =>
+            element.link ? (
+              <Link key={index} to={element.link}>
+                <SideBarItem
+                  onClick={() => {
+                    element.onClick()
+                  }}
+                  selected={selected === index}
+                  icon={element.icon}
+                >
+                  {element.children}
+                </SideBarItem>
+              </Link>
+            ) : (
               <SideBarItem
+                key={index}
                 onClick={() => {
-                  element.onClick
-                  selectItem(element)
+                  setSelected(index)
                 }}
-                selected={element.selected}
                 icon={element.icon}
+                selected={selected === index}
               >
                 {element.children}
               </SideBarItem>
-            </Link>
-          ) : (
-            <SideBarItem
-              key={index}
-              onClick={() => {
-                selectItem(element)
-                element.onClick()
-                forceUpdate()
-              }}
-              icon={element.icon}
-              selected={element.selected}
-            >
-              {element.children}
-            </SideBarItem>
-          )
-        )}
+            )
+          )}
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

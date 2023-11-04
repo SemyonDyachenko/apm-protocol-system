@@ -1,3 +1,5 @@
+import { once } from "events"
+import { motion } from "framer-motion"
 import { url } from "inspector"
 import React from "react"
 
@@ -22,7 +24,8 @@ const InformationSection = ({ label, text, img, bg, inverse }: Props) => {
               <div className="mt-2 h-2 w-full rounded-lg bg-gray-700"></div>
             </div>
           </div>
-          <div className="my-4 w-full md:w-1/2">
+
+          <div className="mt-4 w-full md:w-1/2">
             <h3 className="text-md font-semibold text-gray-700">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet
               natus, repellat optio fugit at qui expedita quis illo, doloremque
@@ -31,27 +34,34 @@ const InformationSection = ({ label, text, img, bg, inverse }: Props) => {
           </div>
         </div>
 
-        <div className="mt-4 min-h-[476px] w-full bg-gray-700 bg-opacity-60">
-          {!inverse ? (
-            <div className="mx-auto flex min-h-[476px] w-2/3 items-center py-4">
-              <div className="w-full md:w-2/3">
-                <p className="text-lg font-medium md:text-xl">{text}</p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ delay: 0.1 }}
+        >
+          <div className="min-h-[476px] w-full bg-gray-700 bg-opacity-60">
+            {!inverse ? (
+              <div className="mx-auto flex min-h-[476px] w-2/3 items-center py-4">
+                <div className="w-full md:w-2/3">
+                  <p className="text-lg font-medium md:text-xl">{text}</p>
+                </div>
+                <div className="hidden w-1/3 items-center justify-end md:visible md:flex">
+                  <img className="animate-pulse" alt="image" src={img} />
+                </div>
               </div>
-              <div className="hidden w-1/3 items-center justify-end md:visible md:flex">
-                <img className="animate-pulse" alt="image" src={img} />
+            ) : (
+              <div className="mx-auto flex  h-full min-h-[476px] w-2/3 items-center py-4">
+                <div className="hidden w-1/3 items-center justify-start md:visible md:flex">
+                  <img className="animate-pulse" alt="image" src={img} />
+                </div>
+                <div className="flex w-full md:w-2/3 md:justify-end">
+                  <p className="text-lg font-medium md:text-xl">{text}</p>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="mx-auto flex  h-full min-h-[476px] w-2/3 items-center py-4">
-              <div className="hidden w-1/3 items-center justify-start md:visible md:flex">
-                <img className="animate-pulse" alt="image" src={img} />
-              </div>
-              <div className="flex w-full md:w-2/3 md:justify-end">
-                <p className="text-lg font-medium md:text-xl">{text}</p>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        </motion.div>
       </div>
     </div>
   )

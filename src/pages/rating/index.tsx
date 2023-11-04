@@ -23,7 +23,7 @@ const RatingList = (props: Props) => {
       {/* filter bar */}
       <FilterBar />
       {/* main bar*/}
-      <div className="w-9/12">
+      <div className="w-10/12 pl-2">
         {/* upper bar*/}
         <div className="">
           <div className="w-full rounded-[10px]  border-gray-300 bg-white shadow-md">
@@ -39,7 +39,7 @@ const RatingList = (props: Props) => {
         {/* competitors list*/}
         <div>
           <PerfectScrollbar>
-            <div className="my-4 max-h-[550px]">
+            <div className="my-4 max-h-[620px]">
               <div className="pr-4">
                 {competitors?.map((competitor, index) => (
                   <Link to={`/competitor/${competitor.id}`}>

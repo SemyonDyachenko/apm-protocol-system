@@ -37,10 +37,12 @@ const SideBarHeader = ({ sidebarOpened, openSidebar, navLinks }: Props) => {
             <li key={index}>
               <Link
                 className={`font-medium ${
+                  item.path === location.pathname && "text-secondary-400"
+                } ${
                   !item.disabled
                     ? "transition hover:text-secondary-400"
                     : "link-disabled text-gray-400 hover:text-gray-disabled"
-                }  `}
+                }   `}
                 to={item.path}
               >
                 {item.title}

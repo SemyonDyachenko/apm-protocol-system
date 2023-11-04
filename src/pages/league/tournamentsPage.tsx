@@ -6,6 +6,7 @@ import ListNode from "@/components/listNode"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { getNormalizeDate } from "@/utils/date"
+import Tournament from "@/models/Tournament"
 
 type Props = {
   league: League
@@ -30,20 +31,21 @@ const LeagueTournaments = ({ league }: Props) => {
   )
   const [tournamentsTarget, changeTournamentsTarget] = useState("present")
 
-  useEffect(() => {
-    changeTournamentsTarget("present")
-  }, [])
-
-  const getFilteredTournaments = (target: string) => {
+  const getFilteredTournaments = () => {
     const date = new Date()
-    return (
-      tournaments &&
-      tournaments.filter((item) =>
-        target === "present"
-          ? new Date(item.date).getDate() > date.getDate()
-          : new Date(item.date).getDate() < date.getDate()
-      )
-    )
+
+    if (tournaments) {
+      switch (tournamentsTarget) {
+        case "present":
+          return tournaments.filter(
+            (item) => new Date(item.date).getTime() > date.getTime()
+          )
+        case "past":
+          return tournaments.filter(
+            (item) => new Date(item.date).getTime() < date.getTime()
+          )
+      }
+    }
   }
 
   return (
@@ -55,7 +57,7 @@ const LeagueTournaments = ({ league }: Props) => {
         <RatingInfo count={"63"} rating={"1333"} />
       </div>
       <div>
-        {getFilteredTournaments(tournamentsTarget)?.map((element, index) => (
+        {getFilteredTournaments()?.map((element, index) => (
           <Link
             key={index}
             className="hover:text-gray-700"

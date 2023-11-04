@@ -1,4 +1,4 @@
-import { faCheck, faStar } from "@fortawesome/free-solid-svg-icons"
+import { faCamera, faCheck, faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react"
 
@@ -17,6 +17,14 @@ const UpBanner = ({ name, logo, banner, onClick }: Props) => {
           className="z-4 absolute h-full w-full  rounded-t-xl rounded-b-2xl"
           src={banner}
         />
+      </div>
+      <div className="absolute right-0 bottom-1/3 z-[20] pr-4 pb-2">
+        <div className="cursor-pointer text-gray-300">
+          <FontAwesomeIcon
+            className="text-2xl transition hover:text-secondary-500"
+            icon={faCamera}
+          />
+        </div>
       </div>
       <div className="absolute z-[5] h-full w-full rounded-xl bg-black opacity-30"></div>
       <div className="relative -bottom-1 z-[10] flex h-full w-full items-end">

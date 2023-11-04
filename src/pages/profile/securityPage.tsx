@@ -10,12 +10,12 @@ const SecurityPage = (props: Props) => {
     <div className="pb-2">
       <div className="flex items-end gap-4">
         <PersonalDataInput
-          disabled={false}
+          disabled={true}
           title="Старый пароль"
           value={oldPassword}
         />
         <PersonalDataInput
-          disabled={false}
+          disabled={true}
           onChange={(e) => setNewPassword(e.target.value)}
           title="Новый пароль"
           value={newPassword}

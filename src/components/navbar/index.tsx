@@ -16,11 +16,13 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { SocialIcon } from "react-social-icons"
+
 import LangSwitch from "./langSwitch"
 import SideBarHeader from "./sidebarHeader"
+import { motion } from "framer-motion"
+import MainLogo from "/assets/logo/mainlogo.png"
 
 type Props = {}
 
@@ -73,6 +75,7 @@ const navLinks: Array<NavLink> = [
 ]
 
 const Navbar = (props: Props) => {
+  const langSwitchRef = useRef<HTMLDivElement | null>(null)
   const location = useLocation()
   const [theme, setTheme] = useState("light")
   const [hidden, setHidden] = useState("")
@@ -95,6 +98,23 @@ const Navbar = (props: Props) => {
     navbarPositionListner()
   }, [theme])
 
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (
+        langSwitchRef.current &&
+        !langSwitchRef.current.contains(event.target as HTMLElement)
+      ) {
+        setLangHidden(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
   const navbarPositionListner = () => {
     if (location.pathname == "/")
       setFixed("fixed left-[50%] translate-x-[-50%]")
@@ -102,6 +122,7 @@ const Navbar = (props: Props) => {
   }
 
   window.addEventListener("click", navbarPositionListner)
+
   window.addEventListener("scroll", () => {
     let scrolled: number = window.scrollY
 
@@ -124,11 +145,7 @@ const Navbar = (props: Props) => {
         <div className="flex items-center justify-between py-3 px-16">
           <div>
             <Link to="/">
-              <img
-                className="h-[50px]"
-                src="assets/logo/mainlogo.png"
-                alt="image"
-              />
+              <img className="h-[50px]" src={MainLogo} alt="image" />
             </Link>
           </div>
           <div className="hidden items-center justify-center text-sm font-medium text-white md:flex">
@@ -163,11 +180,13 @@ const Navbar = (props: Props) => {
           <div className="hidden  items-center justify-center gap-3 md:flex">
             <div className="px-3 text-white ">
               <div
+                ref={langSwitchRef}
                 onClick={() => setLangHidden(!langHidden)}
                 className="cursor-pointer font-semibold transition hover:text-secondary-500"
               >
                 RUS <FontAwesomeIcon icon={faCaretDown} />
               </div>
+
               <LangSwitch active={langHidden} />
             </div>
 

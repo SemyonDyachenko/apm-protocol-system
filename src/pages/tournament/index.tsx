@@ -17,11 +17,16 @@ import Logo from "../../../public/assets/loggo.png"
 import SideBarMenu from "@/components/sidebarMenu"
 import { sidebarItemData } from "@/components/sidebarMenu/sidebarItem"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import UpBanner from "@/components/upbanner"
 import TournamentInfoPage from "./informationPage"
 import TournamentCompetitorsPage from "./competitorsPage"
 import TournamentRegisterWindow from "./tournamentRegisterWindow"
+import { getTournamentWeightClasses } from "@/store/actions/tournamentAction"
+import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
+import { getOnlyWeightClasses } from "@/utils/array"
+import { refreshLogin } from "@/store/actions/authAction"
+import { getCompetitorData } from "@/store/actions/competitorAction"
 
 type Props = {}
 
@@ -31,9 +36,28 @@ const TournamentPage = (props: Props) => {
   const { data: tournament } = tournamentAPI.useFetchTournamentQuery(
     parseInt(tournamentId?.valueOf() || "")
   )
+  const [weightClasses, setWeightClasses] = useState<WeightClass[]>([])
 
   const [selectedWindow, setSelectedItem] = useState("general")
   const [registerWindow, openRegisterWindow] = useState(false)
+
+  useEffect(() => {
+    if (tournamentId)
+      dispatch(getTournamentWeightClasses(+tournamentId)).then(
+        (weightClasses) => {
+          if (weightClasses)
+            setWeightClasses(getOnlyWeightClasses(weightClasses))
+        }
+      )
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflowY = registerWindow ? "hidden" : "scroll"
+
+    dispatch(refreshLogin()).then(() => {
+      dispatch(getCompetitorData(localStorage.getItem("token")))
+    })
+  }, [registerWindow])
 
   let menuItems: Array<sidebarItemData> = [
     {
@@ -75,10 +99,11 @@ const TournamentPage = (props: Props) => {
       <UpBanner
         name={tournament?.name}
         logo={Logo}
-        banner={Image}
+        banner={tournament?.photo || Image}
         onClick={() => openRegisterWindow(true)}
       />
       <TournamentRegisterWindow
+        weightClasses={weightClasses}
         tournamentId={tournament?.id}
         opened={registerWindow}
         closeFunc={() => openRegisterWindow(false)}

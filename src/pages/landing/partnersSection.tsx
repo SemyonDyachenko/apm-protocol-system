@@ -1,3 +1,4 @@
+import { motion } from "framer-motion"
 import React from "react"
 
 type Props = {}
@@ -48,21 +49,30 @@ const PartnersSection = (props: Props) => {
           <div className="flex h-[476px] items-center">
             <div className="mx-auto flex  w-full justify-between px-2 md:w-9/12">
               {contactItems.map((element, index) => (
-                <div className="w-1/3 text-center">
-                  <div key={index} className="flex justify-center">
-                    <img
-                      alt="image"
-                      className="w-[60px] md:w-[100px]"
-                      src={element.image}
-                    />
+                <motion.div
+                  key={index}
+                  className="w-1/3 text-center"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ delay: 0.1 + index / 5 }}
+                >
+                  <div className="">
+                    <div className="flex justify-center">
+                      <img
+                        alt="image"
+                        className="w-[60px] md:w-[100px]"
+                        src={element.image}
+                      />
+                    </div>
+                    <div className="text-md py-3 font-bold underline md:text-xl">
+                      {element.title}
+                    </div>
+                    <div className="text-center text-[12px] font-medium md:text-lg">
+                      {element.value}
+                    </div>
                   </div>
-                  <div className="text-md py-3 font-bold underline md:text-xl">
-                    {element.title}
-                  </div>
-                  <div className="text-center text-[12px] font-medium md:text-lg">
-                    {element.value}
-                  </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -76,12 +86,18 @@ const PartnersSection = (props: Props) => {
       <div className="relative z-10 w-full bg-gray-800 md:h-[350px]">
         <div className="mx-auto flex h-full w-full justify-between  px-4 md:w-8/12 md:px-0">
           {partnersImages.map((element, index) => (
-            <div
+            <motion.div
               key={index}
               className="mb-5 h-2/3 w-1/3 max-w-[120px] md:mb-0 md:max-w-[300px]"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ delay: 0.1 + index / 5 }}
             >
-              <img src={`assets/landing/${element.url}`} />
-            </div>
+              <div className="p-3">
+                <img src={`assets/landing/${element.url}`} />
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

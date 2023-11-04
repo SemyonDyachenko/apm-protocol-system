@@ -18,25 +18,29 @@ const profileSettingsItems: Array<upMenuItem> = [
   {
     title: "Прошедшие",
     selected: false,
-    target: "pas",
+    target: "past",
   },
 ]
 
 const CompetitorTournamentsList = ({ competitorId }: Props) => {
   const { data: tournaments } =
     tournamentAPI.useFetchCompetitorTournamentsQuery(competitorId)
-  const [targetWindow, setTargetWindow] = useState("general")
+  const [targetWindow, setTargetWindow] = useState("present")
 
-  const getFilteredTournaments = (target: string) => {
+  const getFilteredTournaments = () => {
     const date = new Date()
-    return (
-      tournaments &&
-      tournaments.filter((item) =>
-        target === "present"
-          ? new Date(item.date).getDate() > date.getDate()
-          : new Date(item.date).getDate() < date.getDate()
-      )
-    )
+    if (tournaments) {
+      switch (targetWindow) {
+        case "present":
+          return tournaments.filter(
+            (item) => new Date(item.date).getTime() > date.getTime()
+          )
+        case "past":
+          return tournaments.filter(
+            (item) => new Date(item.date).getTime() < date.getTime()
+          )
+      }
+    }
   }
 
   return (
@@ -49,7 +53,7 @@ const CompetitorTournamentsList = ({ competitorId }: Props) => {
       </div>
 
       <div className="pt-4">
-        {getFilteredTournaments(targetWindow)?.map((element, index) => (
+        {getFilteredTournaments()?.map((element, index) => (
           <Link
             className="hover:text-gray-700"
             to={`/tournaments/${element.id}`}

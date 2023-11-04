@@ -1,3 +1,4 @@
+import { motion } from "framer-motion"
 import React from "react"
 
 type Props = {
@@ -7,15 +8,22 @@ type Props = {
 
 const ListNode = ({ classname, children }: Props) => {
   return (
-    <div
-      className={`mb-2 w-full rounded-[10px] border-gray-300 bg-gray-70 shadow-sm transition hover:bg-gray-80`}
+    <motion.div
+      initial={{ opacity: 0.5 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.1 }}
+      viewport={{ once: true, amount: 0.5 }}
     >
       <div
-        className={`flex items-center justify-between py-2 px-10 ${classname}`}
+        className={`mb-2 w-full rounded-[10px] border-gray-300 bg-gray-70 shadow-sm transition hover:bg-gray-80`}
       >
-        {children}
+        <div
+          className={`flex items-center justify-between py-2 px-10 ${classname}`}
+        >
+          {children}
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

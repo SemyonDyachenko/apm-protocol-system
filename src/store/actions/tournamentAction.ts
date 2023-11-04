@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios"
 import { AppDispatch } from "../store"
 import { SERVER_URL } from "@/api/instance"
 import Tournament from "@/models/Tournament"
+import { TournamentWeightClass } from "@/models/WeightClass"
 
 export interface TournamentData {
   name: string
@@ -20,6 +21,7 @@ export interface TournamentRegistrationData {
   competitor: number
   tournament: number
   weight_class: number
+  category: string
 }
 
 export const changeTournamentStatus =
@@ -29,6 +31,18 @@ export const changeTournamentStatus =
         `${SERVER_URL}/startTournament/${tournamentId}/`,
         { activated: status, tournamentId }
       )
+    } catch (e: AxiosError | any) {
+      console.log(e.message)
+    }
+  }
+
+export const getTournamentWeightClasses =
+  (tournamentId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get<TournamentWeightClass[]>(
+        `${SERVER_URL}/tournament_weightclasses/?tournamentId=${tournamentId}`
+      )
+      return response.data
     } catch (e: AxiosError | any) {
       console.log(e.message)
     }

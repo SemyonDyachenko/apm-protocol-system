@@ -5,6 +5,7 @@ import { fetchCompetitors } from "../thunks/competitors"
 export interface CompetitorData {
   image: File | null
   id: number
+  phone: string
   first_name: string
   last_name: string
   gender: string
@@ -20,6 +21,7 @@ export interface CompetitorData {
   height?: number
   description?: string
   weight: number
+  mode: string
 }
 
 export interface competitorState {

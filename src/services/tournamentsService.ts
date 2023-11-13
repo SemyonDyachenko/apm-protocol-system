@@ -16,11 +16,21 @@ export const tournamentAPI = createApi({
         },
       }),
     }),
-    fetchTournaments: build.query<Tournament[], number>({
-      query: () => ({
+    fetchOrganizedTournaments: build.query<Tournament[], number>({
+      query: (organizer: number) => ({
         url: "tournaments/",
         params: {
           _limit: 1000,
+          organizer,
+        },
+      }),
+    }),
+    fetchTournaments: build.query<Tournament[], number>({
+      query: (active = 1) => ({
+        url: "tournaments/",
+        params: {
+          _limit: 1000,
+          active: active,
         },
       }),
     }),
@@ -29,14 +39,15 @@ export const tournamentAPI = createApi({
         url: "tournaments/" + id.toString(),
       }),
     }),
-    fetchTournamentRegistration: build.query<Competitor[], number>({
+    fetchTournamentRegistration: build.query<TournamentRegistration[], number>({
       query: (tournamentId: number) => ({
-        url: "tournamentCompetitors/",
+        url: "tournament_registration/",
         params: {
           tournamentId,
         },
       }),
     }),
+
     fetchCompetitorTournaments: build.query<Tournament[], number>({
       query: (competitorId: number) => ({
         url: "competitorTournaments/",

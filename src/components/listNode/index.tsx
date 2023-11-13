@@ -11,7 +11,7 @@ const ListNode = ({ classname, children }: Props) => {
     <motion.div
       initial={{ opacity: 0.5 }}
       whileInView={{ opacity: 1 }}
-      transition={{ delay: 0.1 }}
+      transition={{ delay: 0.05 }}
       viewport={{ once: true, amount: 0.5 }}
     >
       <div

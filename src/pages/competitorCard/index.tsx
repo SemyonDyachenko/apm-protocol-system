@@ -5,13 +5,12 @@ import { ColorRing } from "react-loader-spinner"
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { getCompetitorFullname } from "@/models/Competitor"
 
-import { matchAPI } from "@/services/matchService"
-
-import UpMenuBar from "@/components/upMenu/upMenuBar"
-import { getNormalizeDate } from "@/utils/date"
 import InformationList from "./informationList"
 import TournamentsList from "./TournamentsList"
 import StatsList from "./statsList"
+import UpMenuBar from "@/components/upMenu/upMenuBar"
+
+import Logo from "/assets/utils/nonuserimage.jpg"
 
 type Props = {}
 
@@ -80,7 +79,7 @@ const CompetitorCardPage = (props: Props) => {
   if (competitor)
     return (
       <div className="w-full py-8">
-        <div className="mx-auto h-auto w-11/12 rounded-xl shadow-xl md:w-5/6">
+        <div className="mx-auto h-auto w-11/12 rounded-xl md:w-11/12">
           <div className="rounded-t-xl bg-gray-700">
             <div className="flex items-center justify-between py-3 px-5">
               <div className="text-xl font-bold uppercase text-white">
@@ -95,10 +94,7 @@ const CompetitorCardPage = (props: Props) => {
             <div className="w-auto py-3 pl-4">
               <img
                 className="h-full max-w-[320px] rounded-lg"
-                src={
-                  competitor.image?.toString() ||
-                  "assets/utils/nonuserimage.png"
-                }
+                src={competitor.image?.toString() || Logo}
               />
             </div>
             <div className="w-full">

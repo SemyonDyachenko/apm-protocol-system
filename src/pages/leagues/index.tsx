@@ -32,7 +32,7 @@ const LeagueList = (props: Props) => {
         <div className="mx-auto flex w-11/12 justify-between py-8">
           <FilterBar />
           {/* main bar*/}
-          <div className="w-9/12">
+          <div className="w-10/12 pl-2">
             {/* upper bar*/}
             <div className="">
               <div className="border-1 w-full rounded-[10px] border-gray-300 bg-white shadow-sm">

@@ -2,17 +2,17 @@ import { useState } from "react"
 
 type Props = {
   className: string
+  isChecked: boolean
+  changeState: (val: boolean) => void
 }
 
-const Checkbox = ({ className }: Props) => {
-  const [isChecked, setIsChecked] = useState(false)
+const Checkbox = ({ className, isChecked, changeState }: Props) => {
   return (
     <label>
       <input
         type="checkbox"
-        onChange={() => {
-          setIsChecked(!isChecked)
-        }}
+        defaultChecked={isChecked}
+        onChange={() => changeState(!isChecked)}
       />
       <span
         className={`checkbox ${isChecked ? "checkbox--active" : ""}`}

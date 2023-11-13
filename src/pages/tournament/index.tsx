@@ -1,7 +1,7 @@
-import { useAppDispatch } from "@/hooks/redux"
+import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { tournamentAPI } from "@/services/tournamentsService"
 import { useParams } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import {
   faCheck,
   faComment,
@@ -12,8 +12,8 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons"
 
-import Image from "../../../public/assets/banner.jpg"
-import Logo from "../../../public/assets/loggo.png"
+import Image from "/assets/banner.jpg"
+import Logo from "/assets/loggo.png"
 import SideBarMenu from "@/components/sidebarMenu"
 import { sidebarItemData } from "@/components/sidebarMenu/sidebarItem"
 
@@ -27,29 +27,29 @@ import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
 import { getOnlyWeightClasses } from "@/utils/array"
 import { refreshLogin } from "@/store/actions/authAction"
 import { getCompetitorData } from "@/store/actions/competitorAction"
+import ReviewsPage from "./reviewsPage"
+import { ColorRing } from "react-loader-spinner"
+import PageNotFound from "../404/PageNotFound"
+import EditingPage from "./editingPage"
 
 type Props = {}
 
 const TournamentPage = (props: Props) => {
   const dispatch = useAppDispatch()
   const { tournamentId } = useParams()
+
   const { data: tournament } = tournamentAPI.useFetchTournamentQuery(
     parseInt(tournamentId?.valueOf() || "")
   )
   const [weightClasses, setWeightClasses] = useState<WeightClass[]>([])
+  const editing = window.location.pathname.includes("editing")
 
   const [selectedWindow, setSelectedItem] = useState("general")
   const [registerWindow, openRegisterWindow] = useState(false)
 
-  useEffect(() => {
-    if (tournamentId)
-      dispatch(getTournamentWeightClasses(+tournamentId)).then(
-        (weightClasses) => {
-          if (weightClasses)
-            setWeightClasses(getOnlyWeightClasses(weightClasses))
-        }
-      )
-  }, [])
+  const { competitor, loading, error } = useAppSelector(
+    (state) => state.competitors
+  )
 
   useEffect(() => {
     document.body.style.overflowY = registerWindow ? "hidden" : "scroll"
@@ -83,34 +83,79 @@ const TournamentPage = (props: Props) => {
     },
   ]
 
+  useEffect(() => {
+    if (tournamentId)
+      dispatch(getTournamentWeightClasses(+tournamentId)).then(
+        (weightClasses) => {
+          if (weightClasses)
+            setWeightClasses(getOnlyWeightClasses(weightClasses))
+        }
+      )
+  }, [])
+
   const getWindow = () => {
     if (tournament) {
       switch (selectedWindow) {
         case "general":
-          return <TournamentInfoPage tournament={tournament} />
+          return editing ? (
+            <EditingPage tournament={tournament} />
+          ) : (
+            <TournamentInfoPage editing={editing} tournament={tournament} />
+          )
         case "users":
           return <TournamentCompetitorsPage tournament={tournament} />
+        case "reviews":
+          return (
+            competitor && (
+              <ReviewsPage
+                tournament={tournament}
+                competitorId={competitor.id}
+              />
+            )
+          )
       }
     }
   }
 
+  if (loading)
+    return (
+      <div className="flex items-center justify-center p-40">
+        <ColorRing
+          visible={true}
+          height="120"
+          width="120"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#FFC132", "#FFC132", "#FFC132", "#FFC132", "#FFC132"]}
+        />
+      </div>
+    )
+
+  if ((!tournament?.active && !editing) || !competitor) return <PageNotFound />
+
   return (
     <div className="mx-auto w-11/12">
-      <UpBanner
-        name={tournament?.name}
-        logo={Logo}
-        banner={tournament?.photo || Image}
-        onClick={() => openRegisterWindow(true)}
-      />
+      {tournament && (
+        <UpBanner
+          disabledButton={false}
+          name={tournament?.name}
+          logo={Logo}
+          banner={tournament?.photo || Image}
+          onClick={() => openRegisterWindow(true)}
+          editing={editing}
+          verified={tournament.active}
+        />
+      )}
       <TournamentRegisterWindow
         weightClasses={weightClasses}
         tournamentId={tournament?.id}
         opened={registerWindow}
         closeFunc={() => openRegisterWindow(false)}
       />
-      <div className=" flex w-full justify-between py-8">
+      <div className="flex w-full justify-between py-8">
         <div className="w-2/12">
-          <SideBarMenu classname="" items={menuItems} />
+          <SideBarMenu classname="" disabled={editing} items={menuItems} />
         </div>
         <div className="w-9/12">
           <div className="w- min-h-[500px] rounded-lg py-2 px-4 shadow-md">

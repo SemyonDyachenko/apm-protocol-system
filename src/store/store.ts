@@ -3,7 +3,6 @@ import {
   combineReducers,
   applyMiddleware,
 } from "@reduxjs/toolkit"
-import { useDispatch } from "react-redux"
 import competitorReducer from "./slices/competitorSlice"
 import { competitorAPI } from "@/services/competitorService"
 import { matchAPI } from "@/services/matchService"
@@ -11,15 +10,19 @@ import { leagueAPI } from "@/services/leaugeService"
 import authSlice from "./slices/authSlice"
 import { tournamentAPI } from "@/services/tournamentsService"
 import { weightClassAPI } from "@/services/weightClassService"
+import { reviewAPI } from "@/services/reviewService"
+import rolesSlice from "./slices/roleSlice"
 
 const rootReducer = combineReducers({
   competitors: competitorReducer.reducer,
   auth: authSlice.reducer,
+  roles: rolesSlice.reducer,
   [weightClassAPI.reducerPath]: weightClassAPI.reducer,
   [competitorAPI.reducerPath]: competitorAPI.reducer,
   [matchAPI.reducerPath]: matchAPI.reducer,
   [leagueAPI.reducerPath]: leagueAPI.reducer,
   [tournamentAPI.reducerPath]: tournamentAPI.reducer,
+  [reviewAPI.reducerPath]: reviewAPI.reducer,
 })
 
 export const setupStore = () => {
@@ -32,6 +35,7 @@ export const setupStore = () => {
         matchAPI.middleware,
         tournamentAPI.middleware,
         weightClassAPI.middleware,
+        reviewAPI.middleware,
       ]),
   })
 }

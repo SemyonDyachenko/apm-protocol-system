@@ -13,6 +13,7 @@ import { tournamentAPI } from "@/services/tournamentsService"
 
 type Props = {
   tournament: Tournament
+  editing: boolean
 }
 
 const items: Array<upMenuItem> = [
@@ -23,7 +24,7 @@ const items: Array<upMenuItem> = [
   },
 ]
 
-const TournamentInfoPage = ({ tournament }: Props) => {
+const TournamentInfoPage = ({ tournament, editing }: Props) => {
   const { data: league } = leagueAPI.useFetchLeagueQuery(tournament.league)
   const { data: judge } = competitorAPI.useFetchCompetitorDataQuery(
     tournament.main_referee
@@ -36,7 +37,7 @@ const TournamentInfoPage = ({ tournament }: Props) => {
 
   const gridItems = [
     {
-      title: "Президент",
+      title: "Лига",
       value: (
         <Link
           className="text-secondary-500 underline transition hover:text-secondary-400"
@@ -47,7 +48,7 @@ const TournamentInfoPage = ({ tournament }: Props) => {
       ),
     },
     {
-      title: "Дата создания",
+      title: "Дата проведения",
       value:
         tournament.date &&
         getNormalizeDate(new Date(tournament.date).toDateString()),

@@ -1,5 +1,4 @@
-import React from "react"
-import Image from "../../../public/assets/landing/gallery/gallery1.jpg"
+import Image from "/assets/landing/gallery/gallery1.jpg"
 import UpMenuBar, { upMenuItem } from "@/components/upMenu/upMenuBar"
 import RatingInfo from "./ratingInfo"
 

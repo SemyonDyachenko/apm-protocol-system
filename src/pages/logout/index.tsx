@@ -1,5 +1,6 @@
 import { useAppDispatch } from "@/hooks/redux"
 import { logoutUser } from "@/store/actions/authAction"
+import rolesSlice, { setRole } from "@/store/slices/roleSlice"
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -9,9 +10,16 @@ const LogoutPage = (props: Props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
+  const logout = () => {
+    dispatch(logoutUser()).then(() => {
+      navigate("/")
+    })
+  }
+
   useEffect(() => {
-    dispatch(logoutUser()).then(() => navigate("/"))
+    logout()
   }, [])
+
   return <div></div>
 }
 

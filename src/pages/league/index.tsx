@@ -1,7 +1,7 @@
 import SideBarMenu from "@/components/sidebarMenu"
 import { sidebarItemData } from "@/components/sidebarMenu/sidebarItem"
-import Image from "../../../public/assets/banner.jpg"
-import Logo from "../../../public/assets/loggo.png"
+import Image from "/assets/banner.jpg"
+import Logo from "/assets/loggo.png"
 
 import {
   faCalendarDays,
@@ -26,8 +26,9 @@ type Props = {}
 const LeaguePage = (props: Props) => {
   const { leagueId } = useParams()
   const [selectedWindow, setSelectedItem] = useState("general")
+  const { data: league } = leagueAPI.useFetchLeagueQuery(Number(leagueId))
 
-  let menuItems: Array<sidebarItemData> = [
+  const menuItems: Array<sidebarItemData> = [
     {
       onClick: () => setSelectedItem("general"),
       children: "Главная",
@@ -50,8 +51,6 @@ const LeaguePage = (props: Props) => {
     },
   ]
 
-  const { data: league } = leagueAPI.useFetchLeagueQuery(Number(leagueId))
-  1
   const getSelectedWindow = () => {
     switch (selectedWindow) {
       case "general":
@@ -67,7 +66,12 @@ const LeaguePage = (props: Props) => {
 
   return (
     <div className="mx-auto w-11/12">
-      <UpBanner name={league?.name} logo={Logo} banner={Image} />
+      <UpBanner
+        disabledButton={false}
+        name={league?.name}
+        logo={Logo}
+        banner={Image}
+      />
       <div className="flex w-full justify-between py-8">
         <div className="w-1/5">
           <SideBarMenu classname="w-full" items={menuItems} />

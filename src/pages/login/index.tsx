@@ -1,10 +1,10 @@
-import { loginUser } from "@/store/actions/authAction"
+import { loginUser, setUserRole } from "@/store/actions/authAction"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { getCompetitorData } from "@/store/actions/competitorAction"
 import SignupInfo from "@/components/signupInfo"
+import rolesSlice, { setRole } from "@/store/slices/roleSlice"
 
 type Props = {}
 
@@ -17,11 +17,11 @@ const LoginPage = (props: Props) => {
   } = useForm({ mode: "onTouched" })
 
   const dispatch = useAppDispatch()
-  const { access, refresh, loading, error } = useAppSelector(
-    (state) => state.auth
-  )
+
   const [authError, setAuthError] = useState("")
   const isAuth = localStorage.getItem("token")
+
+  const { competitor } = useAppSelector((state) => state.competitors)
 
   useEffect(() => {
     if (isAuth) window.location.replace("/")
@@ -32,10 +32,12 @@ const LoginPage = (props: Props) => {
       dispatch(loginUser(data.email, data.password)).then((res) => {
         if (res) {
           if (res.response.status !== 200 || 201) {
-            setAuthError("Введен неверный E-mail или пароль")
+            setAuthError("Вы ввели неверный E-mail или пароль")
           }
         } else {
-          navigate("/profile")
+          if (competitor) {
+            navigate("/profile")
+          }
         }
       })
     } catch (error: Error | any) {
@@ -43,8 +45,9 @@ const LoginPage = (props: Props) => {
     }
   }
 
-  const inputStyles =
-    "rounded-md bg-gray-input my-2 px-3 w-[500px] h-[50px] text-md text-gray-700 font-medium shadow-md outline-none placeholder:text-gray-200"
+  const inputStyles = `${
+    authError && "border-[1px] border-primary-500"
+  } rounded-md bg-gray-input my-2 px-3 w-[500px] h-[50px] text-md text-gray-700 font-medium shadow-md outline-none placeholder:text-gray-200`
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
@@ -117,7 +120,7 @@ const LoginPage = (props: Props) => {
               <div className="pt-2 text-sm  text-gray-400">
                 Забыли пароль ?
                 <Link
-                  className="px-1 text-secondary-500 underline"
+                  className="px-1 text-secondary-500 underline transition hover:text-secondary-400"
                   to="/password-restore"
                 >
                   Восстановление пароля

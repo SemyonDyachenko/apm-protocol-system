@@ -6,34 +6,11 @@ import PropsInfo from "./PropsInfo"
 import UpMenuBar, { upMenuItem } from "@/components/upMenu/upMenuBar"
 import SecurityPage from "./securityPage"
 import NotificationPage from "./notificationPage"
+import { profileSettingsItems } from "./navItems"
 
 type Props = {
   competitor: CompetitorData
 }
-
-const profileSettingsItems: Array<upMenuItem> = [
-  {
-    title: "Основная информация",
-    selected: true,
-    target: "general",
-  },
-  {
-    title: "Безопасность",
-    selected: false,
-    target: "security",
-  },
-
-  {
-    title: "Уведомления",
-    selected: false,
-    target: "notification",
-  },
-  {
-    title: "О себе",
-    selected: false,
-    target: "about",
-  },
-]
 
 const InfoWindow = ({ competitor }: Props) => {
   const [targetWindow, setTargetWindow] = useState("general")
@@ -58,7 +35,7 @@ const InfoWindow = ({ competitor }: Props) => {
   }
 
   return (
-    <div className="">
+    <div>
       <UpMenuBar changeTarget={setTargetWindow} items={profileSettingsItems} />
       <div className="pt-4">{getWindow()}</div>
     </div>

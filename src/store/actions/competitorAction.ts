@@ -36,12 +36,18 @@ export const updateCompetitorImage =
   }
 
 export const updateCompetitorProfile =
-  (id: number, firstname: string, lastname: string, country: string) =>
+  (
+    id: number,
+    firstname: string,
+    lastname: string,
+    country: string,
+    phone: string
+  ) =>
   async (dispatch: AppDispatch) => {
     try {
       const response = await axios.put<Competitor>(
         `${SERVER_URL}/updateProfile/${id}/`,
-        { id, firstname, lastname, country }
+        { id, firstname, lastname, country, phone }
       )
       console.log(response)
     } catch (e: AxiosError | any) {

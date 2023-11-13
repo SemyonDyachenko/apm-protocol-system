@@ -8,13 +8,13 @@ export interface TournamentData {
   name: string
   location: string
   description: string
-  photo: File | null
+  photo?: File | null
   address: string
   organizer: number
-  main_secretary: number
-  main_referee: number
+  main_secretary?: number
+  main_referee?: number
   date: string
-  league: number
+  league?: number
 }
 
 export interface TournamentRegistrationData {
@@ -61,6 +61,34 @@ export const registerForTournament =
     }
   }
 
+export const createDefaultTournament =
+  (organizer: number) => async (dispatch: AppDispatch) => {
+    try {
+      const defaultData: TournamentData = {
+        name: "Новый турнир",
+        location: "-",
+        description: "Описание",
+        address: "-",
+        organizer: organizer,
+        date: new Date().toISOString().slice(0, 10),
+        league: 2,
+      }
+
+      const response = await axios.post<Tournament>(
+        `${SERVER_URL}/tournaments/`,
+        defaultData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      return response
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }
+
 export const createTournament =
   (data: TournamentData) => async (dispatch: AppDispatch) => {
     try {
@@ -71,6 +99,21 @@ export const createTournament =
           headers: {
             "Content-Type": "multipart/form-data",
           },
+        }
+      )
+      console.log(response.data)
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }
+
+export const deleteTournament =
+  (tournamentId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.delete<any>(
+        `${SERVER_URL}/deleteTournament/${tournamentId}`,
+        {
+          params: { tournamentId },
         }
       )
       console.log(response.data)

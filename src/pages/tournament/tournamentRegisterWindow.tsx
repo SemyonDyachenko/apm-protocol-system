@@ -36,6 +36,7 @@ const TournamentRegisterWindow = ({
   const [category, setCategory] = useState("men")
   const [weightClass, setWeightClass] = useState(0)
   const [successRegister, setSuccessRegister] = useState(false)
+  const [privacyChecked, setPrivacyChecked] = useState(false)
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -142,7 +143,11 @@ const TournamentRegisterWindow = ({
             </div>
             <div className="flex items-start gap-1 py-3">
               <div>
-                <Checkbox className="" />
+                <Checkbox
+                  changeState={setPrivacyChecked}
+                  isChecked={privacyChecked}
+                  className=""
+                />
               </div>
               <div className="text-sm">
                 Согласен с{" "}
@@ -154,8 +159,9 @@ const TournamentRegisterWindow = ({
             </div>
             <div>
               <button
+                disabled={!privacyChecked}
                 onClick={() => register()}
-                className="w-full rounded-lg bg-secondary-500 px-4 py-2 font-medium transition hover:bg-secondary-600"
+                className="w-full rounded-lg bg-secondary-500 px-4 py-2 font-medium transition hover:bg-secondary-600 disabled:bg-gray-400"
               >
                 Отправить
               </button>

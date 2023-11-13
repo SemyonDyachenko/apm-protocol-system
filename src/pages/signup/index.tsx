@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 
 import SignupInfo from "@/components/signupInfo"
+import PageNotFound from "../404/PageNotFound"
 
 type Props = {}
 

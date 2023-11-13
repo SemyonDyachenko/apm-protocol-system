@@ -1,78 +1,19 @@
-import { useAppSelector } from "@/hooks/redux"
 import {
-  faArrowDown,
-  faBackspace,
   faBars,
-  faBuilding,
+  faBell,
   faCaretDown,
-  faCircleXmark,
-  faHome,
-  faList,
-  faMoon,
   faRightToBracket,
-  faSun,
-  faTable,
-  faUser,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
-
 import LangSwitch from "./langSwitch"
 import SideBarHeader from "./sidebarHeader"
-import { motion } from "framer-motion"
 import MainLogo from "/assets/logo/mainlogo.png"
+import { navLinks } from "./links"
 
 type Props = {}
-
-export type NavLink = {
-  path: string
-  title: string
-  icon: any
-  disabled?: boolean
-}
-
-const navLinks: Array<NavLink> = [
-  {
-    path: "/",
-    title: "Главная",
-    icon: faTable,
-  },
-  {
-    path: "/rating",
-    title: "Рейтинг",
-    icon: faTable,
-  },
-  {
-    path: "/tournaments",
-    title: "Турниры",
-    icon: faList,
-  },
-  {
-    path: "/leagues",
-    title: "Лиги",
-    icon: faBuilding,
-  },
-  {
-    path: "/news",
-    title: "Новости",
-    icon: faBuilding,
-    disabled: true,
-  },
-  {
-    path: "/streams",
-    title: "Трансляции",
-    icon: faBuilding,
-    disabled: true,
-  },
-  {
-    path: "/trainers",
-    title: "Тренировки",
-    icon: faBuilding,
-    disabled: true,
-  },
-]
 
 const Navbar = (props: Props) => {
   const langSwitchRef = useRef<HTMLDivElement | null>(null)
@@ -83,10 +24,6 @@ const Navbar = (props: Props) => {
   const [fixed, setFixed] = useState("")
   const [langHidden, setLangHidden] = useState(false)
   const [sidebarOpened, openSidebar] = useState(false)
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
 
   const isAuth = () => {
     const token = localStorage.getItem("token")
@@ -135,12 +72,12 @@ const Navbar = (props: Props) => {
   })
 
   const buttonStyles =
-    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]  text-gray-700 transition  hover:bg-secondary-400 text-md"
+    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]   text-gray-700 transition  hover:bg-secondary-400 text-md"
 
   return (
     <div>
       <nav
-        className={` ${hidden} center ${fixed}  z-20 mx-auto mt-3 w-11/12 rounded-[25px]  bg-gray-700 shadow-md transition duration-300 `}
+        className={`  ${hidden} center ${fixed}  z-20 mx-auto mt-3 w-11/12 rounded-[25px]  bg-gray-700 shadow-md transition duration-300`}
       >
         <div className="flex items-center justify-between py-3 px-16">
           <div>
@@ -189,7 +126,17 @@ const Navbar = (props: Props) => {
 
               <LangSwitch active={langHidden} />
             </div>
-
+            {localStorage.getItem("token") !== null && (
+              <div className="cursor-pointer px-2 text-lg text-white ">
+                <div className="absolute flex h-[17px] w-[17px] -translate-y-[4px] translate-x-[6px] items-center justify-center rounded-full bg-secondary-500 p-[2px] text-[12px] font-bold text-gray-700">
+                  2
+                </div>
+                <FontAwesomeIcon
+                  className="transition hover:text-secondary-500"
+                  icon={faBell}
+                />
+              </div>
+            )}
             {isAuth() ? (
               <div>
                 <Link to="/profile">

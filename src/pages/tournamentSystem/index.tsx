@@ -8,7 +8,7 @@ import Competitor, { getCompetitorFullname } from "@/models/Competitor"
 import { findCompetitorById } from "@/utils/dataUtils"
 import { match } from "assert"
 import HText from "@/components/UI/HText"
-
+/*
 type Props = {}
 
 interface Round {
@@ -278,3 +278,4 @@ const TournamentSystem = (props: Props) => {
 }
 
 export default TournamentSystem
+*/

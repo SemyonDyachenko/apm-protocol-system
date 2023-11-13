@@ -1,4 +1,6 @@
+import Competitor from "./Competitor"
 import League from "./League"
+import WeightClass from "./WeightClass"
 
 export default interface Tournament {
   id: number
@@ -16,13 +18,14 @@ export default interface Tournament {
   is_started: boolean
   level: string
   phone: string
+  active: boolean
 }
 
 export interface TournamentRegistration {
   id: number
   tournament: number
-  competitor: number
-  weight_class: number
+  competitor: Competitor
+  weight_class: WeightClass
   registration_date: string
   category: string
 }

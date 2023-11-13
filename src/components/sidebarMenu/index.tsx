@@ -6,21 +6,24 @@ import { motion } from "framer-motion"
 type Props = {
   classname: string
   items: Array<sidebarItemData>
+  disabled?: boolean
 }
 
-const SideBarMenu = ({ classname, items }: Props) => {
+const SideBarMenu = ({ classname, items, disabled }: Props) => {
   const [selected, setSelected] = useState(0)
 
   useEffect(() => {
-    if (selected !== null) {
-      items[selected].onClick()
+    if (!disabled) {
+      if (selected !== null) {
+        if (!items[selected].disabled) items[selected].onClick()
+      }
     }
   }, [selected])
 
   return (
     <motion.div
-      initial={{ opacity: 0.5 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ x: 50 }}
+      whileInView={{ x: 0 }}
       transition={{ delay: 0.1 }}
       viewport={{ once: true, amount: 0.5 }}
     >
@@ -43,10 +46,11 @@ const SideBarMenu = ({ classname, items }: Props) => {
               <SideBarItem
                 key={index}
                 onClick={() => {
-                  setSelected(index)
+                  if (!disabled) setSelected(index)
                 }}
                 icon={element.icon}
                 selected={selected === index}
+                disabled={disabled}
               >
                 {element.children}
               </SideBarItem>

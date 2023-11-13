@@ -1,17 +1,27 @@
 import { faCamera, faCheck, faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React from "react"
 
 type Props = {
   name?: string
   logo: string
   banner: string
   onClick?: () => void
+  disabledButton: boolean
+  editing?: boolean
+  verified?: boolean
 }
 
-const UpBanner = ({ name, logo, banner, onClick }: Props) => {
+const UpBanner = ({
+  name,
+  logo,
+  banner,
+  onClick,
+  disabledButton,
+  editing,
+  verified,
+}: Props) => {
   return (
-    <div className="relative mt-12 h-[380px] w-full rounded-t-xl rounded-b-2xl shadow-lg">
+    <div className="relative mt-12 h-[380px] w-full rounded-t-2xl rounded-b-2xl shadow-lg">
       <div className="z-[1] ">
         <img
           className="z-4 absolute h-full w-full  rounded-t-xl rounded-b-2xl"
@@ -26,25 +36,42 @@ const UpBanner = ({ name, logo, banner, onClick }: Props) => {
           />
         </div>
       </div>
-      <div className="absolute z-[5] h-full w-full rounded-xl bg-black opacity-30"></div>
+      <div className="absolute z-[5] h-full w-full rounded-2xl bg-black opacity-30"></div>
       <div className="relative -bottom-1 z-[10] flex h-full w-full items-end">
         <div className="flex h-1/3 w-full justify-between rounded-2xl bg-gray-80">
           <div className="flex px-10">
             <div className="-translate-y-6">
-              <div className="h-[85px] w-[85px] rounded-full bg-gray-80">
+              <div className="relatvie h-[85px] w-[85px] rounded-full bg-gray-80">
+                <div className="absolute ml-[5px] mt-[5px] flex h-[75px] w-[75px] cursor-pointer items-center justify-center rounded-full bg-black opacity-[0.001] transition hover:opacity-70">
+                  <FontAwesomeIcon
+                    className="text-3xl text-gray-300"
+                    icon={faCamera}
+                  />
+                </div>
                 <img className="h-full w-full rounded-full p-1" src={logo} />
               </div>
             </div>
             <div className="py-4 px-2">
               <div className="flex items-center gap-3 text-xl font-bold">
-                <div>{name}</div>
-                <FontAwesomeIcon color="green" icon={faCheck} />
+                {editing ? (
+                  <div>
+                    <input
+                      className="rounded-lg bg-gray-200 py-1 px-4 text-lg outline-none"
+                      defaultValue={name}
+                    />
+                  </div>
+                ) : (
+                  <div>{name}</div>
+                )}
+                {verified && <FontAwesomeIcon color="green" icon={faCheck} />}
               </div>
               <div className="flex items-center gap-2">
                 <div className="flex gap-1 py-2">
                   {new Array(1, 2, 3, 4, 5).map((element, index) => (
                     <FontAwesomeIcon
-                      className="text-secondary-500"
+                      className={`${
+                        editing ? "text-gray-400" : "text-secondary-500"
+                      }`}
                       key={index}
                       icon={faStar}
                     />
@@ -56,17 +83,27 @@ const UpBanner = ({ name, logo, banner, onClick }: Props) => {
           </div>
           <div className="px-10 py-4">
             <div>
-              <button
-                onClick={onClick}
-                className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-400 active:translate-y-1"
-              >
-                Подать заявку
-              </button>
+              {!editing ? (
+                <button
+                  onClick={onClick}
+                  disabled={disabledButton}
+                  className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-200"
+                >
+                  {!disabledButton ? "Подать заявку" : "Вы участник"}
+                </button>
+              ) : (
+                <button className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-200">
+                  Создать турнир
+                </button>
+              )}
             </div>
-            <div className="flex items-center justify-center gap-2 py-2 text-sm text-gray-400">
-              <div>Вы участник </div>
-              <FontAwesomeIcon icon={faCheck} />
-            </div>
+            {!editing && (
+              <div className="flex items-center justify-center gap-2 py-2 text-sm text-gray-400">
+                <div className="cursor-pointer transition hover:text-gray-300">
+                  Редактировать
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

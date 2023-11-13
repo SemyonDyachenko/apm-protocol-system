@@ -16,11 +16,7 @@ type Props = {
 const PropsInfo = ({ competitor }: Props) => {
   const dispatch = useAppDispatch()
 
-  const { data: trainer } = competitorAPI.useFetchCompetitorDataQuery(
-    Number(competitor.trainer)
-  )
-
-  const [trainerInput, setTrainer] = useState(getCompetitorFullname(trainer))
+  const [trainerInput, setTrainer] = useState(competitor.trainer)
   const [birthdateInput, setBirthdate] = useState(competitor.birthdate)
   const [height, setHeight] = useState(competitor.height)
   const [weight, setWeight] = useState(competitor.weight)
@@ -69,20 +65,22 @@ const PropsInfo = ({ competitor }: Props) => {
             </div>
             <select
               className=" rounded-lg border-r-8 border-gray-200 bg-gray-200 py-[10px] px-3 font-medium text-gray-700"
-              defaultValue={trainerInput?.toString()}
-              onChange={(e) => setTrainer(e.target.value)}
+              onChange={(e) => setTrainer(Number(e.target.value))}
               disabled={isDisabled}
+              value={trainerInput}
             >
               {competitors &&
-                competitors.map((element, index) => (
-                  <option
-                    value={element.id}
-                    className="font-medium text-gray-700"
-                    key={index}
-                  >
-                    {getCompetitorFullname(element)}
-                  </option>
-                ))}
+                competitors
+                  .filter((item) => item.id !== competitor.id) // removes an authorized user from the list
+                  .map((element, index) => (
+                    <option
+                      value={element.id}
+                      className="font-medium text-gray-700"
+                      key={index}
+                    >
+                      {getCompetitorFullname(element)}
+                    </option>
+                  ))}
             </select>
           </div>
           <PersonalDataInput
@@ -140,6 +138,7 @@ const PropsInfo = ({ competitor }: Props) => {
             onClick={() => {
               updateProps()
               setIsDisabled(true)
+              window.location.reload()
             }}
             disabled={isDisabled}
             className="rounded-lg px-8 py-2 font-medium text-gray-700 transition enabled:bg-secondary-500 enabled:hover:bg-secondary-400 disabled:bg-gray-400 "

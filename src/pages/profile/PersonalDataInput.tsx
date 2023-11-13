@@ -5,6 +5,7 @@ type InputProps = {
   onChange?: (target: any) => void
   type?: string
   className?: string
+  placeholder?: string
 }
 
 const PersonalDataInput = ({
@@ -14,6 +15,7 @@ const PersonalDataInput = ({
   onChange,
   type = "text",
   className,
+  placeholder,
 }: InputProps) => {
   return (
     <div>
@@ -30,6 +32,7 @@ const PersonalDataInput = ({
         disabled={disabled}
         onChange={onChange}
         type={type}
+        placeholder={placeholder}
       />
     </div>
   )

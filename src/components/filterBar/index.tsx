@@ -4,11 +4,16 @@ import { motion } from "framer-motion"
 import React from "react"
 import Checkbox from "../UI/Checkbox"
 
-type Props = {}
+type Props = {
+  className?: string
+  searchString: string
+  setSearchString: (val: string) => void
+}
 
-const FilterBar = (props: Props) => {
+const FilterBar = ({ searchString, setSearchString, className }: Props) => {
   return (
     <motion.div
+      className={className}
       initial={{ opacity: 0.5 }}
       whileInView={{ opacity: 1 }}
       transition={{ delay: 0.1 }}
@@ -26,6 +31,8 @@ const FilterBar = (props: Props) => {
             <div className="flex items-center  gap-3 py-3">
               <div className="w-2/3">
                 <input
+                  value={searchString}
+                  onChange={(e) => setSearchString(e.target.value)}
                   type="text"
                   placeholder="Введите имя"
                   className="w-full rounded-lg border-2 border-gray-400 bg-gray-70 p-3 py-1 text-sm font-medium text-gray-700 outline-none"
@@ -49,13 +56,21 @@ const FilterBar = (props: Props) => {
             <div className="py-3">
               <div className="flex items-center gap-x-2">
                 <div className="pt-1">
-                  <Checkbox className="" />
+                  <Checkbox
+                    isChecked={false}
+                    changeState={() => {}}
+                    className=""
+                  />
                 </div>
                 <div className="text-md font-medium text-gray-700">Правая</div>
               </div>
               <div className="flex items-center gap-x-2 pt-2">
                 <div className="pt-1">
-                  <Checkbox className="" />
+                  <Checkbox
+                    isChecked={false}
+                    changeState={() => {}}
+                    className=""
+                  />
                 </div>
                 <div className="text-md font-medium text-gray-700">Левая</div>
               </div>

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 type Props = {}
 
 const EntrySection = (props: Props) => {
+  const isAuth = localStorage.getItem("token")
+
   const outlineButtonStyles =
     "flex items-center justify-center md:text-md text-sm rounded-lg  border-2 border-secondary-500 py-[12px] font-semibold text-secondary-500 transition hover:animate-pulse hover:bg-secondary-500 hover:text-gray-700"
   return (
@@ -60,7 +62,7 @@ const EntrySection = (props: Props) => {
                 </Link>
               </div>
               <div className="py-4">
-                <Link to="/signup" className="">
+                <Link to={isAuth ? "/profile" : "/signup"} className="">
                   <div className="flex w-full items-center justify-center rounded-lg border-2 border-secondary-500 bg-secondary-500 py-[16px] text-sm font-semibold text-gray-700 shadow-md transition hover:animate-pulse hover:bg-transparent hover:text-secondary-500 md:w-8/12 md:text-lg">
                     СТАТЬ ЧЕМПИОНОМ
                   </div>

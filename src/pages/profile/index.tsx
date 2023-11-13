@@ -3,9 +3,13 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { logoutUser, refreshLogin } from "@/store/actions/authAction"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 import {
+  faComment,
+  faDisplay,
   faHouse,
   faList,
+  faMessage,
   faRightFromBracket,
+  faVolleyball,
 } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 
@@ -24,23 +28,32 @@ type Props = {}
 const ProfilePage = (props: Props) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { competitor, loading, error } = useAppSelector(
-    (state) => state.competitors
-  )
+  const { competitor, loading } = useAppSelector((state) => state.competitors)
+
   const [profileWindow, setProfileWindow] = useState("personal")
+
+  const setWindow = (window: string) => {
+    setProfileWindow(window)
+  }
 
   let sidebarItems: Array<sidebarItemData> = [
     {
-      onClick: () => setProfileWindow("personal"),
-      selected: true,
+      onClick: () => setWindow("personal"),
+      selected: false,
       icon: faHouse,
       children: "Профиль",
     },
     {
-      onClick: () => setProfileWindow("tournaments"),
+      onClick: () => setWindow("tournaments"),
       selected: false,
       icon: faList,
       children: "Турниры",
+    },
+    {
+      onClick: () => setWindow("messages"),
+      selected: false,
+      icon: faComment,
+      children: "Сообщения",
     },
     {
       onClick: () => {},
@@ -51,9 +64,33 @@ const ProfilePage = (props: Props) => {
     },
   ]
 
-  useEffect(() => {
-    setProfileWindow("personal")
+  let organizerItems: Array<sidebarItemData> = [
+    {
+      onClick: () => {},
+      selected: false,
+      icon: faDisplay,
+      children: "Трансляции",
+      disabled: true,
+    },
+    {
+      onClick: () => {},
+      selected: false,
+      icon: faVolleyball,
+      children: "Тренировки",
+      disabled: true,
+    },
+  ]
 
+  if (competitor?.mode === "organizer") {
+    sidebarItems.splice(
+      sidebarItems.length - 1,
+      0,
+      organizerItems[0],
+      organizerItems[1]
+    )
+  }
+
+  useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/login")
     } else {
@@ -80,7 +117,12 @@ const ProfilePage = (props: Props) => {
         case "personal":
           return <InfoWindow competitor={competitor} />
         case "tournaments":
-          return <CompetitorTournamentsList competitorId={competitor.id} />
+          return (
+            <CompetitorTournamentsList
+              organizer={competitor.mode === "organizer"}
+              competitorId={competitor.id}
+            />
+          )
       }
     } else {
       return <div>NOT FOUND</div>

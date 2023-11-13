@@ -9,12 +9,12 @@ type Props = {
 
 const SectionsTournamentsView = ({ tournaments }: Props) => {
   return (
-    <div className="flex w-full flex-wrap gap-x-10 gap-y-12 pt-5">
+    <div className="grid w-full grid-cols-4 grid-rows-2 gap-x-10 gap-y-12 pt-5">
       {tournaments &&
         tournaments.map((element, index) => (
           <div
             key={index}
-            className="relative h-auto min-h-[360px] w-[380px] rounded-2xl shadow-md"
+            className="relative h-auto min-h-[360px] w-[320px] rounded-2xl shadow-md"
           >
             <div className="z-1 absolute h-full w-full rounded-2xl">
               <div className="absolute h-full w-full rounded-2xl bg-black opacity-30"></div>

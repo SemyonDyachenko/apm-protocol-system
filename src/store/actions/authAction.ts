@@ -4,6 +4,8 @@ import { AppDispatch } from "../store"
 import authSlice from "../slices/authSlice"
 import { SERVER_URL } from "@/api/instance"
 import Competitor from "@/models/Competitor"
+import rolesSlice, { setRole } from "../slices/roleSlice"
+import competitorsSlice from "../slices/competitorSlice"
 
 export type AuthData = {
   access: string
@@ -48,6 +50,15 @@ export const loginUser =
     }
   }
 
+export const setUserRole = (role: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(rolesSlice.actions.setRole(role))
+  } catch (error: Error | any) {
+    dispatch(authSlice.actions.setAuthError(error.message))
+    return error.request
+  }
+}
+
 export const refreshLogin = () => async (dispatch: AppDispatch) => {
   try {
     if (localStorage.getItem("refresh") !== null) {
@@ -70,6 +81,9 @@ export const refreshLogin = () => async (dispatch: AppDispatch) => {
 export const logoutUser = () => async (dispatch: AppDispatch) => {
   try {
     //const response = await axios.post(`${SERVER_URL}/competitors/logout`)
+    localStorage.removeItem("role")
+    dispatch(rolesSlice.actions.setRole(null))
+
     setAuth(false)
     localStorage.removeItem("token")
     localStorage.removeItem("refresh")

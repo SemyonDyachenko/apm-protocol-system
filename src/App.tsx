@@ -12,13 +12,15 @@ import ProfilePage from "./pages/profile"
 import TournamentsPage from "./pages/tournaments"
 import TournamentPage from "./pages/tournament"
 import MatchPage from "./pages/match"
-import TournamentSystem from "./pages/tournamentSystem"
+
 import LogoutPage from "./pages/logout"
 import { useEffect } from "react"
 import CompetitorCardPage from "./pages/competitorCard"
 import LeaguePage from "./pages/league"
 import StartPage from "./pages/landing"
 import PageNotFound from "./pages/404/PageNotFound"
+
+const isAuth = localStorage.getItem("token")
 
 function NavbarWrapper() {
   return (
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <LoginPage />,
+        element: isAuth ? <PageNotFound /> : <LoginPage />,
       },
       {
         path: "/rating",
@@ -52,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <SignupPage />,
+        element: isAuth ? <PageNotFound /> : <SignupPage />,
       },
       {
         path: "/profile",
@@ -67,8 +69,8 @@ const router = createBrowserRouter([
         element: <TournamentPage />,
       },
       {
-        path: "tournaments/system/:tournamentId",
-        element: <TournamentSystem />,
+        path: "tournaments/editing/:tournamentId",
+        element: <TournamentPage />,
       },
       {
         path: "match/",

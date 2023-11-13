@@ -11,7 +11,7 @@ import ListTournamentsView from "./listView"
 type Props = {}
 
 const TournamentsPage = (props: Props) => {
-  const { data: tournaments } = tournamentAPI.useFetchTournamentsQuery(0)
+  const { data: tournaments } = tournamentAPI.useFetchTournamentsQuery(1)
   const [tournamentsView, setTournamentsView] = useState("list")
 
   const getTournamentsView = () => {
@@ -36,7 +36,7 @@ const TournamentsPage = (props: Props) => {
       <div className="">
         <FilterBar />
       </div>
-      <div className="w-9/12">
+      <div className="w-10/12 pl-6">
         <div className="flex w-full justify-between pr-5">
           <div className="text-3xl font-bold">Актуальные турниры</div>
           <div className="flex gap-2 text-xl font-medium  ">

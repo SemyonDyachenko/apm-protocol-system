@@ -5,9 +5,10 @@ import { Link } from "react-router-dom"
 
 type Props = {
   tournaments: Tournament[]
+  search: string
 }
 
-const SectionsTournamentsView = ({ tournaments }: Props) => {
+const SectionsTournamentsView = ({ tournaments, search }: Props) => {
   return (
     <div className="grid w-full grid-cols-4 grid-rows-2 gap-x-10 gap-y-12 pt-5">
       {tournaments &&

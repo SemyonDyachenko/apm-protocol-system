@@ -21,7 +21,7 @@ const EntrySection = (props: Props) => {
         }}
         transition={{ delay: 0.2 }}
       >
-        <div className="z-10 mx-auto h-auto min-h-screen w-11/12 px-4 pt-[160px] pb-[50px] text-white">
+        <div className="relative z-[10] mx-auto h-auto min-h-screen w-11/12 px-4 pt-[160px] pb-[50px] text-white">
           <div className="relative w-full md:w-3/5">
             <div className="w-full space-x-2 text-3xl font-bold  leading-tight tracking-wider md:text-6xl">
               <div>
@@ -74,7 +74,10 @@ const EntrySection = (props: Props) => {
       </motion.div>
 
       <div className="absolute right-[-0px] opacity-50">
-        <img className="z-1 max-h-[900px]" src="assets/landing/backimage.png" />
+        <img
+          className="z-[1] max-h-[900px]"
+          src="assets/landing/backimage.png"
+        />
       </div>
     </div>
   )

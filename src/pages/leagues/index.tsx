@@ -1,10 +1,9 @@
 import { leagueAPI } from "@/services/leaugeService"
-import { Table } from "react-bootstrap"
-import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { Link } from "react-router-dom"
 import FilterBar from "@/components/filterBar"
 import { ColorRing } from "react-loader-spinner"
 import LeagueListNode from "./ListNode"
+import { useState } from "react"
 
 type Props = {}
 
@@ -13,6 +12,8 @@ const leaguePropsList = ["Название", "Президент", "Страна
 const LeagueList = (props: Props) => {
   const { data: leagues, isLoading: loading } =
     leagueAPI.useFetchAllLeaguesQuery(100)
+
+  const [searchString, setSearchString] = useState("")
 
   return (
     <div className="p-2">
@@ -30,7 +31,10 @@ const LeagueList = (props: Props) => {
         </div>
       ) : (
         <div className="mx-auto flex w-11/12 justify-between py-8">
-          <FilterBar />
+          <FilterBar
+            searchString={searchString}
+            setSearchString={setSearchString}
+          />
           {/* main bar*/}
           <div className="w-10/12 pl-2">
             {/* upper bar*/}
@@ -51,11 +55,17 @@ const LeagueList = (props: Props) => {
             {/* competitors list*/}
             <div>
               <div className=" my-4 max-h-[600px] ">
-                {leagues?.map((league) => (
-                  <Link to={`/league/${league.id}`}>
-                    <LeagueListNode data={league} />
-                  </Link>
-                ))}
+                {leagues
+                  ?.filter((item) =>
+                    item.name
+                      .toLowerCase()
+                      .includes(searchString.trim().toLowerCase())
+                  )
+                  .map((league) => (
+                    <Link to={`/league/${league.id}`}>
+                      <LeagueListNode data={league} />
+                    </Link>
+                  ))}
               </div>
             </div>
           </div>

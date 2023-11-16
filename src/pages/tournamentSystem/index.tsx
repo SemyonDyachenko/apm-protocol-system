@@ -1,7 +1,7 @@
 import { tournamentAPI } from "@/services/tournamentsService"
 import { useEffect, useState } from "react"
 import { useParams, useNavigate, matchPath } from "react-router-dom"
-import TournamentCompetitorsList from "./competitorsList"
+
 import { competitorAPI } from "@/services/competitorService"
 import Match from "@/models/Match"
 import Competitor, { getCompetitorFullname } from "@/models/Competitor"

@@ -121,3 +121,21 @@ export const deleteTournament =
       console.log(error.message)
     }
   }
+
+export const updateTournament =
+  (tournamentId: number, data: any) => async (dispatch: AppDispatch) => {
+    try {
+      console.log(data)
+      const response = await axios.put<any>(
+        `${SERVER_URL}/updateTournament/${tournamentId}/`,
+        {
+          tournamentId,
+          ...data,
+        }
+      )
+      console.log(response)
+      console.log(response.data)
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }

@@ -71,6 +71,7 @@ const LeaguePage = (props: Props) => {
         name={league?.name}
         logo={Logo}
         banner={Image}
+        onChangeName={() => {}}
       />
       <div className="flex w-full justify-between py-8">
         <div className="w-1/5">

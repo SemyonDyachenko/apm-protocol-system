@@ -22,7 +22,10 @@ import UpBanner from "@/components/upbanner"
 import TournamentInfoPage from "./informationPage"
 import TournamentCompetitorsPage from "./competitorsPage"
 import TournamentRegisterWindow from "./tournamentRegisterWindow"
-import { getTournamentWeightClasses } from "@/store/actions/tournamentAction"
+import {
+  getTournamentWeightClasses,
+  updateTournament,
+} from "@/store/actions/tournamentAction"
 import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
 import { getOnlyWeightClasses } from "@/utils/array"
 import { refreshLogin } from "@/store/actions/authAction"
@@ -50,6 +53,9 @@ const TournamentPage = (props: Props) => {
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
   )
+
+  const [editingData, setEditingData] = useState([])
+  const [editingName, setEditingName] = useState(tournament?.name)
 
   useEffect(() => {
     document.body.style.overflowY = registerWindow ? "hidden" : "scroll"
@@ -98,7 +104,7 @@ const TournamentPage = (props: Props) => {
       switch (selectedWindow) {
         case "general":
           return editing ? (
-            <EditingPage tournament={tournament} />
+            <EditingPage setData={setEditingData} tournament={tournament} />
           ) : (
             <TournamentInfoPage editing={editing} tournament={tournament} />
           )
@@ -113,6 +119,19 @@ const TournamentPage = (props: Props) => {
               />
             )
           )
+      }
+    }
+  }
+
+  const updateTournamentData = () => {
+    if (tournament) {
+      if (editingData) {
+        dispatch(
+          updateTournament(tournament.id, {
+            name: editingName,
+            ...editingData,
+          })
+        ).then((res) => window.location.reload())
       }
     }
   }
@@ -132,19 +151,27 @@ const TournamentPage = (props: Props) => {
       </div>
     )
 
-  if ((!tournament?.active && !editing) || !competitor) return <PageNotFound />
+  if (editing) {
+    if (!competitor) return <PageNotFound />
+    if (tournament?.organizer !== competitor.id) return <PageNotFound />
+  }
 
   return (
     <div className="mx-auto w-11/12">
       {tournament && (
         <UpBanner
           disabledButton={false}
-          name={tournament?.name}
+          name={editing ? editingName : tournament.name}
+          onChangeName={setEditingName}
           logo={Logo}
           banner={tournament?.photo || Image}
-          onClick={() => openRegisterWindow(true)}
+          onClick={() => {
+            if (!editing) openRegisterWindow(true)
+            else updateTournamentData()
+          }}
           editing={editing}
           verified={tournament.active}
+          targetId={tournament.id}
         />
       )}
       <TournamentRegisterWindow
@@ -154,10 +181,10 @@ const TournamentPage = (props: Props) => {
         closeFunc={() => openRegisterWindow(false)}
       />
       <div className="flex w-full justify-between py-8">
-        <div className="w-2/12">
+        <div className="w-3/12 md:w-2/12">
           <SideBarMenu classname="" disabled={editing} items={menuItems} />
         </div>
-        <div className="w-9/12">
+        <div className="w-8/12 md:w-9/12">
           <div className="w- min-h-[500px] rounded-lg py-2 px-4 shadow-md">
             {getWindow()}
           </div>

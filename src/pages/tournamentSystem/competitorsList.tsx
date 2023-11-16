@@ -10,6 +10,8 @@ type Props = {
   tournamentRegistrations?: TournamentRegistration[]
 }
 
+/*
+
 const TournamentCompetitorsList = ({
   tournament,
   competitors,
@@ -76,3 +78,4 @@ const TournamentCompetitorsList = ({
 }
 
 export default TournamentCompetitorsList
+*/

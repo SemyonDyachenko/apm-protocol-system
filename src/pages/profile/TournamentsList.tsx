@@ -149,7 +149,7 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
                 key={index}
               >
                 <button className="rounded-lg bg-secondary-500 px-4 py-1 text-sm font-medium transition hover:bg-secondary-600">
-                  Редактировать
+                  Подробнее
                 </button>
               </Link>
             </div>

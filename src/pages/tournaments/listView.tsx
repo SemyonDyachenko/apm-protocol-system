@@ -6,9 +6,10 @@ import { Link } from "react-router-dom"
 
 type Props = {
   tournaments: Tournament[]
+  search: string
 }
 
-const ListTournamentsView = ({ tournaments }: Props) => {
+const ListTournamentsView = ({ tournaments, search }: Props) => {
   return (
     <div className="w-full pt-5">
       {tournaments.map((tournament, index) => (

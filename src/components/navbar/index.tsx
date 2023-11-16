@@ -72,7 +72,7 @@ const Navbar = (props: Props) => {
   })
 
   const buttonStyles =
-    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]   text-gray-700 transition  hover:bg-secondary-400 text-md"
+    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]  text-gray-700 transition  hover:bg-secondary-400 text-md"
 
   return (
     <div>

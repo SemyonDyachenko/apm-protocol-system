@@ -13,14 +13,25 @@ type Props = {}
 const TournamentsPage = (props: Props) => {
   const { data: tournaments } = tournamentAPI.useFetchTournamentsQuery(1)
   const [tournamentsView, setTournamentsView] = useState("list")
+  const [searchString, setSearchString] = useState("")
 
   const getTournamentsView = () => {
     if (tournaments) {
       switch (tournamentsView) {
         case "list":
-          return <ListTournamentsView tournaments={tournaments} />
+          return (
+            <ListTournamentsView
+              search={searchString}
+              tournaments={tournaments}
+            />
+          )
         case "sections":
-          return <SectionsTournamentsView tournaments={tournaments} />
+          return (
+            <SectionsTournamentsView
+              search={searchString}
+              tournaments={tournaments}
+            />
+          )
         default:
           return (
             <div className="text-2xl font-bold text-secondary-500">
@@ -34,7 +45,10 @@ const TournamentsPage = (props: Props) => {
   return (
     <div className="mx-auto flex min-h-[650px] w-11/12 items-start justify-between py-5">
       <div className="">
-        <FilterBar />
+        <FilterBar
+          searchString={searchString}
+          setSearchString={setSearchString}
+        />
       </div>
       <div className="w-10/12 pl-6">
         <div className="flex w-full justify-between pr-5">

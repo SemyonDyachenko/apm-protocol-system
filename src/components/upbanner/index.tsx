@@ -1,5 +1,6 @@
 import { faCamera, faCheck, faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "react-router-dom"
 
 type Props = {
   name?: string
@@ -9,6 +10,8 @@ type Props = {
   disabledButton: boolean
   editing?: boolean
   verified?: boolean
+  onChangeName: (val: string) => void
+  targetId?: number
 }
 
 const UpBanner = ({
@@ -19,6 +22,8 @@ const UpBanner = ({
   disabledButton,
   editing,
   verified,
+  onChangeName,
+  targetId,
 }: Props) => {
   return (
     <div className="relative mt-12 h-[380px] w-full rounded-t-2xl rounded-b-2xl shadow-lg">
@@ -58,6 +63,7 @@ const UpBanner = ({
                     <input
                       className="rounded-lg bg-gray-200 py-1 px-4 text-lg outline-none"
                       defaultValue={name}
+                      onChange={(e) => onChangeName(e.target.value)}
                     />
                   </div>
                 ) : (
@@ -92,16 +98,21 @@ const UpBanner = ({
                   {!disabledButton ? "Подать заявку" : "Вы участник"}
                 </button>
               ) : (
-                <button className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-200">
+                <button
+                  onClick={onClick}
+                  className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-200"
+                >
                   Создать турнир
                 </button>
               )}
             </div>
             {!editing && (
               <div className="flex items-center justify-center gap-2 py-2 text-sm text-gray-400">
-                <div className="cursor-pointer transition hover:text-gray-300">
-                  Редактировать
-                </div>
+                <Link to={`/tournament/editing/${targetId}`}>
+                  <div className="cursor-pointer transition hover:text-gray-300">
+                    Редактировать
+                  </div>
+                </Link>
               </div>
             )}
           </div>

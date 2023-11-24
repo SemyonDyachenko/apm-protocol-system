@@ -10,17 +10,46 @@ import { useForm } from "react-hook-form"
 import { useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck } from "@fortawesome/free-solid-svg-icons"
+import League from "@/models/League"
+import { weightClassAPI } from "@/services/weightClassService"
+import Checkbox from "@/components/UI/Checkbox"
+import Select from "react-select"
+import ValueType from "react-select"
+import OptionTypeBase from "react-select"
+import WeightClassCreation from "@/components/modals/weightClass"
 
 type Props = {
   tournament: Tournament
   setData: (data: any) => void
+  setLeague: (data: League) => void
 }
 
-const EditingPage = ({ tournament, setData }: Props) => {
+interface OptionType {
+  value: number
+  label: string
+}
+
+const EditingPage = ({ tournament, setData, setLeague }: Props) => {
   const inputStyle = "bg-gray-200 rounded-lg py-2 px-4 outline-none w-[240px]"
   const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(100)
   const { data: leagues } = leagueAPI.useFetchAllLeaguesQuery(15)
+  const { data: weightclasses } = weightClassAPI.useFetchWeightClassesQuery(100)
   const [saved, setSaved] = useState(false)
+
+  // weight categiores
+  const [selectedOptions, setSelectedOptions] = useState<Array<OptionType>>([])
+  const [weightOptions, setWeightOptions] = useState<Array<OptionType>>([])
+  const [weightClassWindow, openWeightClassWindow] = useState(true)
+
+  useEffect(() => {
+    if (weightclasses && weightOptions.length === 0)
+      weightclasses.forEach((item, index) => {
+        setWeightOptions((prev) => [
+          { value: item.id, label: item.name },
+          ...prev,
+        ])
+      })
+  }, [saved])
 
   useEffect(() => {
     if (saved) {
@@ -34,11 +63,22 @@ const EditingPage = ({ tournament, setData }: Props) => {
     }
   }, [saved])
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, getValues } = useForm()
 
   const onSubmit = (data: any) => {
     setData(data)
+    if (leagues) {
+      let league = leagues?.find(
+        (item: any) => item.id === +getValues("league")
+      )
+
+      if (league) setLeague(league)
+    }
     setSaved(true)
+  }
+
+  const handleChange = (selectedValues: Array<OptionType>) => {
+    setSelectedOptions(selectedValues)
   }
 
   return (
@@ -171,8 +211,26 @@ const EditingPage = ({ tournament, setData }: Props) => {
             </label>
           </label>
         </div>
+        <div>
+          <div>
+            <div className="py-1 text-sm text-gray-400">Весовые категории:</div>
+            <Select
+              className="z-[25]"
+              options={weightOptions}
+              isMulti
+              value={selectedOptions}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="mx-4">
+          <div className="py-1 text-sm text-gray-400">Новая категория:</div>
+          <ActionButton onClick={() => openWeightClassWindow(true)}>
+            Создать категорию
+          </ActionButton>
+        </div>
       </div>
-      <div className="flex items-end gap-4">
+      <div className="flex items-end gap-4 pb-2">
         <ActionButton
           className="font-medium disabled:bg-gray-400"
           disabled={saved}
@@ -193,6 +251,10 @@ const EditingPage = ({ tournament, setData }: Props) => {
           </div>
         </motion.div>
       </div>
+      <WeightClassCreation
+        visible={weightClassWindow}
+        closeFunc={() => openWeightClassWindow(false)}
+      />
     </div>
   )
 }

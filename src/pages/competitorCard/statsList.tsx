@@ -7,36 +7,36 @@ type Props = {
 const StatsList = ({ competitor }: Props) => {
   const competitorStats = [
     {
-      title: "Бицепс",
-      value: "20 Кг",
+      title: "Хват",
+      value: competitor.grip + " Кг",
     },
     {
       title: "Бицепс",
-      value: "20 Кг",
+      value: competitor.biceps + " Кг",
     },
     {
-      title: "Бицепс",
-      value: "20 Кг",
+      title: "Турник",
+      value: competitor.crossbar + " Раз",
     },
     {
-      title: "Бицепс",
-      value: "20 Кг",
+      title: "Луч",
+      value: competitor.shaft + " Кг",
     },
     {
-      title: "Бицепс",
-      value: "20 Кг",
+      title: "Армжим",
+      value: competitor.militarypress + " Кг",
     },
     {
-      title: "Бицепс",
-      value: "20 Кг",
+      title: "Кисть",
+      value: competitor.hand + " Кг",
     },
     {
-      title: "Бицепс",
-      value: "20 Кг",
+      title: "Жим",
+      value: competitor.press + " Кг",
     },
     {
-      title: "Бицепс",
-      value: "20 Кг",
+      title: "Бок",
+      value: competitor.side + " Кг",
     },
   ]
   return (

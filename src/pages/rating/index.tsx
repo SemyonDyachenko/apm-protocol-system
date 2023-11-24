@@ -4,6 +4,7 @@ import CompetitorListNode from "./ListNode"
 import FilterBar from "@/components/filterBar"
 import PerfectScrollbar from "react-perfect-scrollbar"
 import { useState } from "react"
+import { countryItems } from "@/components/filterBar/items"
 type Props = {}
 
 const competitorPropsList = [
@@ -12,13 +13,14 @@ const competitorPropsList = [
   "Пол",
   "Страна",
   "Звание",
-  "________",
+  "Рейтинг",
 ]
 
 const RatingList = (props: Props) => {
   const [search, setSearch] = useState("")
   const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(100)
-  console.log(competitors)
+  const [filterData, setFilterData] = useState([0])
+
   return (
     <div className="mx-auto flex w-11/12 justify-between py-8 md:px-2">
       {/* filter bar */}
@@ -26,6 +28,9 @@ const RatingList = (props: Props) => {
         searchString={search}
         setSearchString={setSearch}
         className="hidden md:block"
+        countryItems={countryItems}
+        genderFilter={true}
+        setData={setFilterData}
       />
       {/* main bar*/}
       <div className="w-full pl-2 md:w-10/12">
@@ -35,7 +40,7 @@ const RatingList = (props: Props) => {
             <div className="flex items-center justify-between py-[10px] px-10">
               {competitorPropsList.map((element) => (
                 <div
-                  className={`font-semibold text-gray-700 first:hidden last:hidden last:text-transparent  md:first:block md:last:block`}
+                  className={`font-semibold text-gray-700 first:hidden   md:first:block md:last:block`}
                   key={element}
                 >
                   {element}
@@ -58,6 +63,12 @@ const RatingList = (props: Props) => {
                       item.first_name
                         .toLowerCase()
                         .includes(search.trim().toLowerCase())
+                  )
+                  .filter((item) =>
+                    !filterData[0] ? item.gender === "f" : item.gender
+                  )
+                  .filter((item) =>
+                    !filterData[1] ? item.gender === "m" : item.gender
                   )
                   .map((competitor, index) => (
                     <Link to={`/competitor/${competitor.id}`}>

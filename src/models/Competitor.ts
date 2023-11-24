@@ -17,6 +17,14 @@ export default interface Competitor {
   career_start_date: Date
   height?: number
   description?: string
+  grip?: number
+  biceps?: number
+  crossbar?: number
+  shaft?: number
+  militarypress?: number
+  hand?: number
+  press?: number
+  side?: number
 }
 
 export const getCompetitorFullname = (

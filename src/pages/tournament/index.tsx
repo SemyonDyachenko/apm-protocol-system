@@ -34,6 +34,8 @@ import ReviewsPage from "./reviewsPage"
 import { ColorRing } from "react-loader-spinner"
 import PageNotFound from "../404/PageNotFound"
 import EditingPage from "./editingPage"
+import { createTournamentNotification } from "@/store/actions/notificationAction"
+import League from "@/models/League"
 
 type Props = {}
 
@@ -56,6 +58,9 @@ const TournamentPage = (props: Props) => {
 
   const [editingData, setEditingData] = useState([])
   const [editingName, setEditingName] = useState(tournament?.name)
+  const [selectedLeague, setSelectedLeague] = useState<League>()
+
+  console.log(selectedLeague)
 
   useEffect(() => {
     document.body.style.overflowY = registerWindow ? "hidden" : "scroll"
@@ -104,7 +109,11 @@ const TournamentPage = (props: Props) => {
       switch (selectedWindow) {
         case "general":
           return editing ? (
-            <EditingPage setData={setEditingData} tournament={tournament} />
+            <EditingPage
+              setLeague={setSelectedLeague}
+              setData={setEditingData}
+              tournament={tournament}
+            />
           ) : (
             <TournamentInfoPage editing={editing} tournament={tournament} />
           )
@@ -131,25 +140,21 @@ const TournamentPage = (props: Props) => {
             name: editingName,
             ...editingData,
           })
-        ).then((res) => window.location.reload())
+        ).then((res) => {
+          dispatch(
+            createTournamentNotification({
+              message: "Новый турнир",
+              tournament: tournament.id,
+              competitor: selectedLeague ? +selectedLeague.president : 0,
+              datetime: new Date(),
+              read: false,
+            })
+          ).then((res) => console.log(res))
+          window.location.reload()
+        })
       }
     }
   }
-
-  if (loading)
-    return (
-      <div className="flex items-center justify-center p-40">
-        <ColorRing
-          visible={true}
-          height="120"
-          width="120"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{}}
-          wrapperClass="blocks-wrapper"
-          colors={["#FFC132", "#FFC132", "#FFC132", "#FFC132", "#FFC132"]}
-        />
-      </div>
-    )
 
   if (editing) {
     if (!competitor) return <PageNotFound />

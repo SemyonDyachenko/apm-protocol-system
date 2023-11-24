@@ -36,18 +36,18 @@ const EntrySection = (props: Props) => {
             </div>
             <div className="text-md w-full py-8 font-semibold tracking-normal md:w-4/5">
               <p className="text-md md:text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
+                Добро пожаловать на АРМ-РЕЙТ – ваш путь к спортивной славе!
+                Создавайте собственные спортивные лиги, организовывайте
+                захватывающие турниры, приглашайте талантливых спортсменов ваших
+                событий. Наша инновационная платформа предоставляет уникальные
+                протоколы, позволяя вашим турнирам взлететь в мировом рейтинге.{" "}
                 <span className="animate-pulse text-secondary-500">
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                  qui officia deserunt mollit anim id est laborum. velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                  occaecat cupidatat non proident, sunt in culpa qui officia
-                  deserunt mollit anim id est laborum.
+                  Выделитесь, создав свой профиль спортсмена, вступите в
+                  спортивные команды, достигните мирового признания в абсолютном
+                  рейтинге. Регистрируйтесь на турниры, проявите свое мастерство
+                  и станьте частью спортивных лиг, взаимодействуя с активным
+                  сообществом. Прокачайте свою игру – с АРМ-РЕЙТ ваш успех
+                  неизбежен!
                 </span>
               </p>
             </div>

@@ -46,11 +46,11 @@ const SideBarMenu = ({ classname, items, disabled }: Props) => {
               <SideBarItem
                 key={index}
                 onClick={() => {
-                  if (!disabled) setSelected(index)
+                  if (!element.disabled) setSelected(index)
                 }}
                 icon={element.icon}
                 selected={selected === index}
-                disabled={disabled}
+                disabled={element.disabled}
               >
                 {element.children}
               </SideBarItem>

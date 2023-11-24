@@ -19,6 +19,7 @@ import CompetitorCardPage from "./pages/competitorCard"
 import LeaguePage from "./pages/league"
 import StartPage from "./pages/landing"
 import PageNotFound from "./pages/404/PageNotFound"
+import LeagueEditingPage from "./pages/leagueEditing"
 
 const isAuth = localStorage.getItem("token")
 
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <PageNotFound />,
+      },
+      {
+        path: "league/editing/:leagueId",
+        element: <LeagueEditingPage />,
       },
     ],
   },

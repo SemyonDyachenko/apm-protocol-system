@@ -87,6 +87,40 @@ export const updateCompetitorProps =
     }
   }
 
+export const updateCompetitorStats =
+  (
+    id: number,
+    grip: number | undefined,
+    biceps: number | undefined,
+    crossbar: number | undefined,
+    shaft: number | undefined,
+    militarypress: number | undefined,
+    hand: number | undefined,
+    press: number | undefined,
+    side: number | undefined
+  ) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<Competitor>(
+        `${SERVER_URL}/updateProfileStats/${id}/`,
+        {
+          id,
+          grip,
+          biceps,
+          crossbar,
+          shaft,
+          militarypress,
+          hand,
+          press,
+          side,
+        }
+      )
+      console.log(response)
+    } catch (e: AxiosError | any) {
+      console.log(e.message)
+    }
+  }
+
 export const getCompetitorData =
   (accessToken: string | null) => async (dispatch: AppDispatch) => {
     if (accessToken) {

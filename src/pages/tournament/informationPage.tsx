@@ -103,17 +103,29 @@ const TournamentInfoPage = ({ tournament, editing }: Props) => {
           />
         )}
       </div>
-      <div>
+      <div className="flex gap-8">
         <div>
-          <span className="text-sm text-gray-400">Описание:</span>
-          <p className="pt-1 text-sm font-medium text-gray-700">
-            {tournament.description}
-          </p>
+          <img
+            className="h-[350px] max-w-[280px] rounded-lg"
+            src="/assets/afisha.jpg"
+          />
         </div>
-        <div className="grid w-full grid-cols-4 grid-rows-2 gap-12 py-4">
-          {gridItems.map((element, index) => (
-            <GridItem title={element.title} value={element.value} key={index} />
-          ))}
+        <div>
+          <div>
+            <span className="text-sm text-gray-400">Описание:</span>
+            <p className="pt-1 text-sm font-medium text-gray-700">
+              {tournament.description}
+            </p>
+          </div>
+          <div className="grid w-full grid-cols-4 grid-rows-2 gap-12 py-4">
+            {gridItems.map((element, index) => (
+              <GridItem
+                title={element.title}
+                value={element.value}
+                key={index}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ const PropsInfo = ({ competitor }: Props) => {
 
   const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(10)
   const [isDisabled, setIsDisabled] = useState(true)
+
   const updateProps = () => {
     competitor &&
       dispatch(
@@ -127,7 +128,7 @@ const PropsInfo = ({ competitor }: Props) => {
             </div>
             <textarea
               onChange={(e) => setDescription(e.target.value)}
-              className="w-[500px] rounded-lg border-none px-4 py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:overflow-hidden"
+              className="rounded-lg border-none px-4 py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:overflow-hidden md:w-[650px]"
               defaultValue={description}
               disabled={isDisabled}
             ></textarea>

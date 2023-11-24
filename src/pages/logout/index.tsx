@@ -13,6 +13,7 @@ const LogoutPage = (props: Props) => {
   const logout = () => {
     dispatch(logoutUser()).then(() => {
       navigate("/")
+      window.location.reload()
     })
   }
 

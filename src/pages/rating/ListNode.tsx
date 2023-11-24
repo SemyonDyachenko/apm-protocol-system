@@ -47,15 +47,8 @@ const CompetitorListNode = ({ place, data }: Props) => {
         {data.rank}
       </div>
       <div className={`${baseNodeLabelStyles} w-1/6 text-right`}>
-        <div className="flex items-center gap-2">
-          <div className="text-3xl font-extrabold text-secondary-500">
-            {data?.elo_rating}
-          </div>
-          <div className="hidden text-left text-sm font-semibold md:block">
-            Рейтинг
-            <br />
-            спортсмена
-          </div>
+        <div className="flex justify-end gap-2 text-3xl font-extrabold text-secondary-500">
+          {data?.elo_rating}
         </div>
       </div>
     </ListNode>

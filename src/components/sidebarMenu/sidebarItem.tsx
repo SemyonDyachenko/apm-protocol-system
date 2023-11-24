@@ -27,7 +27,7 @@ const SideBarItem = ({
       } flex w-full cursor-pointer items-center gap-3 border-secondary-400 px-5 py-3
         transition ${!disabled && "hover:border-r-4"}
         hover:bg-gray-200 hover:bg-opacity-25 hover:text-gray-700 ${
-          disabled ? "text-gray-70" : "text-gray-400"
+          disabled ? "text-gray-200" : "text-gray-400"
         } `}
     >
       <FontAwesomeIcon className="text-xl" icon={icon} />

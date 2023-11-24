@@ -35,9 +35,7 @@ const LoginPage = (props: Props) => {
             setAuthError("Вы ввели неверный E-mail или пароль")
           }
         } else {
-          if (competitor) {
-            navigate("/profile")
-          }
+          navigate("/profile")
         }
       })
     } catch (error: Error | any) {

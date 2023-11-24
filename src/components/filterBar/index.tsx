@@ -1,16 +1,36 @@
 import { faChevronDown, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
-import React from "react"
+import { useState, useEffect } from "react"
 import Checkbox from "../UI/Checkbox"
+import { FilterItem } from "./items"
 
 type Props = {
   className?: string
   searchString: string
   setSearchString: (val: string) => void
+  countryItems?: Array<FilterItem>
+  genderFilter: boolean
+  setData?: ([]: any) => void
 }
 
-const FilterBar = ({ searchString, setSearchString, className }: Props) => {
+const FilterBar = ({
+  searchString,
+  setSearchString,
+  className,
+  countryItems,
+  genderFilter,
+  setData,
+}: Props) => {
+  const [menCheck, setMenCheck] = useState(true)
+  const [womenCheck, setWomenCheck] = useState(true)
+  const [rightHand, setRightHand] = useState(true)
+  const [leftHand, setLeftHand] = useState(true)
+
+  useEffect(() => {
+    if (setData) setData([menCheck, womenCheck, rightHand, leftHand])
+  }, [menCheck, womenCheck, rightHand, leftHand])
+
   return (
     <motion.div
       className={className}
@@ -25,7 +45,7 @@ const FilterBar = ({ searchString, setSearchString, className }: Props) => {
             <div className="flex cursor-pointer items-center justify-between">
               <div className="text-md font-semibold text-gray-700">Поиск</div>
               <div>
-                <FontAwesomeIcon icon={faChevronDown} />
+                <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
               </div>
             </div>
             <div className="flex items-center  gap-3 py-3">
@@ -50,15 +70,15 @@ const FilterBar = ({ searchString, setSearchString, className }: Props) => {
             <div className="flex cursor-pointer items-center justify-between">
               <div className="text-md font-semibold text-gray-700">Рука</div>
               <div>
-                <FontAwesomeIcon icon={faChevronDown} />
+                <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
               </div>
             </div>
             <div className="py-3">
               <div className="flex items-center gap-x-2">
                 <div className="pt-1">
                   <Checkbox
-                    isChecked={false}
-                    changeState={() => {}}
+                    isChecked={rightHand}
+                    changeState={setRightHand}
                     className=""
                   />
                 </div>
@@ -67,8 +87,8 @@ const FilterBar = ({ searchString, setSearchString, className }: Props) => {
               <div className="flex items-center gap-x-2 pt-2">
                 <div className="pt-1">
                   <Checkbox
-                    isChecked={false}
-                    changeState={() => {}}
+                    isChecked={leftHand}
+                    changeState={setLeftHand}
                     className=""
                   />
                 </div>
@@ -76,80 +96,70 @@ const FilterBar = ({ searchString, setSearchString, className }: Props) => {
               </div>
             </div>
           </div>
-          <div className="mt-3">
-            <div className="flex cursor-pointer items-center justify-between">
-              <div className="text-md font-semibold text-gray-700">Страна</div>
-              <div>
-                <FontAwesomeIcon icon={faChevronDown} />
+          {countryItems && (
+            <div className="mt-3">
+              <div className="flex cursor-pointer items-center justify-between">
+                <div className="text-md font-semibold text-gray-700">
+                  Страна
+                </div>
+                <div>
+                  <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
+                </div>
+              </div>
+              <div className="py-3">
+                {countryItems.map((item, index) => (
+                  <div className="flex items-center gap-2 pt-2">
+                    <div>
+                      <Checkbox
+                        isChecked={index % 2 === 0 ? true : false}
+                        className="mt-1"
+                        changeState={() => {}}
+                      />
+                    </div>
+                    <div className="text-md font-medium text-gray-700">
+                      {item.title}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="py-3">
-              <div className="flex items-center gap-2">
+          )}
+          {genderFilter && (
+            <div className="mt-3">
+              <div className="flex cursor-pointer items-center justify-between">
+                <div className="text-lg font-semibold text-gray-700">Пол</div>
                 <div>
-                  <input className="" type="checkbox" />
-                </div>
-                <div className="text-md font-medium text-gray-700">Россия</div>
-              </div>
-              <div className="flex items-center gap-2 pt-3">
-                <div>
-                  <input className="" type="checkbox" />
-                </div>
-                <div className="text-md font-medium text-gray-700">
-                  Беларусь
+                  <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
                 </div>
               </div>
-              <div className="flex items-center gap-2 pt-3">
-                <div>
-                  <input className="" type="checkbox" />
+              <div className="py-3">
+                <div className="flex items-center gap-2 ">
+                  <div>
+                    <Checkbox
+                      isChecked={menCheck}
+                      changeState={setMenCheck}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div className="text-md font-medium text-gray-700">
+                    Мужской
+                  </div>
                 </div>
-                <div className="text-md font-medium text-gray-700">Польша</div>
+                <div className="flex items-center gap-2 pt-2">
+                  <div>
+                    <Checkbox
+                      isChecked={womenCheck}
+                      changeState={setWomenCheck}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div className="text-md font-medium text-gray-700 ">
+                    Женский
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="mt-3">
-            <div className="flex cursor-pointer items-center justify-between">
-              <div className="text-lg font-semibold text-gray-700">Пол</div>
-              <div>
-                <FontAwesomeIcon icon={faChevronDown} />
-              </div>
-            </div>
-            <div className="py-3">
-              <div className="flex items-center gap-2 ">
-                <div>
-                  <input className="" type="checkbox" />
-                </div>
-                <div className="text-md font-medium text-gray-700">Мужской</div>
-              </div>
-              <div className="flex items-center gap-2 pt-3">
-                <div>
-                  <input className="" type="checkbox" />
-                </div>
-                <div className="text-md font-medium text-gray-700">Женский</div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-3">
-            <div className="flex cursor-pointer items-center justify-between">
-              <div className="text-lg font-semibold text-gray-700">Вес</div>
-              <div>
-                <FontAwesomeIcon icon={faChevronDown} />
-              </div>
-            </div>
-            <div className="py-3">
-              <div className="flex items-center gap-2 ">
-                <div>
-                  <input className="" type="checkbox" />
-                </div>
-                <div className="text-md font-medium text-gray-700">95 кг</div>
-              </div>
-              <div className="flex items-center gap-2 pt-3">
-                <div>
-                  <input className="" type="checkbox" />
-                </div>
-                <div className="text-md font-medium text-gray-700">85 кг</div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </motion.div>

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import PersonalDataInput from "./PersonalDataInput"
+import Checkbox from "@/components/UI/Checkbox"
 
 type Props = {}
 
 const SecurityPage = (props: Props) => {
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
+  const [notification, setNotifcation] = useState(false)
   return (
     <div className="pb-2">
       <div className="flex items-end gap-4">
@@ -32,9 +34,15 @@ const SecurityPage = (props: Props) => {
       </div>
       <div className="flex items-center gap-2 py-3">
         <div>
-          <input className="border-secondary-500" type="checkbox" />
+          <Checkbox
+            className=""
+            isChecked={notification}
+            changeState={setNotifcation}
+          />
         </div>
-        <div className="text-gray-400 ">Включить подтверждение по E-mail</div>
+        <div className="mb-1 text-gray-400 ">
+          Включить подтверждение по E-mail
+        </div>
       </div>
       <div className="cursor-pointer py-1 text-secondary-500 underline transition hover:text-secondary-400">
         Удалить учетную запись

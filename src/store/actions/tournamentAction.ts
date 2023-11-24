@@ -139,3 +139,17 @@ export const updateTournament =
       console.log(error.message)
     }
   }
+
+export const tournamentActive =
+  (tournamentId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<any>(
+        `${SERVER_URL}/tournamentActive/${tournamentId}/`,
+        {
+          tournamentId,
+        }
+      )
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }

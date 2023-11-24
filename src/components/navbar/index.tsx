@@ -12,6 +12,7 @@ import LangSwitch from "./langSwitch"
 import SideBarHeader from "./sidebarHeader"
 import MainLogo from "/assets/logo/mainlogo.png"
 import { navLinks } from "./links"
+import NotificationBar from "./notificationBar"
 
 type Props = {}
 
@@ -126,17 +127,7 @@ const Navbar = (props: Props) => {
 
               <LangSwitch active={langHidden} />
             </div>
-            {localStorage.getItem("token") !== null && (
-              <div className="cursor-pointer px-2 text-lg text-white ">
-                <div className="absolute flex h-[17px] w-[17px] -translate-y-[4px] translate-x-[6px] items-center justify-center rounded-full bg-secondary-500 p-[2px] text-[12px] font-bold text-gray-700">
-                  2
-                </div>
-                <FontAwesomeIcon
-                  className="transition hover:text-secondary-500"
-                  icon={faBell}
-                />
-              </div>
-            )}
+            {localStorage.getItem("token") !== null && <NotificationBar />}
             {isAuth() ? (
               <div>
                 <Link to="/profile">

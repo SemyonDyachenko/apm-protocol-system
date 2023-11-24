@@ -8,7 +8,7 @@ type Props = {
 
 const Checkbox = ({ className, isChecked, changeState }: Props) => {
   return (
-    <label>
+    <label className={className}>
       <input
         type="checkbox"
         defaultChecked={isChecked}

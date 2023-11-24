@@ -14,6 +14,8 @@ import ConfirmModal from "@/components/modals/confirmModal"
 import Checkbox from "@/components/UI/Checkbox"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faDeleteLeft, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { createTournamentNotification } from "@/store/actions/notificationAction"
+import { leagueAPI } from "@/services/leaugeService"
 
 type Props = {
   competitorId: number

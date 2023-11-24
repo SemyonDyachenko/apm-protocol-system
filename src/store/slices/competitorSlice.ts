@@ -22,6 +22,14 @@ export interface CompetitorData {
   description?: string
   weight: number
   mode: string
+  grip?: number
+  biceps?: number
+  crossbar?: number
+  shaft?: number
+  militarypress?: number
+  hand?: number
+  press?: number
+  side?: number
 }
 
 export interface competitorState {

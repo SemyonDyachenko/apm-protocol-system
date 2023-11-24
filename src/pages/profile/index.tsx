@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { logoutUser, refreshLogin } from "@/store/actions/authAction"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 import {
+  faBuilding,
+  faBuildingColumns,
   faComment,
   faDisplay,
   faHouse,
@@ -22,6 +24,8 @@ import { sidebarItemData } from "@/components/sidebarMenu/sidebarItem"
 import SideBarMenu from "@/components/sidebarMenu"
 import InfoWindow from "./InfoWindow"
 import CompetitorTournamentsList from "./TournamentsList"
+import MessagesWindow from "./MessagesWindow"
+import LeaguesWindow from "./leaguesWindow"
 
 type Props = {}
 
@@ -54,6 +58,12 @@ const ProfilePage = (props: Props) => {
       selected: false,
       icon: faComment,
       children: "Сообщения",
+    },
+    {
+      onClick: () => setWindow("leagues"),
+      selected: false,
+      icon: faBuildingColumns,
+      children: "Лиги",
     },
     {
       onClick: () => {},
@@ -123,6 +133,10 @@ const ProfilePage = (props: Props) => {
               competitorId={competitor.id}
             />
           )
+        case "leagues":
+          return <LeaguesWindow competitor={competitor} />
+        case "messages":
+          return <MessagesWindow competitor={competitor} />
       }
     } else {
       return <div>NOT FOUND</div>
@@ -153,6 +167,7 @@ const ProfilePage = (props: Props) => {
               Добро пожаловать,{" "}
               {competitor?.first_name + " " + competitor?.last_name}
             </HText>
+
             <div className="flex items-center gap-4 text-lg text-gray-700">
               <div className="cursor-default rounded-full bg-secondary-500 px-5 py-2 text-xl font-black text-gray-700 shadow-md transition">
                 {competitor?.elo_rating}

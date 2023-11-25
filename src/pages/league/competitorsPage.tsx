@@ -10,6 +10,7 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { getCompetitorsByRole } from "@/utils/array"
 import CompetitorLinkItem from "@/components/competitorLink"
+import { leagueAPI } from "@/services/leaugeService"
 
 type Props = {
   league: League
@@ -39,8 +40,9 @@ const items: Array<upMenuItem> = [
 ]
 
 const LeagueCompetitors = ({ league }: Props) => {
-  const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(10)
-
+  const { data: competitors } = leagueAPI.useFetchLeagueCompetitorsQuery(
+    league.id
+  )
   const [targetRole, setTargetRole] = useState("competitor")
   const [searchString, setSearchString] = useState("")
 
@@ -73,13 +75,14 @@ const LeagueCompetitors = ({ league }: Props) => {
                 <div className="my-2 px-2">
                   {competitors &&
                     getCompetitorsByRole(targetRole, competitors)
-                      .filter((item) =>
-                        item.last_name
-                          .toLowerCase()
-                          .includes(searchString.toLocaleLowerCase())
-                      )
+                      .filter((item) => item.accepted)
                       .map((item, index) => (
-                        <CompetitorLinkItem key={index} competitor={item} />
+                        <div key={index}>
+                          <CompetitorLinkItem
+                            key={index}
+                            competitor={item.competitor}
+                          />
+                        </div>
                       ))}
                 </div>
               </div>

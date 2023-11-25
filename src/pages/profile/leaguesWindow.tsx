@@ -5,14 +5,41 @@ import { leaguesNavItems } from "./navItems"
 import { leagueAPI } from "@/services/leaugeService"
 import ListNode from "@/components/listNode"
 import ActionButton from "@/components/UI/Button"
+import { getLeagueLevel } from "@/models/League"
+import { Link, useNavigate } from "react-router-dom"
+import ConfirmModal from "@/components/modals/confirmModal"
+import Checkbox from "@/components/UI/Checkbox"
+import { useAppDispatch } from "@/hooks/redux"
+import CustomInput from "@/components/UI/Input"
+import { createDefaultLeague } from "@/store/actions/leagueActon"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
 type Props = {
   competitor: CompetitorData
 }
 
 const LeaguesWindow = ({ competitor }: Props) => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [target, setTarget] = useState(leaguesNavItems[0].target)
   const { data: leagues } = leagueAPI.useFetchAllLeaguesQuery(100)
+  const [modalActive, setModalActive] = useState(false)
+  const [leagueName, setLeagueName] = useState("")
+
+  const createLeague = () => {
+    if (leagueName.length > 0)
+      dispatch(createDefaultLeague(competitor.id, leagueName)).then((res) => {
+        if (res) {
+          console.log(res.data)
+          if (res.status === 201) {
+            navigate(`/league/editing/${res.data["id"]}`)
+            window.location.reload()
+          }
+          console.log(res)
+        }
+      })
+  }
 
   return (
     <div>
@@ -22,7 +49,10 @@ const LeaguesWindow = ({ competitor }: Props) => {
         </div>
         <div className="w-1/4">
           <div className="flex justify-end">
-            <ActionButton className="mb-3 font-medium" onClick={() => {}}>
+            <ActionButton
+              className="mb-3 font-medium"
+              onClick={() => setModalActive(true)}
+            >
               Создать лигу
             </ActionButton>
           </div>
@@ -30,14 +60,94 @@ const LeaguesWindow = ({ competitor }: Props) => {
         </div>
       </div>
       <div>
-        <div className="p-4">
-          {leagues?.map((league, index) => (
-            <ListNode key={index}>
-              <div>{league.name}</div>
-            </ListNode>
-          ))}
+        <div className="py-4">
+          {target === "competitor" ? (
+            leagues?.map((league, index) => (
+              <ListNode classname="font-medium" key={index}>
+                <div className="w-1/4">{league.name}</div>
+                <div className="w-1/4">{league.country}</div>
+                <div className="w-1/4 text-end">{getLeagueLevel(league)}</div>
+                <div className="w-1/4 text-end">
+                  <Link
+                    className="hover:text-gray-700"
+                    to={`/league/${league.id}`}
+                  >
+                    <button
+                      className="rounded-lg bg-secondary-500 px-4 py-1 font-medium text-gray-700 transition hover:bg-secondary-600"
+                      onClick={() => {}}
+                    >
+                      Подробнее
+                    </button>
+                  </Link>
+                </div>
+              </ListNode>
+            ))
+          ) : (
+            <div>
+              {leagues &&
+                leagues
+                  .filter((item) => +item.president === competitor.id)
+                  .map((league, index) => (
+                    <ListNode classname="font-medium" key={index}>
+                      <div className="w-1/12 cursor-pointer" onClick={() => {}}>
+                        <FontAwesomeIcon
+                          className="transition hover:text-secondary-500"
+                          icon={faTrash}
+                        />
+                      </div>
+                      <div className="w-1/4">{league.name}</div>
+                      <div className="w-1/4">{league.country}</div>
+                      <div className="w-1/4 text-end">
+                        {getLeagueLevel(league)}
+                      </div>
+                      <div className="w-1/4 text-end">
+                        <Link
+                          className="hover:text-gray-700"
+                          to={`/league/editing/${league.id}`}
+                        >
+                          <button className="rounded-lg bg-secondary-500 px-4 py-1 font-medium text-gray-700 transition hover:bg-secondary-600">
+                            Подробнее
+                          </button>
+                        </Link>
+                      </div>
+                    </ListNode>
+                  ))}
+            </div>
+          )}
         </div>
       </div>
+      <ConfirmModal
+        text="Добавить лигу и перейти к заполнению?"
+        active={modalActive}
+        closeFunc={() => {
+          setModalActive(false)
+          setLeagueName("")
+        }}
+        action={() => createLeague()}
+      >
+        <div>
+          <div className="pb-2">
+            <CustomInput
+              className="w-full py-2 font-medium"
+              label="Название"
+              value={leagueName}
+              onChange={setLeagueName}
+            />
+          </div>
+          <div className="mt-2 flex gap-2">
+            <Checkbox className="" isChecked={true} changeState={() => {}} />
+            <div className="-mt-1">
+              Я ознакомился с{" "}
+              <Link
+                className="text-secondary-500 underline transition hover:text-secondary-400"
+                to="/"
+              >
+                правилами добавления новой лиги
+              </Link>
+            </div>
+          </div>
+        </div>
+      </ConfirmModal>
     </div>
   )
 }

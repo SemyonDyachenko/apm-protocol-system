@@ -41,6 +41,10 @@ type Props = {}
 
 const TournamentPage = (props: Props) => {
   const dispatch = useAppDispatch()
+  const { competitor, loading, error } = useAppSelector(
+    (state) => state.competitors
+  )
+
   const { tournamentId } = useParams()
 
   const { data: tournament } = tournamentAPI.useFetchTournamentQuery(
@@ -51,10 +55,6 @@ const TournamentPage = (props: Props) => {
 
   const [selectedWindow, setSelectedItem] = useState("general")
   const [registerWindow, openRegisterWindow] = useState(false)
-
-  const { competitor, loading, error } = useAppSelector(
-    (state) => state.competitors
-  )
 
   const [editingData, setEditingData] = useState([])
   const [editingName, setEditingName] = useState(tournament?.name)
@@ -177,6 +177,7 @@ const TournamentPage = (props: Props) => {
           editing={editing}
           verified={tournament.active}
           targetId={tournament.id}
+          league={false}
         />
       )}
       <TournamentRegisterWindow

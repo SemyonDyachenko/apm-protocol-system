@@ -46,6 +46,7 @@ const TournamentsPage = (props: Props) => {
     <div className="mx-auto flex min-h-[650px] w-11/12 items-start justify-between py-5">
       <div className="">
         <FilterBar
+          genderFilter={false}
           searchString={searchString}
           setSearchString={setSearchString}
         />

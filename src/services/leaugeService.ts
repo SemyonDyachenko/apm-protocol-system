@@ -1,5 +1,6 @@
 import { SERVER_URL } from "@/api/instance"
 import League from "@/models/League"
+import LeagueCompetitor from "@/models/LeagueCompetitor"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const leagueAPI = createApi({
@@ -14,10 +15,19 @@ export const leagueAPI = createApi({
         },
       }),
     }),
-    fetchLeague: build.query<League,number>({
-      query: (id,limit: number = 1) => ({
+    fetchLeague: build.query<League, number>({
+      query: (id, limit: number = 1) => ({
         url: `leagues/${id}`,
         params: {
+          _limit: limit,
+        },
+      }),
+    }),
+    fetchLeagueCompetitors: build.query<LeagueCompetitor[], number>({
+      query: (leagueId, limit: number = 1000) => ({
+        url: `leagueCompetitors`,
+        params: {
+          leagueId,
           _limit: limit,
         },
       }),

@@ -13,3 +13,7 @@ export const findCompetitorById = (competitors: Competitor[], id: number) => {
   if (competitors) return competitors.find((element) => element.id === id)
   else return null
 }
+
+export const getCountriesList = () => {
+  return ["Россия", "Беларусь", "Польша", "Казахстан", "Узбекистан"]
+}

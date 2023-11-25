@@ -32,6 +32,7 @@ const LeagueList = (props: Props) => {
       ) : (
         <div className="mx-auto flex w-11/12 justify-between py-8">
           <FilterBar
+            genderFilter={false}
             searchString={searchString}
             setSearchString={setSearchString}
           />

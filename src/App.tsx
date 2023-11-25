@@ -1,7 +1,10 @@
-import Main from "./pages/main"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
-import ControlPanel from "./pages/control"
+import {
+  createBrowserRouter,
+  BrowserRouter as Router,
+  RouterProvider,
+} from "react-router-dom"
+
 import Navbar from "./components/navbar"
 import LoginPage from "./pages/login"
 import RatingList from "./pages/rating"
@@ -14,7 +17,7 @@ import TournamentPage from "./pages/tournament"
 import MatchPage from "./pages/match"
 
 import LogoutPage from "./pages/logout"
-import { useEffect } from "react"
+
 import CompetitorCardPage from "./pages/competitorCard"
 import LeaguePage from "./pages/league"
 import StartPage from "./pages/landing"
@@ -22,6 +25,7 @@ import PageNotFound from "./pages/404/PageNotFound"
 import LeagueEditingPage from "./pages/leagueEditing"
 
 const isAuth = localStorage.getItem("token")
+import { Routes, Route, Outlet } from "react-router-dom"
 
 function NavbarWrapper() {
   return (
@@ -32,79 +36,48 @@ function NavbarWrapper() {
   )
 }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <NavbarWrapper />,
-    children: [
-      {
-        path: "/login",
-        element: isAuth ? <PageNotFound /> : <LoginPage />,
-      },
-      {
-        path: "/rating",
-        element: <RatingList />,
-      },
-      {
-        path: "/",
-        element: <StartPage />,
-      },
-      {
-        path: "/leagues",
-        element: <LeagueList />,
-      },
-      {
-        path: "/signup",
-        element: isAuth ? <PageNotFound /> : <SignupPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "tournaments",
-        element: <TournamentsPage />,
-      },
-      {
-        path: "tournaments/:tournamentId",
-        element: <TournamentPage />,
-      },
-      {
-        path: "tournaments/editing/:tournamentId",
-        element: <TournamentPage />,
-      },
-      {
-        path: "match/",
-        element: <MatchPage />,
-      },
-      {
-        path: "logout/",
-        element: <LogoutPage />,
-      },
-      {
-        path: "competitor/:competitorId",
-        element: <CompetitorCardPage />,
-      },
-      {
-        path: "league/:leagueId",
-        element: <LeaguePage />,
-      },
-      {
-        path: "*",
-        element: <PageNotFound />,
-      },
-      {
-        path: "league/editing/:leagueId",
-        element: <LeagueEditingPage />,
-      },
-    ],
-  },
-])
-
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<NavbarWrapper />}>
+            <Route index element={<StartPage />} />
+            <Route
+              path="login"
+              element={isAuth ? <PageNotFound /> : <LoginPage />}
+            />
+            <Route path="rating" element={<RatingList />} />
+            <Route path="leagues" element={<LeagueList />} />
+            <Route
+              path="signup"
+              element={isAuth ? <PageNotFound /> : <SignupPage />}
+            />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="tournaments" element={<TournamentsPage />} />
+            <Route
+              path="tournaments/:tournamentId"
+              element={<TournamentPage />}
+            />
+            <Route
+              path="tournaments/editing/:tournamentId"
+              element={<TournamentPage />}
+            />
+            <Route path="match" element={<MatchPage />} />
+            <Route path="logout" element={<LogoutPage />} />
+            <Route
+              path="competitor/:competitorId"
+              element={<CompetitorCardPage />}
+            />
+            <Route path="league/:leagueId" element={<LeaguePage />} />
+            <Route path="*" element={<PageNotFound />} />
+            <Route
+              path="league/editing/:leagueId"
+              element={<LeagueEditingPage />}
+            />
+          </Route>
+        </Routes>
+      </Router>
       <Footer />
     </div>
   )

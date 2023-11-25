@@ -12,6 +12,8 @@ type Props = {
   verified?: boolean
   onChangeName: (val: string) => void
   targetId?: number
+  league: boolean
+  editingButton?: boolean
 }
 
 const UpBanner = ({
@@ -24,6 +26,8 @@ const UpBanner = ({
   verified,
   onChangeName,
   targetId,
+  league,
+  editingButton,
 }: Props) => {
   return (
     <div className="relative mt-12 h-[380px] w-full rounded-t-2xl rounded-b-2xl shadow-lg">
@@ -102,13 +106,17 @@ const UpBanner = ({
                   onClick={onClick}
                   className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-200"
                 >
-                  Создать турнир
+                  Сохранить
                 </button>
               )}
             </div>
-            {!editing && (
+            {!editing && editingButton && (
               <div className="flex items-center justify-center gap-2 py-2 text-sm text-gray-400">
-                <Link to={`/tournament/editing/${targetId}`}>
+                <Link
+                  to={`/${
+                    league ? "league" : "tournament"
+                  }/editing/${targetId}`}
+                >
                   <div className="cursor-pointer transition hover:text-gray-300">
                     Редактировать
                   </div>

@@ -219,7 +219,7 @@ const EditingPage = ({ tournament, setData, setLeague }: Props) => {
               options={weightOptions}
               isMulti
               value={selectedOptions}
-              onChange={handleChange}
+              onChange={() => handleChange}
             />
           </div>
         </div>

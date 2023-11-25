@@ -1,11 +1,12 @@
 import Competitor from "@/models/Competitor"
+import LeagueCompetitor from "@/models/LeagueCompetitor"
 import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
 
 export const getCompetitorsByRole = (
   role: string,
-  competitors: Array<Competitor>
-): Array<Competitor> => {
-  return competitors.filter((item) => item.mode === role)
+  competitors: Array<LeagueCompetitor>
+): Array<LeagueCompetitor> => {
+  return competitors.filter((item) => item.competitor.mode === role)
 }
 
 export const getOnlyWeightClasses = (classes: TournamentWeightClass[]) => {

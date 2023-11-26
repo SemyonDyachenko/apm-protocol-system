@@ -11,7 +11,7 @@ import ConfirmModal from "@/components/modals/confirmModal"
 import Checkbox from "@/components/UI/Checkbox"
 import { useAppDispatch } from "@/hooks/redux"
 import CustomInput from "@/components/UI/Input"
-import { createDefaultLeague } from "@/store/actions/leagueActon"
+import { createDefaultLeague, deleteLeague } from "@/store/actions/leagueActon"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
@@ -23,9 +23,14 @@ const LeaguesWindow = ({ competitor }: Props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [target, setTarget] = useState(leaguesNavItems[0].target)
-  const { data: leagues } = leagueAPI.useFetchAllLeaguesQuery(100)
+  const { data: leagues } = leagueAPI.useFetchCompetitorLeaguesQuery(
+    competitor.id
+  )
+  const { data: myLeagues } = leagueAPI.useFetchAllLeaguesQuery(100)
   const [modalActive, setModalActive] = useState(false)
   const [leagueName, setLeagueName] = useState("")
+  const [deleteModalActive, setDeleteModalActive] = useState(false)
+  const [onDeleteLeague, setOnDeleteLeague] = useState(0)
 
   const createLeague = () => {
     if (leagueName.length > 0)
@@ -39,6 +44,13 @@ const LeaguesWindow = ({ competitor }: Props) => {
           console.log(res)
         }
       })
+  }
+
+  const removeLeague = () => {
+    dispatch(deleteLeague(onDeleteLeague, competitor.id)).then((res) => {
+      setOnDeleteLeague(0)
+      window.location.reload()
+    })
   }
 
   return (
@@ -64,9 +76,11 @@ const LeaguesWindow = ({ competitor }: Props) => {
           {target === "competitor" ? (
             leagues?.map((league, index) => (
               <ListNode classname="font-medium" key={index}>
-                <div className="w-1/4">{league.name}</div>
-                <div className="w-1/4">{league.country}</div>
-                <div className="w-1/4 text-end">{getLeagueLevel(league)}</div>
+                <div className="w-1/4">{league.league.name}</div>
+                <div className="w-1/4">{league.league.country}</div>
+                <div className="w-1/4 text-end">
+                  {getLeagueLevel(league.league)}
+                </div>
                 <div className="w-1/4 text-end">
                   <Link
                     className="hover:text-gray-700"
@@ -84,13 +98,17 @@ const LeaguesWindow = ({ competitor }: Props) => {
             ))
           ) : (
             <div>
-              {leagues &&
-                leagues
+              {myLeagues &&
+                myLeagues
                   .filter((item) => +item.president === competitor.id)
                   .map((league, index) => (
                     <ListNode classname="font-medium" key={index}>
                       <div className="w-1/12 cursor-pointer" onClick={() => {}}>
                         <FontAwesomeIcon
+                          onClick={() => {
+                            setOnDeleteLeague(league.id)
+                            setDeleteModalActive(true)
+                          }}
                           className="transition hover:text-secondary-500"
                           icon={faTrash}
                         />
@@ -148,6 +166,15 @@ const LeaguesWindow = ({ competitor }: Props) => {
           </div>
         </div>
       </ConfirmModal>
+      <ConfirmModal
+        active={deleteModalActive}
+        closeFunc={() => {
+          setDeleteModalActive(false)
+          setOnDeleteLeague(0)
+        }}
+        action={removeLeague}
+        text="Вы хотите удалить лигу?"
+      ></ConfirmModal>
     </div>
   )
 }

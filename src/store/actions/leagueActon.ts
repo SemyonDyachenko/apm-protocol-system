@@ -4,6 +4,45 @@ import { SERVER_URL } from "@/api/instance"
 import axios, { AxiosError } from "axios"
 import LeagueCompetitor from "@/models/LeagueCompetitor"
 
+export const updateLeagueImages =
+  (leagueId: number, data: any) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<League>(
+        `${SERVER_URL}/leagueUpdateImages/${leagueId}/`,
+        {
+          leagueId,
+          ...data,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      return response
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }
+
+export const deleteLeague =
+  (leagueId: number, competitorId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.delete<any>(
+        `${SERVER_URL}/deleteLeague/${competitorId}/`,
+        {
+          params: {
+            competitorId,
+            leagueId,
+          },
+        }
+      )
+      return response
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }
+
 export const acceptCompetitorToLeague =
   (competitorId: number) => async (dispatch: AppDispatch) => {
     try {

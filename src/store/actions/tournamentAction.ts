@@ -24,6 +24,27 @@ export interface TournamentRegistrationData {
   category: string
 }
 
+export const updateTournamentImages =
+  (tournamentId: number, data: any) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<Tournament>(
+        `${SERVER_URL}/tournamentUpdateImage/${tournamentId}/`,
+        {
+          tournamentId,
+          ...data,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      return response
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }
+
 export const changeTournamentStatus =
   (tournamentId: number, status: boolean) => async (dispatch: AppDispatch) => {
     try {

@@ -1,5 +1,5 @@
 import { SERVER_URL } from "@/api/instance"
-import Competitor from "@/models/Competitor"
+import Competitor, { RatingPosition } from "@/models/Competitor"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const competitorAPI = createApi({
@@ -17,6 +17,11 @@ export const competitorAPI = createApi({
     fetchCompetitorData: build.query<Competitor, number>({
       query: (competitorId: number) => ({
         url: `competitors/${competitorId}`,
+      }),
+    }),
+    fetchRatingPosition: build.query<RatingPosition, number>({
+      query: (competitorId: number) => ({
+        url: `competitors/${competitorId}/rating_position`,
       }),
     }),
   }),

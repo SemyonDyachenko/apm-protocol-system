@@ -7,3 +7,7 @@ export interface TournamentReview {
   rating: number
   date: Date
 }
+
+export interface AverageRating {
+  average_rating: number
+}

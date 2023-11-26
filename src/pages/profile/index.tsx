@@ -52,18 +52,21 @@ const ProfilePage = (props: Props) => {
       selected: false,
       icon: faList,
       children: "Турниры",
+      disabled: !competitor?.verified,
     },
     {
       onClick: () => setWindow("messages"),
       selected: false,
       icon: faComment,
       children: "Сообщения",
+      disabled: !competitor?.verified,
     },
     {
       onClick: () => setWindow("leagues"),
       selected: false,
       icon: faBuildingColumns,
       children: "Лиги",
+      disabled: !competitor?.verified,
     },
     {
       onClick: () => {},
@@ -166,6 +169,11 @@ const ProfilePage = (props: Props) => {
             <HText>
               Добро пожаловать,{" "}
               {competitor?.first_name + " " + competitor?.last_name}
+              {!competitor.verified && (
+                <div className="pt-1 text-sm font-medium text-secondary-500">
+                  * Ссылка для подтверждения аккаунта направлена на E-mail
+                </div>
+              )}
             </HText>
 
             <div className="flex items-center gap-4 text-lg text-gray-700">
@@ -175,8 +183,12 @@ const ProfilePage = (props: Props) => {
             </div>
           </div>
           <div className="flex w-full justify-between gap-4 py-5">
-            <div className="w-1/5 rounded-xl  ">
-              <SideBarMenu classname="w-full py-3" items={sidebarItems} />
+            <div className="w-1/5 rounded-xl ">
+              <SideBarMenu
+                disabled={!competitor.verified}
+                classname="w-full py-3"
+                items={sidebarItems}
+              />
             </div>
             <div className="w-4/5 rounded-xl shadow-md">
               <div className="py-2 px-5">

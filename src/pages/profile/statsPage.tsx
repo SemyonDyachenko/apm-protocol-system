@@ -108,7 +108,7 @@ const StatsPage = ({ competitor }: Props) => {
             {disabled ? "Редактировать" : "Отменить"}
           </div>
         </div>
-        <div className="grip-cols-3 grid gap-4 pt-4 md:w-2/3 md:grid-cols-4">
+        <div className="grip-cols-3 lg:w-2/3 grid w-full gap-4 pt-4 md:grid-cols-4">
           {items.map((item, index) => (
             <PersonalDataInput
               className="max-w-[180px]"

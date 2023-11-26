@@ -9,6 +9,8 @@ import { getNormalizeDate } from "@/utils/date"
 
 type Props = {
   league: League
+  count: number
+  rating: number
 }
 
 const items: Array<upMenuItem> = [
@@ -19,7 +21,7 @@ const items: Array<upMenuItem> = [
   },
 ]
 
-const LeagueInformationWindow = ({ league }: Props) => {
+const LeagueInformationWindow = ({ league, count, rating }: Props) => {
   const { data: president } = competitorAPI.useFetchCompetitorDataQuery(
     Number(league.president)
   )
@@ -69,12 +71,12 @@ const LeagueInformationWindow = ({ league }: Props) => {
   ]
 
   return (
-    <div>
+    <div className="">
       <div className="flex items-start justify-between">
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <UpMenuBar items={items} />
         </div>
-        <RatingInfo count={"63"} rating={"1333"} />
+        <RatingInfo count={count.toString()} rating={rating.toString()} />
       </div>
       <div>
         <div className="py-2">
@@ -83,7 +85,7 @@ const LeagueInformationWindow = ({ league }: Props) => {
             {league.description}
           </p>
         </div>
-        <div className="grid w-full grid-cols-4 grid-rows-2 gap-12 py-4">
+        <div className="grid w-full grid-cols-2 gap-12 py-4 md:grid-cols-4 md:grid-rows-2">
           {gridItems.map((element, index) => (
             <div key={index}>
               <span className="text-sm text-gray-400">{element.title}:</span>

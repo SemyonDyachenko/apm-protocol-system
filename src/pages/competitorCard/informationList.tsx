@@ -5,9 +5,10 @@ import { Link } from "react-router-dom"
 
 type Props = {
   competitor: Competitor
+  place: number
 }
 
-const InformationList = ({ competitor }: Props) => {
+const InformationList = ({ competitor, place }: Props) => {
   let linkStyles = "text-secondary-500 underline hover:text-secondary-300"
   const { data: trainer } = competitorAPI.useFetchCompetitorDataQuery(
     Number(competitor?.trainer)
@@ -69,8 +70,8 @@ const InformationList = ({ competitor }: Props) => {
           {competitor.description}
         </div>
       </div>
-      <div className="flex w-11/12 justify-between gap-12 py-4">
-        <div className="grid grid-cols-4 grid-rows-2 gap-12">
+      <div className="w-11/12 justify-between gap-12 py-4 md:flex">
+        <div className="grid w-full grid-cols-2 gap-12 md:grid-cols-4 md:grid-rows-2">
           {competitorPropElements.map((element, index) => (
             <div key={index} className="flex flex-col gap-1">
               <div className="text-sm text-gray-400">{element.title}</div>
@@ -80,18 +81,19 @@ const InformationList = ({ competitor }: Props) => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-12">
+        <div className="mt-4 flex flex-col gap-12 md:mt-0">
           <div className="flex gap-3">
-            <div className="flex w-1/2 justify-end text-5xl font-extrabold text-secondary-500">
+            <div className="flex w-full justify-end text-5xl font-extrabold text-secondary-500 md:w-1/2">
               {competitor.elo_rating}
             </div>
             <div className="text-md font-black ">
-              Место в<br /> рейтинге
+              Рейтинг
+              <br /> спортсмена
             </div>
           </div>
           <div className="flex gap-3">
-            <div className=" flex w-1/2 justify-end text-5xl font-black text-gray-700">
-              {competitor.id}
+            <div className=" flex w-full justify-end text-5xl font-black text-gray-700 md:w-1/2">
+              {place}
             </div>
             <div className="text-md font-semibold">
               Место в<br /> рейтинге

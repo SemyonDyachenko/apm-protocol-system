@@ -1,4 +1,5 @@
 import Competitor from "@/models/Competitor"
+import LeagueCompetitor from "@/models/LeagueCompetitor"
 import { TournamentRegistration } from "@/models/Tournament"
 import { CommonExecOptions } from "child_process"
 
@@ -31,6 +32,16 @@ export const calculateEloRating = (
 
 export const getAvarageRating = (
   competitors: Array<TournamentRegistration>
+) => {
+  const totalRating = competitors.reduce(
+    (accum, item) => accum + item.competitor.elo_rating,
+    0
+  )
+  return Math.round(totalRating / competitors.length)
+}
+
+export const getLeagueAvarageRating = (
+  competitors: Array<LeagueCompetitor>
 ) => {
   const totalRating = competitors.reduce(
     (accum, item) => accum + item.competitor.elo_rating,

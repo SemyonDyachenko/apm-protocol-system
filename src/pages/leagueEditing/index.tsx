@@ -13,7 +13,7 @@ import PageNotFound from "../404/PageNotFound"
 import { getCountries } from "react-phone-number-input"
 import { getCountriesList } from "@/utils/dataUtils"
 import { useForm } from "react-hook-form"
-import { updateLeague } from "@/store/actions/leagueActon"
+import { updateLeague, updateLeagueImages } from "@/store/actions/leagueActon"
 
 type Props = {}
 
@@ -59,6 +59,15 @@ const LeagueEditingPage = (props: Props) => {
     }
   }
 
+  const updateImage = (type: string, image: any) => {
+    let data = type === "banner" ? { banner: image } : { logo: image }
+    if (league) {
+      dispatch(updateLeagueImages(league?.id, data)).then((res) =>
+        window.location.reload()
+      )
+    }
+  }
+
   useEffect(() => {
     if (league) {
       setLeagueName(league.name)
@@ -94,12 +103,14 @@ const LeagueEditingPage = (props: Props) => {
         <UpBanner
           disabledButton={false}
           name={leagueName}
-          logo={Logo}
+          logo={league.logo}
           editing={true}
-          banner={Image}
+          banner={league.banner}
           onChangeName={setLeagueName}
           onClick={handleSubmit(onSubmit)}
+          onCameraClick={updateImage}
           league
+          rating={1.0}
         />
         <div className="flex w-full justify-between py-8">
           <div className="w-1/5">
@@ -192,6 +203,7 @@ const LeagueEditingPage = (props: Props) => {
         </div>
       </div>
     )
+  else return <div></div>
 }
 
 export default LeagueEditingPage

@@ -1,6 +1,7 @@
 import Competitor, { getCompetitorFullname } from "@/models/Competitor"
 import { Link } from "react-router-dom"
 import ListNode from "../listNode"
+import NonImage from "/assets/utils/nonuserimage.jpg"
 
 type CompetitorLinkProps = {
   competitor: Competitor
@@ -15,7 +16,7 @@ const CompetitorLinkItem = ({ competitor }: CompetitorLinkProps) => {
             <div>
               <img
                 className="h-[65px] w-[65px] rounded-full"
-                src={competitor.image?.toString() || ""}
+                src={competitor.image?.toString() || NonImage}
               />
             </div>
             <div className="text-md font-semibold">

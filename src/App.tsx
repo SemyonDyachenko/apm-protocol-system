@@ -26,6 +26,7 @@ import LeagueEditingPage from "./pages/leagueEditing"
 
 const isAuth = localStorage.getItem("token")
 import { Routes, Route, Outlet } from "react-router-dom"
+import PasswordRestorePage from "./pages/passwordRestore"
 
 function NavbarWrapper() {
   return (
@@ -75,6 +76,7 @@ function App() {
               path="league/editing/:leagueId"
               element={<LeagueEditingPage />}
             />
+            <Route path="password-restore" element={<PasswordRestorePage />} />
           </Route>
         </Routes>
       </Router>

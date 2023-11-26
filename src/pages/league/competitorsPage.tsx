@@ -14,6 +14,8 @@ import { leagueAPI } from "@/services/leaugeService"
 
 type Props = {
   league: League
+  count: number
+  rating: number
 }
 
 const items: Array<upMenuItem> = [
@@ -39,7 +41,7 @@ const items: Array<upMenuItem> = [
   },
 ]
 
-const LeagueCompetitors = ({ league }: Props) => {
+const LeagueCompetitors = ({ league, count, rating }: Props) => {
   const { data: competitors } = leagueAPI.useFetchLeagueCompetitorsQuery(
     league.id
   )
@@ -56,7 +58,7 @@ const LeagueCompetitors = ({ league }: Props) => {
         <div className="w-1/2">
           <UpMenuBar changeTarget={setTargetRole} items={items} />
         </div>
-        <RatingInfo count={"63"} rating={"1333"} />
+        <RatingInfo count={count.toString()} rating={rating.toString()} />
       </div>
       <PerfectScrollbar>
         <div>

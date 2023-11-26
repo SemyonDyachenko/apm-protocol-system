@@ -25,6 +25,10 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import LeagueMessages from "./leagueMessages"
 import { createLeagueCompetitor } from "@/store/actions/leagueActon"
 import { formatDate } from "@/utils/date"
+import {
+  getAvarageRating,
+  getLeagueAvarageRating,
+} from "@/utils/eloCalculation"
 
 type Props = {}
 
@@ -89,13 +93,48 @@ const LeaguePage = (props: Props) => {
   const getSelectedWindow = () => {
     switch (selectedWindow) {
       case "general":
-        return league && <LeagueInformationWindow league={league} />
+        return (
+          league &&
+          leagueCompetitors && (
+            <LeagueInformationWindow
+              count={leagueCompetitors?.length}
+              rating={getLeagueAvarageRating(leagueCompetitors)}
+              league={league}
+            />
+          )
+        )
       case "users":
-        return league && <LeagueCompetitors league={league} />
+        return (
+          league &&
+          leagueCompetitors && (
+            <LeagueCompetitors
+              count={leagueCompetitors?.length}
+              rating={getLeagueAvarageRating(leagueCompetitors)}
+              league={league}
+            />
+          )
+        )
       case "gallery":
-        return league && <LeagueGallery />
+        return (
+          league &&
+          leagueCompetitors && (
+            <LeagueGallery
+              count={leagueCompetitors?.length}
+              rating={getLeagueAvarageRating(leagueCompetitors)}
+            />
+          )
+        )
       case "tournaments":
-        return league && <LeagueTournaments league={league} />
+        return (
+          league &&
+          leagueCompetitors && (
+            <LeagueTournaments
+              count={leagueCompetitors?.length}
+              rating={getLeagueAvarageRating(leagueCompetitors)}
+              league={league}
+            />
+          )
+        )
       case "messages":
         return league && <LeagueMessages league={league} />
     }
@@ -120,21 +159,23 @@ const LeaguePage = (props: Props) => {
         <UpBanner
           disabledButton={checkMembership()}
           name={league.name}
-          logo={Logo}
-          banner={Image}
+          logo={league.logo}
+          banner={league.banner}
           onClick={requestToLeague}
           onChangeName={() => {}}
           league
+          onCameraClick={() => {}}
+          rating={1.0}
           editingButton={
             competitor && competitor.id === +league.president ? true : false
           }
           targetId={league?.id}
         />
         <div className="flex w-full justify-between py-8">
-          <div className="w-1/5">
+          <div className="hidden md:block  md:w-1/5">
             <SideBarMenu classname="w-full" items={menuItems} />
           </div>
-          <div className="w-9/12">
+          <div className="w-full md:w-9/12">
             <div className="min-h-[500px] rounded-lg py-2 px-4 shadow-md">
               {getSelectedWindow()}
             </div>
@@ -142,6 +183,7 @@ const LeaguePage = (props: Props) => {
         </div>
       </div>
     )
+  else return <div></div>
 }
 
 export default LeaguePage

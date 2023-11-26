@@ -32,5 +32,14 @@ export const leagueAPI = createApi({
         },
       }),
     }),
+    fetchCompetitorLeagues: build.query<LeagueCompetitor[], number>({
+      query: (competitorId, limit: number = 1000) => ({
+        url: `leagueCompetitors`,
+        params: {
+          competitorId,
+          _limit: limit,
+        },
+      }),
+    }),
   }),
 })

@@ -9,6 +9,8 @@ export default interface League {
   creation_date?: Date
   phone?: string
   email?: string
+  logo?: File
+  banner?: File
 }
 
 export const getLeagueLevel = (league: League) => {

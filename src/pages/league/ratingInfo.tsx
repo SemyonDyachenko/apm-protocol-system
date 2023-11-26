@@ -8,7 +8,7 @@ type Props = {
 
 const RatingInfo = ({ rating, count }: Props) => {
   return (
-    <div className="w-1/2 justify-end">
+    <div className="hidden w-1/2 justify-end md:block">
       <div className="flex items-center justify-end gap-8">
         <div className="mt-1 flex gap-3">
           <div className="text-4xl font-black text-secondary-500">{rating}</div>

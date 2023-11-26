@@ -25,6 +25,11 @@ export default interface Competitor {
   hand?: number
   press?: number
   side?: number
+  verified?: boolean
+}
+
+export interface RatingPosition {
+  rating_position: number
 }
 
 export const getCompetitorFullname = (

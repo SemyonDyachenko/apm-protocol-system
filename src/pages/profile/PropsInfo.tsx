@@ -55,7 +55,7 @@ const PropsInfo = ({ competitor }: Props) => {
             {isDisabled ? "Редактировать" : "Отменить"}
           </div>
         </div>
-        <div className=" grid w-2/3 grid-cols-3 gap-4 pt-4">
+        <div className="grid w-full grid-cols-2 gap-4 pt-4 md:w-2/3 md:grid-cols-3">
           <div>
             <div
               className={`${isDisabled && "text-gray-400"} 

@@ -10,6 +10,8 @@ import Tournament from "@/models/Tournament"
 
 type Props = {
   league: League
+  count: number
+  rating: number
 }
 
 const items: Array<upMenuItem> = [
@@ -25,7 +27,7 @@ const items: Array<upMenuItem> = [
   },
 ]
 
-const LeagueTournaments = ({ league }: Props) => {
+const LeagueTournaments = ({ league, count, rating }: Props) => {
   const { data: tournaments } = tournamentAPI.useFetchAllTournamentsQuery(
     league.id
   )
@@ -54,7 +56,7 @@ const LeagueTournaments = ({ league }: Props) => {
         <div className="w-1/2">
           <UpMenuBar changeTarget={changeTournamentsTarget} items={items} />
         </div>
-        <RatingInfo count={"63"} rating={"1333"} />
+        <RatingInfo count={count.toString()} rating={rating.toString()} />
       </div>
       <div>
         {getFilteredTournaments()?.map((element, index) => (

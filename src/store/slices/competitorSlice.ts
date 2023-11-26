@@ -30,6 +30,7 @@ export interface CompetitorData {
   hand?: number
   press?: number
   side?: number
+  verified?: boolean
 }
 
 export interface competitorState {

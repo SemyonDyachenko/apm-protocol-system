@@ -39,7 +39,10 @@ const InfoWindow = ({ competitor }: Props) => {
 
   return (
     <div>
-      <UpMenuBar changeTarget={setTargetWindow} items={profileSettingsItems} />
+      <UpMenuBar
+        changeTarget={competitor?.verified ? setTargetWindow : () => {}}
+        items={profileSettingsItems}
+      />
       <div className="pt-4">{getWindow()}</div>
     </div>
   )

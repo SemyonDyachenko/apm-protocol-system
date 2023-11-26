@@ -27,9 +27,9 @@ const InformationSection = ({ label, text, img, bg, inverse }: Props) => {
 
           <div className="mt-4 w-full md:w-1/2">
             <h3 className="text-md font-semibold text-gray-700">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet
-              natus, repellat optio fugit at qui expedita quis illo, doloremque
-              eaque provident mollitia unde, ratione quasi vitae nostrum
+              Организаторам предоставляется уникальная возможность
+              воспользоваться нашей платформой для создания собственной
+              спортивной лиги.
             </h3>
           </div>
         </div>

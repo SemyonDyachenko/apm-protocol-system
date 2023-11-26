@@ -36,6 +36,10 @@ const CompetitorCardPage = (props: Props) => {
   const navigate = useNavigate()
   const { competitorId } = useParams()
   const [targetWindow, setTargetWindow] = useState("main")
+  const { data: ratingPosition } = competitorAPI.useFetchRatingPositionQuery(
+    parseInt(competitorId?.valueOf() || "")
+  )
+
   const {
     isLoading,
     data: competitor,
@@ -52,9 +56,19 @@ const CompetitorCardPage = (props: Props) => {
     if (competitor) {
       switch (targetWindow) {
         case "main":
-          return <InformationList competitor={competitor} />
+          return (
+            <InformationList
+              place={ratingPosition?.rating_position || 0}
+              competitor={competitor}
+            />
+          )
         case "stats":
-          return <StatsList competitor={competitor} />
+          return (
+            <StatsList
+              place={ratingPosition?.rating_position || 0}
+              competitor={competitor}
+            />
+          )
         case "tournaments":
           return <TournamentsList competitorId={competitor.id} />
       }
@@ -79,18 +93,18 @@ const CompetitorCardPage = (props: Props) => {
   if (competitor)
     return (
       <div className="w-full py-8">
-        <div className="mx-auto h-auto w-11/12 rounded-xl md:w-11/12">
-          <div className="rounded-t-xl bg-gray-700">
+        <div className="mx-auto h-auto w-11/12 rounded-xl ">
+          <div className="rounded-3xl bg-gray-700 md:rounded-t-3xl">
             <div className="flex items-center justify-between py-3 px-5">
               <div className="text-xl font-bold uppercase text-white">
                 {getCompetitorFullname(competitor)}
               </div>
-              <div className=" cursor-default rounded-full  px-3 py-1 text-lg font-semibold text-white">
+              <div className="hidden cursor-default rounded-full px-3  py-1 text-lg font-semibold text-white md:flex">
                 {getUnicodeFlagIcon("RU")} {competitor.country}
               </div>
             </div>
           </div>
-          <div className="flex gap-10 py-2">
+          <div className="gap-10 py-2 md:flex">
             <div className="w-auto py-3 pl-4">
               <img
                 className="h-full max-w-[320px] rounded-lg"

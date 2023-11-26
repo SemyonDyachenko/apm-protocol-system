@@ -2,9 +2,10 @@ import Competitor from "@/models/Competitor"
 
 type Props = {
   competitor: Competitor
+  place: number
 }
 
-const StatsList = ({ competitor }: Props) => {
+const StatsList = ({ competitor, place }: Props) => {
   const competitorStats = [
     {
       title: "Хват",
@@ -69,12 +70,12 @@ const StatsList = ({ competitor }: Props) => {
               {competitor.elo_rating}
             </div>
             <div className="text-md font-black ">
-              Место в<br /> рейтинге
+              Рейтинг в<br /> спортсмена
             </div>
           </div>
           <div className="flex gap-3">
             <div className=" flex w-1/2 justify-end text-5xl font-black text-gray-700">
-              {competitor.id}
+              {place}
             </div>
             <div className="text-md font-semibold">
               Место в<br /> рейтинге

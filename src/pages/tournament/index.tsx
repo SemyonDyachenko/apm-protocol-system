@@ -25,6 +25,7 @@ import TournamentRegisterWindow from "./tournamentRegisterWindow"
 import {
   getTournamentWeightClasses,
   updateTournament,
+  updateTournamentImages,
 } from "@/store/actions/tournamentAction"
 import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
 import { getOnlyWeightClasses } from "@/utils/array"
@@ -36,6 +37,7 @@ import PageNotFound from "../404/PageNotFound"
 import EditingPage from "./editingPage"
 import { createTournamentNotification } from "@/store/actions/notificationAction"
 import League from "@/models/League"
+import { reviewAPI } from "@/services/reviewService"
 
 type Props = {}
 
@@ -60,6 +62,10 @@ const TournamentPage = (props: Props) => {
   const [editingName, setEditingName] = useState(tournament?.name)
   const [selectedLeague, setSelectedLeague] = useState<League>()
 
+  const { data: averageRating } = reviewAPI.useFetchTournamentRatingQuery(
+    tournament?.id || 0
+  )
+
   console.log(selectedLeague)
 
   useEffect(() => {
@@ -69,6 +75,15 @@ const TournamentPage = (props: Props) => {
       dispatch(getCompetitorData(localStorage.getItem("token")))
     })
   }, [registerWindow])
+
+  const updateImages = (type: string, image: any) => {
+    let data = type === "banner" ? { banner: image } : { logo: image }
+    if (tournament) {
+      dispatch(updateTournamentImages(tournament.id, data)).then((res) =>
+        window.location.reload()
+      )
+    }
+  }
 
   let menuItems: Array<sidebarItemData> = [
     {
@@ -168,8 +183,8 @@ const TournamentPage = (props: Props) => {
           disabledButton={false}
           name={editing ? editingName : tournament.name}
           onChangeName={setEditingName}
-          logo={Logo}
-          banner={tournament?.photo || Image}
+          logo={tournament.logo}
+          banner={tournament.banner}
           onClick={() => {
             if (!editing) openRegisterWindow(true)
             else updateTournamentData()
@@ -178,6 +193,8 @@ const TournamentPage = (props: Props) => {
           verified={tournament.active}
           targetId={tournament.id}
           league={false}
+          onCameraClick={updateImages}
+          rating={averageRating?.average_rating || 0}
         />
       )}
       <TournamentRegisterWindow

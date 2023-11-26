@@ -53,10 +53,10 @@ const GallerySection = (props: Props) => {
             </div>
             <div className="w-full py-8 md:w-1/2">
               <h3 className="text-sm font-semibold text-secondary-500">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Eveniet natus, repellat optio fugit at qui expedita quis illo,
-                doloremque eaque provident mollitia unde, ratione quasi vitae
-                nostrum
+                Недавние события в мире армрестлинга: захватывающие поединки,
+                эмоциональные взлеты и новые звезды.Подробности этих
+                захватывающих моментов оставляют каждого поклонника в абсолютном
+                восторге.
               </h3>
             </div>
           </motion.div>

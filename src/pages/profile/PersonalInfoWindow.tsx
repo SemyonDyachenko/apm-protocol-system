@@ -9,6 +9,8 @@ import {
 } from "@/store/actions/competitorAction"
 import PersonalDataInput from "./PersonalDataInput"
 import { formatPhoneInput } from "@/utils/input"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCheck } from "@fortawesome/free-solid-svg-icons"
 
 type Props = {
   competitor: CompetitorData | null
@@ -63,10 +65,14 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
         <div>Фотография профиля</div>
         <div
           onClick={() => {
-            setFormIsDisabled(!formIsDisabled)
-            if (!formIsDisabled) clearUnsaveValues()
+            if (competitor?.verified) {
+              setFormIsDisabled(!formIsDisabled)
+              if (!formIsDisabled) clearUnsaveValues()
+            }
           }}
-          className="cursor-pointer underline transition hover:opacity-50"
+          className={` ${
+            !competitor?.verified ? "cursor-default" : "cursor-pointer"
+          } underline transition hover:opacity-50`}
         >
           {formIsDisabled ? "Редактировать" : "Отменить"}
         </div>
@@ -95,8 +101,9 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                     window.location.reload()
                   }
                 }}
+                disabled={!competitor?.verified}
                 accept="image/png, image/jpeg"
-                className="hover:bg-secondary-00 hidden w-full rounded-lg bg-secondary-500 py-2 shadow-md transition"
+                className="hidden w-full rounded-lg bg-secondary-500 py-2 shadow-md transition hover:bg-secondary-600"
               />
               Обновить фото
             </label>
@@ -139,12 +146,25 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
               value={competitor?.gender === "m" ? "Мужской" : "Женский"}
               title="Пол"
             />
-            <PersonalDataInput
-              value={
-                competitor?.is_active ? "E-mail подтвержден" : "Не подтвержден"
-              }
-              title="Статус"
-            />
+            <div>
+              <div className="pb-2 text-sm text-gray-400">Статус:</div>
+              <div className="px-4 py-2 font-medium">
+                {competitor?.verified ? (
+                  <div>
+                    E-mail подтвержден{" "}
+                    <FontAwesomeIcon
+                      className="px-2 text-secondary-500"
+                      icon={faCheck}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    Не подтвержден
+                    <span className="text-secondary-500 ">*</span>
+                  </div>
+                )}
+              </div>
+            </div>
 
             <div>
               <button

@@ -7,7 +7,8 @@ export default interface Tournament {
   name: string
   location: string
   description: string
-  photo: File | null
+  banner: File
+  logo: File
   avg_rating: number
   address: string
   organizer: number

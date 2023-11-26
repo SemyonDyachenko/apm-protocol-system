@@ -1,5 +1,5 @@
 import { SERVER_URL } from "@/api/instance"
-import { TournamentReview } from "@/models/Review"
+import { AverageRating, TournamentReview } from "@/models/Review"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const reviewAPI = createApi({
@@ -9,6 +9,15 @@ export const reviewAPI = createApi({
     fetchAllTournamentReviews: build.query<TournamentReview[], number>({
       query: (tournamentId) => ({
         url: "tournamentReviews/",
+        params: {
+          tournamentId,
+          _limit: 500,
+        },
+      }),
+    }),
+    fetchTournamentRating: build.query<AverageRating, number>({
+      query: (tournamentId) => ({
+        url: "averageTournamentReviews/get_avarage/",
         params: {
           tournamentId,
           _limit: 500,

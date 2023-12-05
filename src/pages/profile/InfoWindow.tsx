@@ -27,7 +27,7 @@ const InfoWindow = ({ competitor }: Props) => {
       case "about":
         return <PropsInfo competitor={competitor} />
       case "security":
-        return <SecurityPage />
+        return <SecurityPage competitor={competitor} />
       case "notification":
         return <NotificationPage />
       case "stats":

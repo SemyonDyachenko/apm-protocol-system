@@ -34,10 +34,13 @@ import { getCompetitorData } from "@/store/actions/competitorAction"
 import ReviewsPage from "./reviewsPage"
 import { ColorRing } from "react-loader-spinner"
 import PageNotFound from "../404/PageNotFound"
-import EditingPage from "./editingPage"
+
 import { createTournamentNotification } from "@/store/actions/notificationAction"
 import League from "@/models/League"
 import { reviewAPI } from "@/services/reviewService"
+import GalleryPage from "./galleryPage"
+import { leagueAPI } from "@/services/leaugeService"
+import Loader from "@/components/loader"
 
 type Props = {}
 
@@ -49,24 +52,23 @@ const TournamentPage = (props: Props) => {
 
   const { tournamentId } = useParams()
 
-  const { data: tournament } = tournamentAPI.useFetchTournamentQuery(
-    parseInt(tournamentId?.valueOf() || "")
+  const { data: tournament, isLoading: isTournamentLoading } =
+    tournamentAPI.useFetchTournamentQuery(
+      parseInt(tournamentId?.valueOf() || "")
+    )
+  const [weightClasses, setWeightClasses] = useState<TournamentWeightClass[]>(
+    []
   )
-  const [weightClasses, setWeightClasses] = useState<WeightClass[]>([])
-  const editing = window.location.pathname.includes("editing")
+  const { data: league, isLoading } = leagueAPI.useFetchLeagueQuery(
+    tournament?.league || -1
+  )
 
   const [selectedWindow, setSelectedItem] = useState("general")
   const [registerWindow, openRegisterWindow] = useState(false)
 
-  const [editingData, setEditingData] = useState([])
-  const [editingName, setEditingName] = useState(tournament?.name)
-  const [selectedLeague, setSelectedLeague] = useState<League>()
-
   const { data: averageRating } = reviewAPI.useFetchTournamentRatingQuery(
     tournament?.id || 0
   )
-
-  console.log(selectedLeague)
 
   useEffect(() => {
     document.body.style.overflowY = registerWindow ? "hidden" : "scroll"
@@ -75,15 +77,6 @@ const TournamentPage = (props: Props) => {
       dispatch(getCompetitorData(localStorage.getItem("token")))
     })
   }, [registerWindow])
-
-  const updateImages = (type: string, image: any) => {
-    let data = type === "banner" ? { banner: image } : { logo: image }
-    if (tournament) {
-      dispatch(updateTournamentImages(tournament.id, data)).then((res) =>
-        window.location.reload()
-      )
-    }
-  }
 
   let menuItems: Array<sidebarItemData> = [
     {
@@ -113,27 +106,32 @@ const TournamentPage = (props: Props) => {
     if (tournamentId)
       dispatch(getTournamentWeightClasses(+tournamentId)).then(
         (weightClasses) => {
-          if (weightClasses)
-            setWeightClasses(getOnlyWeightClasses(weightClasses))
+          if (weightClasses) setWeightClasses(weightClasses)
         }
       )
   }, [])
 
   const getWindow = () => {
-    if (tournament) {
+    if (tournament && league) {
       switch (selectedWindow) {
         case "general":
-          return editing ? (
-            <EditingPage
-              setLeague={setSelectedLeague}
-              setData={setEditingData}
+          return (
+            <TournamentInfoPage
+              league={league}
+              editing={false}
               tournament={tournament}
             />
-          ) : (
-            <TournamentInfoPage editing={editing} tournament={tournament} />
           )
+
         case "users":
-          return <TournamentCompetitorsPage tournament={tournament} />
+          return (
+            weightClasses.length > 0 && (
+              <TournamentCompetitorsPage
+                weightClasses={weightClasses}
+                tournament={tournament}
+              />
+            )
+          )
         case "reviews":
           return (
             competitor && (
@@ -143,78 +141,71 @@ const TournamentPage = (props: Props) => {
               />
             )
           )
+        case "gallery":
+          return <GalleryPage />
       }
     }
   }
 
-  const updateTournamentData = () => {
-    if (tournament) {
-      if (editingData) {
-        dispatch(
-          updateTournament(tournament.id, {
-            name: editingName,
-            ...editingData,
-          })
-        ).then((res) => {
-          dispatch(
-            createTournamentNotification({
-              message: "Новый турнир",
-              tournament: tournament.id,
-              competitor: selectedLeague ? +selectedLeague.president : 0,
-              datetime: new Date(),
-              read: false,
-            })
-          ).then((res) => console.log(res))
-          window.location.reload()
-        })
-      }
-    }
+  if (isLoading || loading || isTournamentLoading) {
+    return <Loader />
   }
 
-  if (editing) {
-    if (!competitor) return <PageNotFound />
-    if (tournament?.organizer !== competitor.id) return <PageNotFound />
+  if (!tournament?.active) {
+    if (competitor && league) {
+      if (
+        competitor.id === +league.president ||
+        competitor.id === tournament?.organizer
+      ) {
+      } else return <PageNotFound />
+    } else return <PageNotFound />
   }
 
-  return (
-    <div className="mx-auto w-11/12">
-      {tournament && (
-        <UpBanner
-          disabledButton={false}
-          name={editing ? editingName : tournament.name}
-          onChangeName={setEditingName}
-          logo={tournament.logo}
-          banner={tournament.banner}
-          onClick={() => {
-            if (!editing) openRegisterWindow(true)
-            else updateTournamentData()
-          }}
-          editing={editing}
-          verified={tournament.active}
-          targetId={tournament.id}
-          league={false}
-          onCameraClick={updateImages}
-          rating={averageRating?.average_rating || 0}
-        />
-      )}
-      <TournamentRegisterWindow
-        weightClasses={weightClasses}
-        tournamentId={tournament?.id}
-        opened={registerWindow}
-        closeFunc={() => openRegisterWindow(false)}
-      />
-      <div className="flex w-full justify-between py-8">
-        <div className="w-3/12 md:w-2/12">
-          <SideBarMenu classname="" disabled={editing} items={menuItems} />
-        </div>
-        <div className="w-8/12 md:w-9/12">
-          <div className="w- min-h-[500px] rounded-lg py-2 px-4 shadow-md">
-            {getWindow()}
+  if (tournament)
+    return (
+      <div className="mx-auto w-11/12">
+        {tournament && (
+          <UpBanner
+            disabledButton={false}
+            name={tournament.name}
+            onChangeName={() => {}}
+            logo={tournament.logo}
+            banner={tournament.banner}
+            onClick={() => {
+              if (competitor && weightClasses.length > 0)
+                openRegisterWindow(true)
+            }}
+            editing={false}
+            editingButton={competitor?.id === tournament.organizer}
+            verified={tournament.active}
+            targetId={tournament.id}
+            league={false}
+            onCameraClick={() => {}}
+            rating={averageRating?.average_rating || 0}
+          />
+        )}
+        {competitor && weightClasses.length > 0 && (
+          <TournamentRegisterWindow
+            competitor={competitor}
+            weightClasses={weightClasses}
+            tournamentId={tournament?.id}
+            opened={registerWindow}
+            closeFunc={() => openRegisterWindow(false)}
+          />
+        )}
+        <div className="flex w-full justify-between py-8">
+          <div className="w-3/12 md:w-2/12">
+            <SideBarMenu classname="" items={menuItems} />
+          </div>
+          <div className="w-8/12 md:w-9/12">
+            <div className="min-h-[500px] w-full rounded-lg py-2 px-4 shadow-md">
+              {getWindow()}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  else return <PageNotFound />
 }
 
 export default TournamentPage

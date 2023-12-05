@@ -35,6 +35,36 @@ export const updateCompetitorImage =
     }
   }
 
+export const updateCompetitorPassword =
+  (competitorId: number, current_password: string, new_password: string) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post<any>(
+        `${SERVER_URL}/competitors/change_password/`,
+        { competitorId, current_password, new_password }
+      )
+
+      return response
+    } catch (e: AxiosError | any) {
+      return e.response
+    }
+  }
+
+export const deleteCompetitorImage =
+  (id: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<Competitor>(
+        `${SERVER_URL}/deleteCompetitorImage/${id}/`,
+        { id }
+      )
+
+      console.log(response)
+      return response
+    } catch (e: AxiosError | any) {
+      console.log(e.message)
+    }
+  }
+
 export const updateCompetitorProfile =
   (
     id: number,

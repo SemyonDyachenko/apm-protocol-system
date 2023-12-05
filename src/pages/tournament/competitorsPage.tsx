@@ -7,9 +7,11 @@ import CompetitorLinkItem from "@/components/competitorLink"
 import { getAvarageRating } from "@/utils/eloCalculation"
 
 import { useState } from "react"
+import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
 
 type Props = {
   tournament: Tournament
+  weightClasses: TournamentWeightClass[]
 }
 
 const items: Array<upMenuItem> = [
@@ -40,24 +42,25 @@ const items: Array<upMenuItem> = [
   },
 ]
 
-const TournamentCompetitorsPage = ({ tournament }: Props) => {
+const TournamentCompetitorsPage = ({ tournament, weightClasses }: Props) => {
   const { data: competitors } =
     tournamentAPI.useFetchTournamentRegistrationQuery(tournament.id)
 
-  const getFilteredCompetitors = (category: string, filter: string) => {
+  const getFilteredCompetitors = (category: string, filter: number) => {
+    const weight = weightClasses.find((item) => item.id === filter)
     return competitors
       ?.filter(
-        (item) => item.category === category && item.weight_class.name == filter
+        (item) =>
+          item.category === category &&
+          item.weight_class.name == weight?.weight_class.name
       )
       .map((registration, index) => (
         <CompetitorLinkItem key={index} competitor={registration.competitor} />
       ))
   }
 
-  let weightClasses = ["65", "75", "85", "95", "105"]
-
   const [category, setCategory] = useState("men")
-  const [weightClass, setWeightClass] = useState(weightClasses[0])
+  const [weightClass, setWeightClass] = useState(weightClasses[0].id)
   return (
     <div>
       <div>
@@ -77,14 +80,16 @@ const TournamentCompetitorsPage = ({ tournament }: Props) => {
             <div className="text-md mb-2 text-gray-400">Весовая категория:</div>
             <select
               className="mb-2 rounded-lg border-r-4 border-r-gray-70 bg-gray-70 px-4 py-1 font-semibold outline-none"
-              onChange={(e) => setWeightClass(e.target.value)}
-              defaultValue={weightClasses[0]}
+              onChange={(e) => setWeightClass(+e.target.value)}
+              defaultValue={weightClasses[0].id}
             >
-              {weightClasses.map((item, index) => (
-                <option key={index} value={item}>
-                  {item} кг
-                </option>
-              ))}
+              {weightClasses
+                .filter((item) => item.category === category)
+                .map((item, index) => (
+                  <option key={index} value={item.id}>
+                    {item.weight_class.name} кг
+                  </option>
+                ))}
             </select>
           </div>
           {competitors && getFilteredCompetitors(category, weightClass)}

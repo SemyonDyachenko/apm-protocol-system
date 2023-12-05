@@ -100,15 +100,18 @@ const SignupPage = (props: Props) => {
   }
 
   const inputStyles =
-    "rounded-md bg-gray-input my-2 px-3 w-[500px] h-[50px] text-md text-gray-700 font-medium shadow-md outline-none placeholder:text-gray-200"
+    "rounded-md bg-gray-input my-2 px-3 w-full md:w-[500px] h-[50px] text-md text-gray-700 font-medium shadow-md outline-none placeholder:text-gray-200"
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
     <div className="py-10">
-      <div className="mx-auto flex w-11/12 items-start justify-between rounded-xl bg-gray-70 px-5 py-5 shadow-md md:w-5/6">
-        <div className="flex flex-wrap justify-center">
-          <form onSubmit={handleSubmit(onSubmit)} className="max-w-[500px]">
-            <div className="flex justify-center pb-2 text-2xl font-bold text-gray-600">
+      <div className="mx-auto flex w-11/12 items-start justify-between rounded-xl bg-gray-70 px-2 py-5 shadow-md md:w-5/6 md:px-5">
+        <div className="flex w-full flex-wrap justify-center md:w-auto md:px-10">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-full md:max-w-[500px]"
+          >
+            <div className="flex justify-center pb-2 text-xl font-bold text-gray-600 md:text-2xl">
               Регистрация нового аккаунта
             </div>
             <div className="flex w-full justify-center pb-3 text-sm text-gray-400">
@@ -122,7 +125,7 @@ const SignupPage = (props: Props) => {
             </div>
 
             {formElements.map((element, index) => (
-              <div key={index}>
+              <div className="max-w-full" key={index}>
                 <div className="flex w-full items-center justify-between">
                   <label className={labelStyles}>{element.label}: </label>
                   <span className="text-sm text-primary-400">
@@ -186,7 +189,9 @@ const SignupPage = (props: Props) => {
             </div>
           </form>
         </div>
-        <SignupInfo />
+        <div className="hidden md:block">
+          <SignupInfo />
+        </div>
       </div>
     </div>
   )

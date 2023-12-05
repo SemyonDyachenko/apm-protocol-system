@@ -2,11 +2,13 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
 
-type Props = {}
+type Props = {
+  className?: string
+}
 
-const SignupInfo = (props: Props) => {
+const SignupInfo = ({ className }: Props) => {
   return (
-    <div className="flex max-w-[450px] flex-wrap">
+    <div className={`flex max-w-[450px] flex-wrap`}>
       <div className="text-lg font-bold text-gray-700">
         Для чего нужна учетная запись?
       </div>
@@ -41,7 +43,7 @@ const SignupInfo = (props: Props) => {
           Есть проблемы с регистрацией ?{" "}
           <Link
             className="text-secondary-500 underline transition hover:text-primary-500"
-            to="/"
+            to="/contact"
           >
             Обратная связь
           </Link>

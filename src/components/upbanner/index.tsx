@@ -128,11 +128,13 @@ const UpBanner = ({
                     />
                   ))}
                 </div>
-                <div className="text-sm text-gray-400">({rating})</div>
+                <div className="text-sm text-gray-400">
+                  ({rating.toFixed(1)})
+                </div>
               </div>
             </div>
           </div>
-          <div className="mb-4 px-10 md:py-4">
+          <div className="mb-4 px-10 md:mb-0 md:py-8">
             <div>
               {!editing ? (
                 <button
@@ -143,7 +145,7 @@ const UpBanner = ({
                   {!disabledButton ? (
                     "Подать заявку"
                   ) : (
-                    <div>
+                    <div className="text-gray-400">
                       Вы участник
                       <FontAwesomeIcon
                         className="px-2 text-sm"
@@ -165,7 +167,7 @@ const UpBanner = ({
               <div className="flex items-center justify-center gap-2 py-2 text-sm text-gray-400">
                 <Link
                   to={`/${
-                    league ? "league" : "tournament"
+                    league ? "league" : "tournaments"
                   }/editing/${targetId}`}
                 >
                   <div className="cursor-pointer transition hover:text-gray-300">

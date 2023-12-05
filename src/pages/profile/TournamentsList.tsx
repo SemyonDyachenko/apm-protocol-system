@@ -66,7 +66,9 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
             (item) => new Date(item.date).getTime() < date.getTime()
           )
         case "created":
-          return createdTournaments?.filter((item) => !item.active)
+          return createdTournaments
+            ?.slice()
+            .sort((a, b) => (a.active === b.active ? 0 : a.active ? 1 : -1))
       }
     }
   }
@@ -138,8 +140,8 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
             <div className="text-md w-1/3 py-2 font-semibold">
               {element.name}
             </div>
-            <div className="text-md font-medium">{element.location}</div>
-            <div className="text-md font-medium">
+            <div className="text-md w-1/6 font-medium">{element.location}</div>
+            <div className="text-md w-1/6 font-medium">
               {getNormalizeDate(element.date)}
             </div>
             <div>

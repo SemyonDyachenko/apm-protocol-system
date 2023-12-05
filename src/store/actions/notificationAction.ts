@@ -19,6 +19,7 @@ export const createTournamentNotification =
         data
       )
       console.log(response.data)
+      return response
     } catch (error: AxiosError | any) {
       console.log(error.message)
     }

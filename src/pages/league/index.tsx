@@ -11,6 +11,7 @@ import {
   faStar,
   faCheck,
   faMessage,
+  faComment,
 } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react"
 import { leagueAPI } from "@/services/leaugeService"
@@ -29,6 +30,8 @@ import {
   getAvarageRating,
   getLeagueAvarageRating,
 } from "@/utils/eloCalculation"
+import ReviewsPage from "./reviewsPage"
+import { reviewAPI } from "@/services/reviewService"
 
 type Props = {}
 
@@ -44,6 +47,10 @@ const LeaguePage = (props: Props) => {
 
   const [selectedWindow, setSelectedItem] = useState("general")
   const { data: league } = leagueAPI.useFetchLeagueQuery(Number(leagueId))
+
+  const { data: averageRating } = reviewAPI.useFetchLeagueRatingQuery(
+    league?.id || 0
+  )
 
   const menuItems: Array<sidebarItemData> = [
     {
@@ -65,6 +72,11 @@ const LeaguePage = (props: Props) => {
       onClick: () => setSelectedItem("gallery"),
       children: "Галерея",
       icon: faImage,
+    },
+    {
+      onClick: () => setSelectedItem("reviews"),
+      children: "Отзывы",
+      icon: faComment,
     },
   ]
 
@@ -137,6 +149,19 @@ const LeaguePage = (props: Props) => {
         )
       case "messages":
         return league && <LeagueMessages league={league} />
+      case "reviews":
+        return (
+          league &&
+          leagueCompetitors &&
+          competitor && (
+            <ReviewsPage
+              competitorId={competitor.id}
+              count={leagueCompetitors.length}
+              rating={getLeagueAvarageRating(leagueCompetitors)}
+              league={league}
+            />
+          )
+        )
     }
   }
 
@@ -165,7 +190,7 @@ const LeaguePage = (props: Props) => {
           onChangeName={() => {}}
           league
           onCameraClick={() => {}}
-          rating={1.0}
+          rating={averageRating?.average_rating || 0}
           editingButton={
             competitor && competitor.id === +league.president ? true : false
           }

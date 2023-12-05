@@ -32,19 +32,20 @@ const LeagueList = (props: Props) => {
       ) : (
         <div className="mx-auto flex w-11/12 justify-between py-8">
           <FilterBar
+            className="hidden md:block"
             genderFilter={false}
             searchString={searchString}
             setSearchString={setSearchString}
           />
           {/* main bar*/}
-          <div className="w-10/12 pl-2">
+          <div className="w-full md:w-10/12 md:pl-2">
             {/* upper bar*/}
             <div className="">
               <div className="border-1 w-full rounded-[10px] border-gray-300 bg-white shadow-sm">
-                <div className="flex items-center justify-between py-[10px] px-10">
+                <div className="flex items-center justify-between py-[10px] px-10 ">
                   {leaguePropsList.map((element) => (
                     <div
-                      className={`font-semibold text-gray-700 `}
+                      className={`hidden font-semibold text-gray-700 first:block last:block md:block`}
                       key={element}
                     >
                       {element}
@@ -55,7 +56,7 @@ const LeagueList = (props: Props) => {
             </div>
             {/* competitors list*/}
             <div>
-              <div className=" my-4 max-h-[600px] ">
+              <div className="my-4 md:max-h-[600px] ">
                 {leagues
                   ?.filter((item) =>
                     item.name

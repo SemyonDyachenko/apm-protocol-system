@@ -37,7 +37,7 @@ const TournamentMessagesPage = ({ competitor }: Props) => {
               <div>
                 <Link
                   className="text-secondary-500 underline transition hover:text-secondary-400"
-                  to={`/tournament/${element.tournament.id}`}
+                  to={`/tournaments/${element.tournament.id}`}
                 >
                   {element.tournament.name}
                 </Link>

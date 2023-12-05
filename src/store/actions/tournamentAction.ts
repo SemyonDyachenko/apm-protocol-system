@@ -8,13 +8,15 @@ export interface TournamentData {
   name: string
   location: string
   description: string
-  photo?: File | null
+  logo?: File | null
+  banner?: File | null
   address: string
   organizer: number
   main_secretary?: number
   main_referee?: number
   date: string
   league?: number
+  afisha?: File | null
 }
 
 export interface TournamentRegistrationData {
@@ -76,7 +78,7 @@ export const registerForTournament =
         `${SERVER_URL}/tournament_registration/`,
         data
       )
-      console.log(response.data)
+      return response
     } catch (e: AxiosError | any) {
       console.log(e.message)
     }
@@ -152,10 +154,14 @@ export const updateTournament =
         {
           tournamentId,
           ...data,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       )
-      console.log(response)
-      console.log(response.data)
+      return response
     } catch (error: AxiosError | any) {
       console.log(error.message)
     }
@@ -170,6 +176,22 @@ export const tournamentActive =
           tournamentId,
         }
       )
+    } catch (error: AxiosError | any) {
+      console.log(error.message)
+    }
+  }
+
+export const createTournamentWeightClasses =
+  (tournamentId: number, data: any) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post<any>(
+        `${SERVER_URL}/createTournamentWeightClasses/`,
+        {
+          tournamentId,
+          ...data,
+        }
+      )
+      return response
     } catch (error: AxiosError | any) {
       console.log(error.message)
     }

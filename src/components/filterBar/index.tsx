@@ -12,6 +12,8 @@ type Props = {
   countryItems?: Array<FilterItem>
   genderFilter: boolean
   setData?: ([]: any) => void
+  hand?: boolean
+  children?: React.ReactNode
 }
 
 const FilterBar = ({
@@ -21,6 +23,8 @@ const FilterBar = ({
   countryItems,
   genderFilter,
   setData,
+  hand,
+  children,
 }: Props) => {
   const [menCheck, setMenCheck] = useState(true)
   const [womenCheck, setWomenCheck] = useState(true)
@@ -66,36 +70,40 @@ const FilterBar = ({
               </div>
             </div>
           </div>
-          <div className="mt-3">
-            <div className="flex cursor-pointer items-center justify-between">
-              <div className="text-md font-semibold text-gray-700">Рука</div>
-              <div>
-                <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
+          {hand && (
+            <div className="mt-3">
+              <div className="flex cursor-pointer items-center justify-between">
+                <div className="text-md font-semibold text-gray-700">Рука</div>
+                <div>
+                  <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
+                </div>
+              </div>
+              <div className="py-3">
+                <div className="flex items-center gap-x-2">
+                  <div className="pt-1">
+                    <Checkbox
+                      isChecked={rightHand}
+                      changeState={setRightHand}
+                      className=""
+                    />
+                  </div>
+                  <div className="text-md font-medium text-gray-700">
+                    Правая
+                  </div>
+                </div>
+                <div className="flex items-center gap-x-2 pt-2">
+                  <div className="pt-1">
+                    <Checkbox
+                      isChecked={leftHand}
+                      changeState={setLeftHand}
+                      className=""
+                    />
+                  </div>
+                  <div className="text-md font-medium text-gray-700">Левая</div>
+                </div>
               </div>
             </div>
-            <div className="py-3">
-              <div className="flex items-center gap-x-2">
-                <div className="pt-1">
-                  <Checkbox
-                    isChecked={rightHand}
-                    changeState={setRightHand}
-                    className=""
-                  />
-                </div>
-                <div className="text-md font-medium text-gray-700">Правая</div>
-              </div>
-              <div className="flex items-center gap-x-2 pt-2">
-                <div className="pt-1">
-                  <Checkbox
-                    isChecked={leftHand}
-                    changeState={setLeftHand}
-                    className=""
-                  />
-                </div>
-                <div className="text-md font-medium text-gray-700">Левая</div>
-              </div>
-            </div>
-          </div>
+          )}
           {countryItems && (
             <div className="mt-3">
               <div className="flex cursor-pointer items-center justify-between">
@@ -124,6 +132,7 @@ const FilterBar = ({
               </div>
             </div>
           )}
+          {children}
           {genderFilter && (
             <div className="mt-3">
               <div className="flex cursor-pointer items-center justify-between">

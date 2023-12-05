@@ -105,3 +105,38 @@ export const signupUser =
       if (error === null) return 200
     }
   }
+
+export const restorePassword =
+  (email: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get<any>(
+        `${SERVER_URL}/passwordRestore/restore_passord/`,
+        {
+          params: {
+            email,
+          },
+        }
+      )
+      return response
+    } catch (error: Error | any) {
+      console.log(error)
+      return error
+    }
+  }
+
+export const createSupportRequest =
+  (email: string, name: string, message: string, datetime: string) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post<any>(`${SERVER_URL}/supportRequest/`, {
+        email,
+        name,
+        message,
+        datetime,
+      })
+      return response
+    } catch (error: Error | any) {
+      console.log(error)
+      return error
+    }
+  }

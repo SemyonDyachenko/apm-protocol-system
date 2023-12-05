@@ -26,6 +26,8 @@ import InfoWindow from "./InfoWindow"
 import CompetitorTournamentsList from "./TournamentsList"
 import MessagesWindow from "./MessagesWindow"
 import LeaguesWindow from "./leaguesWindow"
+import { todayIsBirthdate } from "@/utils/date"
+import Loader from "@/components/loader"
 
 type Props = {}
 
@@ -146,20 +148,10 @@ const ProfilePage = (props: Props) => {
     }
   }
 
-  if (loading)
-    return (
-      <div className="flex items-center justify-center p-40">
-        <ColorRing
-          visible={true}
-          height="120"
-          width="120"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{}}
-          wrapperClass="blocks-wrapper"
-          colors={["#FFC132", "#FFC132", "#FFC132", "#FFC132", "#FFC132"]}
-        />
-      </div>
-    )
+  competitor?.birthdate &&
+    console.log(todayIsBirthdate(competitor.birthdate.toString()))
+
+  if (loading) return <Loader />
 
   return (
     <div>
@@ -167,7 +159,10 @@ const ProfilePage = (props: Props) => {
         <div className="mx-auto w-11/12 py-10">
           <div className="flex items-center justify-between px-10">
             <HText>
-              Добро пожаловать,{" "}
+              {competitor.birthdate &&
+              todayIsBirthdate(competitor.birthdate.toString())
+                ? "С днем рождения, "
+                : `Добро пожаловать, `}
               {competitor?.first_name + " " + competitor?.last_name}
               {!competitor.verified && (
                 <div className="pt-1 text-sm font-medium text-secondary-500">

@@ -27,6 +27,9 @@ import LeagueEditingPage from "./pages/leagueEditing"
 const isAuth = localStorage.getItem("token")
 import { Routes, Route, Outlet } from "react-router-dom"
 import PasswordRestorePage from "./pages/passwordRestore"
+import FeedbackPage from "./pages/feedbackPage"
+import TournamentEditingPage from "./pages/tournamentEditing"
+import TeamPage from "./pages/team"
 
 function NavbarWrapper() {
   return (
@@ -62,7 +65,7 @@ function App() {
             />
             <Route
               path="tournaments/editing/:tournamentId"
-              element={<TournamentPage />}
+              element={<TournamentEditingPage />}
             />
             <Route path="match" element={<MatchPage />} />
             <Route path="logout" element={<LogoutPage />} />
@@ -77,6 +80,8 @@ function App() {
               element={<LeagueEditingPage />}
             />
             <Route path="password-restore" element={<PasswordRestorePage />} />
+            <Route path="contact" element={<FeedbackPage />} />
+            <Route path="team/:teamId" element={<TeamPage />} />
           </Route>
         </Routes>
       </Router>

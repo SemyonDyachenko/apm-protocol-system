@@ -3,8 +3,13 @@ export default interface WeightClass {
   name: string
 }
 
+export interface WeightClassData {
+  name: string
+}
+
 export interface TournamentWeightClass {
   id: number
   tournament: number
   weight_class: WeightClass
+  category: string
 }

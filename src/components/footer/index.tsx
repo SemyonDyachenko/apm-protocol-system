@@ -13,13 +13,13 @@ const Footer = (props: Props) => {
     >
       <div className="mx-auto w-4/5 ">
         <div className="items-center justify-between gap-4 md:flex">
-          <div className="col-md-4 col-sm-12">
+          <div>
             <h4 className={"text-md pb-3 font-semibold"}>
               Armwrestling Promotion Machine
             </h4>
           </div>
 
-          <div className="flex-column  mt-4 flex justify-end md:mt-0 md:text-right">
+          <div className="flex-column hidden justify-end md:mt-0 md:flex md:text-right">
             <div className="cursor-pointer underline transition hover:text-secondary-500 ">
               политика конфиденциальности
             </div>
@@ -30,7 +30,7 @@ const Footer = (props: Props) => {
         </div>
       </div>
       <div className="mx-auto w-4/5">
-        <div className="py-8">
+        <div className="py-4">
           <div className="items-center justify-between md:flex">
             <div className="">
               <p>

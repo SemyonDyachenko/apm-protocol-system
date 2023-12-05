@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useAppDispatch } from "@/hooks/redux"
 import {
+  deleteCompetitorImage,
   updateCompetitorImage,
   updateCompetitorProfile,
 } from "@/store/actions/competitorAction"
@@ -11,6 +12,9 @@ import PersonalDataInput from "./PersonalDataInput"
 import { formatPhoneInput } from "@/utils/input"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck } from "@fortawesome/free-solid-svg-icons"
+
+import NonImage from "/assets/utils/nonuserimage.jpg"
+import { getCountriesList } from "@/utils/dataUtils"
 
 type Props = {
   competitor: CompetitorData | null
@@ -56,7 +60,16 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
   }
 
   const updateProfileImage = (data: any) => {
-    competitor && dispatch(updateCompetitorImage(competitor.id, data))
+    competitor &&
+      dispatch(updateCompetitorImage(competitor.id, data)).then((res) =>
+        window.location.reload()
+      )
+  }
+  const removeProfileImage = () => {
+    competitor &&
+      dispatch(deleteCompetitorImage(competitor.id)).then((res) =>
+        window.location.reload()
+      )
   }
 
   return (
@@ -98,7 +111,6 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                 onChange={(e) => {
                   if (e.target.files) {
                     updateProfileImage(e.target.files[0])
-                    window.location.reload()
                   }
                 }}
                 disabled={!competitor?.verified}
@@ -107,10 +119,17 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
               />
               Обновить фото
             </label>
-
-            <button className="px-10 pt-2 text-sm text-gray-400 hover:text-gray-700">
-              Удалить фото
-            </button>
+            {competitor?.image && (
+              <button
+                onClick={(e) => {
+                  console.log(competitor.image)
+                  removeProfileImage()
+                }}
+                className="px-10 pt-2 text-sm text-gray-400 hover:text-gray-700"
+              >
+                Удалить фото
+              </button>
+            )}
           </div>
         </div>
         <div className="py-3 pl-10">
@@ -136,12 +155,27 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
               onChange={(e) => setLastnameValue(e.target.value)}
               title="Фамилия"
             />
-            <PersonalDataInput
-              disabled={formIsDisabled}
-              value={countryValue}
-              onChange={(e) => setCountryValue(e.target.value)}
-              title="Страна"
-            />
+            <div>
+              <div
+                className={`pb-2 text-sm ${
+                  formIsDisabled ? "text-gray-400" : "font-medium text-gray-700"
+                }`}
+              >
+                Страна:
+              </div>
+              <select
+                defaultValue={competitor?.country}
+                onChange={(e) => setCountryValue(e.target.value)}
+                disabled={formIsDisabled}
+                className="w-[260px] rounded-lg border-r-4 px-4  py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:border-r-4 disabled:border-r-gray-70 disabled:bg-gray-70"
+              >
+                {getCountriesList().map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
             <PersonalDataInput
               value={competitor?.gender === "m" ? "Мужской" : "Женский"}
               title="Пол"

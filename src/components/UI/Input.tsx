@@ -7,6 +7,7 @@ type Props = {
   placeholder?: string
   disabled?: boolean
   className?: string
+  type: string
 }
 
 const CustomInput = ({
@@ -16,6 +17,7 @@ const CustomInput = ({
   placeholder,
   disabled,
   className,
+  type,
 }: Props) => {
   return (
     <div>
@@ -23,6 +25,7 @@ const CustomInput = ({
       <input
         className={`text-md rounded-lg bg-gray-200 px-4 py-1 outline-none ${className}`}
         value={value}
+        type={type}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}

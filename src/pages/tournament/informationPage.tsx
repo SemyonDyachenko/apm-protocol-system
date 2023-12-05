@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { getNormalizeDate } from "@/utils/date"
 import { leagueAPI } from "@/services/leaugeService"
 import { competitorAPI } from "@/services/competitorService"
-import { getLeagueLevel } from "@/models/League"
+import League, { getLeagueLevel } from "@/models/League"
 import { getCompetitorFullname } from "@/models/Competitor"
 import GridItem from "@/components/gridItem"
 import { getAvarageRating } from "@/utils/eloCalculation"
@@ -14,6 +14,7 @@ import { tournamentAPI } from "@/services/tournamentsService"
 type Props = {
   tournament: Tournament
   editing: boolean
+  league: League
 }
 
 const items: Array<upMenuItem> = [
@@ -24,8 +25,7 @@ const items: Array<upMenuItem> = [
   },
 ]
 
-const TournamentInfoPage = ({ tournament, editing }: Props) => {
-  const { data: league } = leagueAPI.useFetchLeagueQuery(tournament.league)
+const TournamentInfoPage = ({ tournament, editing, league }: Props) => {
   const { data: judge } = competitorAPI.useFetchCompetitorDataQuery(
     tournament.main_referee
   )
@@ -104,13 +104,15 @@ const TournamentInfoPage = ({ tournament, editing }: Props) => {
         )}
       </div>
       <div className="flex gap-8">
-        <div>
-          <img
-            className="h-[350px] max-w-[280px] rounded-lg"
-            src="/assets/afisha.jpg"
-          />
-        </div>
-        <div>
+        {tournament.afisha && (
+          <div>
+            <img
+              className="h-[350px] max-w-[280px] rounded-lg"
+              src={tournament.afisha?.toString()}
+            />
+          </div>
+        )}
+        <div className="w-full">
           <div>
             <span className="text-sm text-gray-400">Описание:</span>
             <p className="pt-1 text-sm font-medium text-gray-700">

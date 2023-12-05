@@ -20,6 +20,7 @@ export default interface Tournament {
   level: string
   phone: string
   active: boolean
+  afisha?: File
 }
 
 export interface TournamentRegistration {

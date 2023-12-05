@@ -1,8 +1,10 @@
+import Checkbox from "@/components/UI/Checkbox"
 import ListNode from "@/components/listNode"
 import { tournamentAPI } from "@/services/tournamentsService"
 import { getNormalizeDate } from "@/utils/date"
 
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 type Props = {
   competitorId: number
@@ -11,10 +13,50 @@ type Props = {
 const TournamentsList = ({ competitorId }: Props) => {
   const { data: tournaments } =
     tournamentAPI.useFetchCompetitorTournamentsQuery(competitorId)
+
+  const [actuall, setActuall] = useState(true)
+  const [past, setPast] = useState(true)
+
+  const getFilteredTournaments = () => {
+    let now = new Date()
+    if (tournaments) {
+      if (actuall && past) {
+        return tournaments
+      } else if (actuall) {
+        return tournaments.filter(
+          (item) => new Date(item.date).getTime() > now.getTime()
+        )
+      } else if (past) {
+        return tournaments.filter(
+          (item) => new Date(item.date).getTime() < now.getTime()
+        )
+      }
+    }
+    return tournaments
+  }
+
   return (
-    <div className="py-2">
+    <div className="pt-2">
+      <div className="flex items-center gap-3 pt-2 pr-4">
+        <div className="flex  gap-1">
+          <Checkbox
+            className="mt-[2px]"
+            isChecked={actuall}
+            changeState={setActuall}
+          />
+          <div className="text-sm font-medium">Актуальные</div>
+        </div>
+        <div className="flex gap-1">
+          <Checkbox
+            className="mt-[2px]"
+            isChecked={past}
+            changeState={setPast}
+          />
+          <div className="text-sm font-medium">Прошедшие</div>
+        </div>
+      </div>
       <div className="py-2 pr-4">
-        {tournaments?.map((element, index) => (
+        {getFilteredTournaments()?.map((element, index) => (
           <Link
             className="hover:text-gray-700"
             to={`/tournaments/${element.id}`}

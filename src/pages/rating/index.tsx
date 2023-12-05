@@ -31,11 +31,13 @@ const RatingList = (props: Props) => {
         countryItems={countryItems}
         genderFilter={true}
         setData={setFilterData}
+        hand={true}
       />
       {/* main bar*/}
-      <div className="w-full pl-2 md:w-10/12">
+      <div className="w-full pl-6 md:w-10/12">
         {/* upper bar*/}
-        <div className="">
+        <div className="text-3xl font-bold">Рейтинг спортсменов</div>
+        <div className="hidden">
           <div className="w-full rounded-[10px]  border-gray-300 bg-white shadow-md">
             <div className="flex items-center justify-between py-[10px] px-10">
               {competitorPropsList.map((element) => (
@@ -52,7 +54,7 @@ const RatingList = (props: Props) => {
         {/* competitors list*/}
         <div>
           <PerfectScrollbar>
-            <div className="my-4 md:max-h-[620px]">
+            <div className="py-4 md:max-h-[620px]">
               <div className="pr-4">
                 {competitors
                   ?.filter(

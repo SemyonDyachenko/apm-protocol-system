@@ -35,7 +35,6 @@ const TournamentCreateForm = (props: Props) => {
       name: data.name,
       location: data.location,
       description: data.description,
-      photo: data.photo[0],
       date: new Date(data.date).toISOString().slice(0, 10),
       address: data.address,
       organizer: 14,

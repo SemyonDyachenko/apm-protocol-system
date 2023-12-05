@@ -1,5 +1,5 @@
 import { SERVER_URL } from "@/api/instance"
-import WeightClass from "@/models/WeightClass"
+import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const weightClassAPI = createApi({
@@ -10,6 +10,15 @@ export const weightClassAPI = createApi({
       query: (limit: number = 5000) => ({
         url: "weightclasses/",
         params: {
+          _limit: limit,
+        },
+      }),
+    }),
+    fetchTournamentClasses: build.query<TournamentWeightClass[], number>({
+      query: (tournamentId, limit: number = 5000) => ({
+        url: "createTournamentWeightClasses/",
+        params: {
+          tournamentId,
           _limit: limit,
         },
       }),

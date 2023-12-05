@@ -36,6 +36,7 @@ const SideBarHeader = ({ sidebarOpened, openSidebar, navLinks }: Props) => {
           {navLinks.map((item, index) => (
             <li key={index}>
               <Link
+                onClick={() => openSidebar(false)}
                 className={`font-medium ${
                   item.path === location.pathname && "text-secondary-400"
                 } ${

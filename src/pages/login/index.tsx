@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import SignupInfo from "@/components/signupInfo"
 import rolesSlice, { setRole } from "@/store/slices/roleSlice"
+import PageNotFound from "../404/PageNotFound"
 
 type Props = {}
 
@@ -45,16 +46,19 @@ const LoginPage = (props: Props) => {
 
   const inputStyles = `${
     authError && "border-[1px] border-primary-500"
-  } rounded-md bg-gray-input my-2 px-3 w-[500px] h-[50px] text-md text-gray-700 font-medium shadow-md outline-none placeholder:text-gray-200`
+  } rounded-md bg-gray-input my-2 px-3 w-full md:w-[500px] h-[50px] text-md text-gray-700 font-medium shadow-md outline-none placeholder:text-gray-200`
   const labelStyles = "text-md text-gray-700 font-medium"
 
   return (
     <div className="py-10">
       {!isAuth ? (
-        <div className="mx-auto flex w-11/12 items-start justify-between rounded-xl bg-gray-70 px-5 py-5 shadow-md md:w-5/6">
-          <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="max-w-[500px]">
-              <div className="flex justify-center pb-2 text-2xl font-bold text-gray-600">
+        <div className="mx-auto flex w-11/12 items-start justify-center rounded-xl bg-gray-70 px-2 py-5 shadow-md md:w-5/6 md:justify-between md:px-5">
+          <div className="w-full md:w-auto md:px-10">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full md:max-w-[500px]"
+            >
+              <div className="flex justify-center pb-2 text-xl font-bold text-gray-600 md:text-2xl">
                 Вход в учетную запись
               </div>
               <div className="flex w-full justify-center pb-3 text-sm text-gray-400">
@@ -140,10 +144,12 @@ const LoginPage = (props: Props) => {
               </div>
             </form>
           </div>
-          <SignupInfo />
+          <div className="hidden md:block">
+            <SignupInfo />
+          </div>
         </div>
       ) : (
-        <div></div>
+        <PageNotFound />
       )}
     </div>
   )

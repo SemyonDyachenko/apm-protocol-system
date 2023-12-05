@@ -1,6 +1,6 @@
 import Checkbox from "@/components/UI/Checkbox"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
-import WeightClass from "@/models/WeightClass"
+import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
 import { refreshLogin } from "@/store/actions/authAction"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 import {
@@ -8,6 +8,7 @@ import {
   getTournamentWeightClasses,
   registerForTournament,
 } from "@/store/actions/tournamentAction"
+import { CompetitorData } from "@/store/slices/competitorSlice"
 import { faCircleCheck, faClose } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
@@ -18,7 +19,8 @@ type Props = {
   closeFunc: () => void
   opened: boolean
   tournamentId?: number
-  weightClasses: WeightClass[]
+  weightClasses: TournamentWeightClass[]
+  competitor: CompetitorData
 }
 
 const TournamentRegisterWindow = ({
@@ -26,15 +28,14 @@ const TournamentRegisterWindow = ({
   opened,
   closeFunc,
   weightClasses,
+  competitor,
 }: Props) => {
   const dispatch = useAppDispatch()
-  const { competitor, loading, error } = useAppSelector(
-    (state) => state.competitors
-  )
 
   const popupRef = useRef<HTMLDivElement | null>(null)
+
   const [category, setCategory] = useState("men")
-  const [weightClass, setWeightClass] = useState(0)
+  const [weightClass, setWeightClass] = useState(weightClasses[0].id)
   const [successRegister, setSuccessRegister] = useState(false)
   const [privacyChecked, setPrivacyChecked] = useState(false)
 
@@ -64,12 +65,16 @@ const TournamentRegisterWindow = ({
     }
 
     try {
-      dispatch(registerForTournament(data)).then((response) =>
-        console.log(response)
-      )
-      setSuccessRegister(true)
+      dispatch(registerForTournament(data)).then((response) => {
+        if (response) {
+          console.log(response)
+          if (response.status === 201) {
+            setSuccessRegister(true)
+          }
+        }
+      })
     } catch (e) {
-      console.log(error)
+      console.log(e)
     }
   }
 
@@ -110,7 +115,7 @@ const TournamentRegisterWindow = ({
                 defaultValue="Категория"
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="masters">Ветераны</option>
+                <option value="old">Ветераны</option>
                 <option value="juniors21">Юниоры 21+</option>
                 <option value="juniors18">Юниоры 18+</option>
                 <option value="women">Женщины</option>
@@ -124,11 +129,13 @@ const TournamentRegisterWindow = ({
                 defaultValue={0}
                 onChange={(e) => setWeightClass(+e.target.value)}
               >
-                {weightClasses.map((item, index) => (
-                  <option key={index} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
+                {weightClasses
+                  .filter((item) => item.category === category)
+                  .map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.weight_class.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mt-2 w-full">

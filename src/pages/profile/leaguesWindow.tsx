@@ -146,6 +146,7 @@ const LeaguesWindow = ({ competitor }: Props) => {
         <div>
           <div className="pb-2">
             <CustomInput
+              type="text"
               className="w-full py-2 font-medium"
               label="Название"
               value={leagueName}

@@ -23,6 +23,46 @@ const TournamentsPage = (props: Props) => {
   const { data: tournaments } = tournamentAPI.useFetchTournamentsQuery(1)
   const [tournamentsView, setTournamentsView] = useState("list")
   const [searchString, setSearchString] = useState("")
+  const [actualTournaments, setActuallTournaments] = useState(true)
+  const [casualFilter, setCasualFilter] = useState(true)
+  const [proFilter, setProFilter] = useState(true)
+
+  const getFilteredTournaments = () => {
+    const date = new Date()
+    if (tournaments) {
+      if (actualTournaments) {
+        return tournaments
+          .filter((item) => {
+            if (casualFilter && proFilter) {
+              return item.level
+            }
+            if (casualFilter) {
+              return item.level === "casual"
+            }
+
+            if (proFilter) {
+              return item.level === "pro"
+            }
+          })
+          .filter((item) => new Date(item.date).getTime() > date.getTime())
+      } else {
+        return tournaments
+          .filter((item) => {
+            if (casualFilter && proFilter) {
+              return item.level
+            }
+            if (casualFilter) {
+              return item.level === "casual"
+            }
+
+            if (proFilter) {
+              return item.level === "pro"
+            }
+          })
+          .filter((item) => new Date(item.date).getTime() < date.getTime())
+      }
+    }
+  }
 
   const getTournamentsView = () => {
     if (tournaments) {
@@ -31,14 +71,14 @@ const TournamentsPage = (props: Props) => {
           return (
             <ListTournamentsView
               search={searchString}
-              tournaments={tournaments}
+              tournaments={getFilteredTournaments()}
             />
           )
         case "sections":
           return (
             <SectionsTournamentsView
               search={searchString}
-              tournaments={tournaments}
+              tournaments={getFilteredTournaments()}
             />
           )
         case "calendar":
@@ -63,20 +103,29 @@ const TournamentsPage = (props: Props) => {
         >
           <div className="mt-3">
             <div className="flex cursor-pointer items-center justify-between">
-              <div className="text-lg font-semibold text-gray-700">Статус</div>
+              <div className="text-md font-semibold text-gray-700">Статус</div>
               <div>
                 <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
               </div>
             </div>
             <div className="py-3">
               <div className="flex gap-2">
-                <input name="status" type="radio" />
+                <input
+                  defaultChecked={true}
+                  name="status"
+                  onClick={() => setActuallTournaments(true)}
+                  type="radio"
+                />
                 <label className="text-md font-medium text-gray-700">
                   Актуальные
                 </label>
               </div>
               <div className="mt-2 flex gap-2">
-                <input name="status" type="radio" />
+                <input
+                  onClick={() => setActuallTournaments(false)}
+                  name="status"
+                  type="radio"
+                />
                 <label className="text-md font-medium text-gray-700">
                   Прошедшие
                 </label>
@@ -85,7 +134,7 @@ const TournamentsPage = (props: Props) => {
           </div>
           <div className="mt-3">
             <div className="flex cursor-pointer items-center justify-between">
-              <div className="text-lg font-semibold text-gray-700">Статус</div>
+              <div className="text-md font-semibold text-gray-700">Уровень</div>
               <div>
                 <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
               </div>
@@ -93,19 +142,19 @@ const TournamentsPage = (props: Props) => {
             <div className="py-3">
               <div className="flex gap-2">
                 <Checkbox
-                  className=""
-                  isChecked={false}
-                  changeState={() => {}}
+                  className="mt-[1px]"
+                  isChecked={proFilter}
+                  changeState={setProFilter}
                 />
                 <div className="text-md font-medium text-gray-700">
                   Профессиональный
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="mt-2 flex gap-2">
                 <Checkbox
-                  className=""
-                  isChecked={true}
-                  changeState={() => {}}
+                  className="mt-[1px]"
+                  isChecked={casualFilter}
+                  changeState={setCasualFilter}
                 />
                 <div className="text-md font-medium text-gray-700">
                   Любительский
@@ -140,8 +189,8 @@ const TournamentsPage = (props: Props) => {
       </div>
       <div className="w-full md:w-10/12 md:pl-6">
         <div className="flex w-full justify-between px-3 md:px-0 md:pr-5">
-          <div className="text-2xl font-bold md:text-3xl">
-            Актуальные турниры
+          <div className="text-xl font-bold md:text-3xl">
+            {actualTournaments ? "Актуальные турниры" : "Прошедшие турниры"}
           </div>
           <div className="flex gap-2 text-xl font-medium">
             <div

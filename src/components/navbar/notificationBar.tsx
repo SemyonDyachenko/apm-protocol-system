@@ -56,10 +56,8 @@ const NotificationBar = (props: Props) => {
         hidden={hidden}
         className={`absolute z-[10]  min-w-[300px] rounded-xl bg-gray-700 py-3 shadow-xl`}
       >
-        {notifications
-          ?.toReversed()
-          .slice(0, 5)
-          .map((notification, index) => (
+        {notifications &&
+          notifications.map((notification, index) => (
             <div className="" key={index}>
               <div className="px-4">
                 <div className="flex justify-end text-sm text-gray-400">

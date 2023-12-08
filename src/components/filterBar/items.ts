@@ -1,27 +1,35 @@
 export type FilterItem = {
-  value: string | number
+  value: string
   title: string
+}
+
+export enum Country {
+  Russia = "Россия",
+  Belarus = "Беларусь",
+  Poland = "Польша",
+  Kaz = "Казахстан",
+  UZB = "Узбекистан",
 }
 
 export const countryItems: Array<FilterItem> = [
   {
-    value: "russia",
+    value: "Russia",
     title: "Россия",
   },
   {
-    value: "bel",
+    value: "Belarus",
     title: "Беларусь",
   },
   {
-    value: "poland",
+    value: "Poland",
     title: "Польша",
   },
   {
-    value: "kaz",
+    value: "Kaz",
     title: "Казахстан",
   },
   {
-    value: "arm",
-    title: "Армения",
+    value: "Armenia",
+    title: "Узбекистан",
   },
 ]

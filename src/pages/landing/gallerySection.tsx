@@ -32,7 +32,7 @@ const galleryImages = [
 
 const GallerySection = (props: Props) => {
   const overlayStyles = `p-5 absolute z-10 flex w-full h-full flex-col items-center justify-center
-   whitespace-normal bg-gray-700 text-center  text-white opacity-[0.001%] transition
+   whitespace-normal bg-gray-700 text-center  text-white opacity-0 transition
      hover:opacity-80 rounded-lg`
 
   return (

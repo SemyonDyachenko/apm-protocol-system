@@ -15,6 +15,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons"
 
 import NonImage from "/assets/utils/nonuserimage.jpg"
 import { getCountriesList } from "@/utils/dataUtils"
+import ConfirmModal from "@/components/modals/confirmModal"
 
 type Props = {
   competitor: CompetitorData | null
@@ -27,6 +28,8 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
   const [lastnameValue, setLastnameValue] = useState(competitor?.last_name)
   const [countryValue, setCountryValue] = useState(competitor?.country)
   const [phoneValue, setPhoneValue] = useState(competitor?.phone)
+
+  const [photoModalActive, setPhotoModalActive] = useState(false)
 
   const handlePhoneInput = (value: string) => {
     const formattedPhone = formatPhoneInput(value)
@@ -122,8 +125,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
             {competitor?.image && (
               <button
                 onClick={(e) => {
-                  console.log(competitor.image)
-                  removeProfileImage()
+                  setPhotoModalActive(true)
                 }}
                 className="px-10 pt-2 text-sm text-gray-400 hover:text-gray-700"
               >
@@ -167,7 +169,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                 defaultValue={competitor?.country}
                 onChange={(e) => setCountryValue(e.target.value)}
                 disabled={formIsDisabled}
-                className="w-[260px] rounded-lg border-r-4 px-4  py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:border-r-4 disabled:border-r-gray-70 disabled:bg-gray-70"
+                className="w-[260px] rounded-lg border-r-4 px-4  py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:border-r-4 disabled:border-r-gray-70  disabled:bg-gray-70"
               >
                 {getCountriesList().map((item, index) => (
                   <option key={index} value={item}>
@@ -214,6 +216,12 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
           </div>
         </div>
       </div>
+      <ConfirmModal
+        action={removeProfileImage}
+        active={photoModalActive}
+        closeFunc={() => setPhotoModalActive(false)}
+        text="Вы хотите удалить фотографию?"
+      ></ConfirmModal>
     </div>
   )
 }

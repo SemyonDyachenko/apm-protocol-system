@@ -58,8 +58,8 @@ const FilterBar = ({
                   value={searchString}
                   onChange={(e) => setSearchString(e.target.value)}
                   type="text"
-                  placeholder="Введите имя"
-                  className="w-full rounded-lg border-2 border-gray-400 bg-gray-70 p-3 py-1 text-sm font-medium text-gray-700 outline-none"
+                  placeholder="Поиск"
+                  className="w-full rounded-lg border-2  border-gray-400 bg-gray-70 p-3 py-1 text-sm font-medium text-gray-700 outline-none transition focus:border-gray-600"
                 />
               </div>
               <div>
@@ -104,34 +104,7 @@ const FilterBar = ({
               </div>
             </div>
           )}
-          {countryItems && (
-            <div className="mt-3">
-              <div className="flex cursor-pointer items-center justify-between">
-                <div className="text-md font-semibold text-gray-700">
-                  Страна
-                </div>
-                <div>
-                  <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
-                </div>
-              </div>
-              <div className="py-3">
-                {countryItems.map((item, index) => (
-                  <div className="flex items-center gap-2 pt-2">
-                    <div>
-                      <Checkbox
-                        isChecked={index % 2 === 0 ? true : false}
-                        className="mt-1"
-                        changeState={() => {}}
-                      />
-                    </div>
-                    <div className="text-md font-medium text-gray-700">
-                      {item.title}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+
           {children}
           {genderFilter && (
             <div className="mt-3">

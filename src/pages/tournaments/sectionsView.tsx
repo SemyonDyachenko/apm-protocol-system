@@ -26,7 +26,7 @@ const SectionsTournamentsView = ({ tournaments, search }: Props) => {
               transition={{ delay: 0.2 + index / 10 }}
               viewport={{ once: true, amount: 0.5 }}
               key={index}
-              className="relative h-auto min-h-[450px] w-[320px] rounded-3xl shadow-md md:min-h-[500px]"
+              className="relative h-auto min-h-[450px] w-full rounded-3xl shadow-md md:min-h-[500px] md:w-[320px]"
             >
               <div className="z-1 absolute h-full w-full rounded-3xl">
                 <div className="absolute h-full w-full rounded-3xl bg-black opacity-30"></div>

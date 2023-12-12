@@ -29,7 +29,7 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
 
   return (
     <div className="max-w-full">
-      <div className="flex items-center gap-3 overflow-y-scroll md:overflow-y-hidden">
+      <div className="flex items-center gap-3 md:overflow-y-hidden">
         {items.map((element, index) => (
           <div key={index} className="py-3">
             <button
@@ -41,7 +41,9 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
                 element.selected
                   ? " border-secondary-400 text-secondary-400"
                   : "border-gray-400 text-gray-400"
-              } text-md rounded-[6px] border-[1px] px-3 py-[5px] font-[300] transition hover:border-secondary-500 hover:text-secondary-500
+              } text-md ${
+                index !== 0 && "hidden md:block"
+              } rounded-[6px] border-[1px] px-3 py-[5px] font-[300] transition hover:border-secondary-500 hover:text-secondary-500
                     `}
             >
               {element.title}

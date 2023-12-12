@@ -11,13 +11,20 @@ type Props = {
 const ErrorModal = ({ active, closeFunc }: Props) => {
   const popupRef = useRef<HTMLDivElement | null>(null)
 
+  const applyScroll = () => {
+    document.body.style.overflowY = "scroll"
+  }
+
   useEffect(() => {
+    document.body.style.overflowY = active ? "hidden" : "scrollY"
+
     const handleClickOutside = (event: any) => {
       if (
         popupRef.current &&
         !popupRef.current.contains(event.target as HTMLElement)
       ) {
         closeFunc()
+        applyScroll()
       }
     }
     document.addEventListener("mousedown", handleClickOutside)

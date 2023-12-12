@@ -152,7 +152,7 @@ const Navbar = (props: Props) => {
           <div className="md:hidden">
             <FontAwesomeIcon
               onClick={() => openSidebar(!sidebarOpened)}
-              className="cursor-pointer text-xl text-secondary-500"
+              className="cursor-pointer text-3xl text-secondary-500"
               icon={faBars}
             />
           </div>

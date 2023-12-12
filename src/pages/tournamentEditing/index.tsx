@@ -119,6 +119,7 @@ const TournamentEditingPage = (props: Props) => {
       <div className="mx-auto w-11/12">
         <UpBanner
           disabledButton={false}
+          editingLink="tournaments"
           name={tournamentName}
           logo={tournament?.logo}
           editing={true}

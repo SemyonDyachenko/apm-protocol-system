@@ -1,3 +1,5 @@
+import Team from "./Team"
+
 export default interface Competitor {
   id: number
   email: string
@@ -26,6 +28,7 @@ export default interface Competitor {
   press?: number
   side?: number
   verified?: boolean
+  team?: Team
 }
 
 export interface RatingPosition {

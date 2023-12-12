@@ -82,9 +82,11 @@ const RatingList = (props: Props) => {
         )}
       </FilterBar>
       {/* main bar*/}
-      <div className="w-full pl-6 md:w-10/12">
+      <div className="w-full md:w-10/12 md:pl-6">
         {/* upper bar*/}
-        <div className="text-3xl font-bold">Рейтинг спортсменов</div>
+        <div className="px-2 text-2xl font-bold md:text-3xl">
+          Рейтинг спортсменов
+        </div>
         <div className="hidden">
           <div className="w-full rounded-[10px]  border-gray-300 bg-white shadow-md">
             <div className="flex items-center justify-between py-[10px] px-10">
@@ -100,10 +102,10 @@ const RatingList = (props: Props) => {
           </div>
         </div>
         {/* competitors list*/}
-        <div>
+        <div className="flex w-full flex-wrap  justify-center px-1 md:block md:w-auto md:px-0">
           <PerfectScrollbar>
-            <div className="py-4 md:max-h-[620px]">
-              <div className="pr-4">
+            <div className="py-4 md:max-h-screen">
+              <div className="md:pr-4">
                 {competitors
                   ?.filter(
                     (item) =>

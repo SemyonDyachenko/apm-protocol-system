@@ -20,13 +20,17 @@ const SideBarHeader = ({ sidebarOpened, openSidebar, navLinks }: Props) => {
       <div className="flex items-center justify-between px-2 text-lg font-medium text-white">
         <div>
           <FontAwesomeIcon
-            className="cursor-pointer transition hover:text-secondary-500"
+            className="cursor-pointer text-2xl transition hover:text-secondary-500"
             onClick={() => openSidebar(false)}
             icon={faCircleXmark}
           />
         </div>
         <div className="rounded-lg bg-secondary-500 px-3 py-1 text-sm transition hover:bg-secondary-600 active:-translate-y-1">
-          <Link className="text-gray-700 hover:text-gray-700" to="/profile">
+          <Link
+            onClick={() => openSidebar(false)}
+            className="text-lg text-gray-700 hover:text-gray-700"
+            to="/profile"
+          >
             Профиль
           </Link>
         </div>
@@ -37,7 +41,7 @@ const SideBarHeader = ({ sidebarOpened, openSidebar, navLinks }: Props) => {
             <li key={index}>
               <Link
                 onClick={() => openSidebar(false)}
-                className={`font-medium ${
+                className={`text-lg font-medium ${
                   item.path === location.pathname && "text-secondary-400"
                 } ${
                   !item.disabled

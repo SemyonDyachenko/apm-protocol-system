@@ -13,6 +13,7 @@ import { weightClassAPI } from "@/services/weightClassService"
 import { reviewAPI } from "@/services/reviewService"
 import rolesSlice from "./slices/roleSlice"
 import { notificationAPI } from "@/services/tournamentService"
+import { teamAPI } from "@/services/teamService"
 
 const rootReducer = combineReducers({
   competitors: competitorReducer.reducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   [tournamentAPI.reducerPath]: tournamentAPI.reducer,
   [reviewAPI.reducerPath]: reviewAPI.reducer,
   [notificationAPI.reducerPath]: notificationAPI.reducer,
+  [teamAPI.reducerPath]: teamAPI.reducer,
 })
 
 export const setupStore = () => {
@@ -39,6 +41,7 @@ export const setupStore = () => {
         weightClassAPI.middleware,
         reviewAPI.middleware,
         notificationAPI.middleware,
+        teamAPI.middleware,
       ]),
   })
 }

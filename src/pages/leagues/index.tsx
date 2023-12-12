@@ -11,7 +11,7 @@ import { Country, countryItems } from "@/components/filterBar/items"
 
 type Props = {}
 
-const leaguePropsList = ["Название", "Президент", "Страна", "Статус", "Рейтинг"]
+// const leaguePropsList = ["Название", "Президент", "Страна", "Статус", "Рейтинг"]
 
 const LeagueList = (props: Props) => {
   const { data: leagues, isLoading: loading } =
@@ -33,6 +33,9 @@ const LeagueList = (props: Props) => {
       [country]: !prevState[country],
     }))
   }
+
+  const [proLeague, setProLeague] = useState(true)
+  const [casualLeague, setCasualLeague] = useState(true)
 
   return (
     <div className="p-2">
@@ -69,21 +72,21 @@ const LeagueList = (props: Props) => {
                 <div className="flex gap-2">
                   <Checkbox
                     className="mt-[1px]"
-                    isChecked={false}
-                    changeState={() => {}}
+                    isChecked={proLeague}
+                    changeState={setProLeague}
                   />
                   <div className="text-md font-medium text-gray-700">
-                    Профессиональный
+                    Профессиональная
                   </div>
                 </div>
                 <div className="mt-2 flex gap-2">
                   <Checkbox
                     className="mt-[1px]"
-                    isChecked={true}
-                    changeState={() => {}}
+                    isChecked={casualLeague}
+                    changeState={setCasualLeague}
                   />
                   <div className="text-md font-medium text-gray-700">
-                    Любительский
+                    Любительская
                   </div>
                 </div>
               </div>
@@ -108,32 +111,31 @@ const LeagueList = (props: Props) => {
             </div>
           </FilterBar>
           {/* main bar*/}
-          <div className="w-full md:w-10/12 md:pl-2">
+          <div className="w-full md:w-10/12 md:pl-6">
             {/* upper bar*/}
-            <div className="">
-              <div className="border-1 w-full rounded-[10px] border-gray-300 bg-white shadow-sm">
-                <div className="flex items-center justify-between py-[10px] px-10 ">
-                  {leaguePropsList.map((element) => (
-                    <div
-                      className={`hidden font-semibold text-gray-700 first:block last:block md:block`}
-                      key={element}
-                    >
-                      {element}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <div className="text-xl font-bold md:text-3xl">Активные лиги</div>
             {/* competitors list*/}
             <div>
-              <div className="my-4 md:max-h-[600px] ">
+              <div className="pt-4 md:max-h-[600px] ">
                 {leagues &&
                   leagues
+                    .filter((item) => {
+                      if (proLeague && casualLeague) {
+                        return item
+                      }
+                      if (casualLeague) {
+                        return item.level === "casual"
+                      }
+                      if (proLeague) {
+                        return item.level === "pro"
+                      }
+                    })
                     .filter((item) =>
                       item.name
                         .toLowerCase()
                         .includes(searchString.trim().toLowerCase())
                     )
+
                     .filter((item) => checkboxState[item.country as Country])
                     .map((league) => (
                       <Link to={`/league/${league.id}`}>

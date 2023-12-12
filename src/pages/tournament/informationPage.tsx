@@ -92,8 +92,8 @@ const TournamentInfoPage = ({ tournament, editing, league }: Props) => {
 
   return (
     <div>
-      <div className="flex items-start justify-between">
-        <div className="w-1/2">
+      <div className="items-start justify-between md:flex">
+        <div className="w-full md:w-1/2">
           <UpMenuBar items={items} />
         </div>
         {competitors && (
@@ -103,11 +103,11 @@ const TournamentInfoPage = ({ tournament, editing, league }: Props) => {
           />
         )}
       </div>
-      <div className="flex gap-8">
+      <div className="gap-8 md:flex">
         {tournament.afisha && (
-          <div>
+          <div className="flex w-full justify-center py-2 md:block md:w-auto md:py-0">
             <img
-              className="h-[350px] max-w-[280px] rounded-lg"
+              className="h-[350px] w-full rounded-lg md:w-[320px]"
               src={tournament.afisha?.toString()}
             />
           </div>
@@ -119,7 +119,7 @@ const TournamentInfoPage = ({ tournament, editing, league }: Props) => {
               {tournament.description}
             </p>
           </div>
-          <div className="grid w-full grid-cols-4 grid-rows-2 gap-12 py-4">
+          <div className="grid w-full grid-cols-2 grid-rows-2 gap-12 py-4 md:grid-cols-4">
             {gridItems.map((element, index) => (
               <GridItem
                 title={element.title}

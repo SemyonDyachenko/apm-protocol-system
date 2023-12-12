@@ -27,7 +27,7 @@ const PersonalDataInput = ({
         {title}:{" "}
       </p>
       <input
-        className={`${className} w-[260px] rounded-lg  px-4 py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:bg-none`}
+        className={`${className} w-full rounded-lg px-4  py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:bg-none md:w-[260px]`}
         value={value?.toLocaleString()}
         disabled={disabled}
         onChange={onChange}

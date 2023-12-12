@@ -3,6 +3,7 @@ import {
   createBrowserRouter,
   BrowserRouter as Router,
   RouterProvider,
+  useLocation,
 } from "react-router-dom"
 
 import Navbar from "./components/navbar"
@@ -30,6 +31,8 @@ import PasswordRestorePage from "./pages/passwordRestore"
 import FeedbackPage from "./pages/feedbackPage"
 import TournamentEditingPage from "./pages/tournamentEditing"
 import TeamPage from "./pages/team"
+import TeamEditingPage from "./pages/teamEditing"
+import TestSystem from "./pages/tournamentSystem"
 
 function NavbarWrapper() {
   return (
@@ -42,7 +45,7 @@ function NavbarWrapper() {
 
 function App() {
   return (
-    <div className="App">
+    <div className="App ">
       <Router>
         <Routes>
           <Route path="/" element={<NavbarWrapper />}>
@@ -82,10 +85,12 @@ function App() {
             <Route path="password-restore" element={<PasswordRestorePage />} />
             <Route path="contact" element={<FeedbackPage />} />
             <Route path="team/:teamId" element={<TeamPage />} />
+            <Route path="team/editing/:teamId" element={<TeamEditingPage />} />
+            <Route path="system" element={<TestSystem />} />
           </Route>
         </Routes>
+        <Footer />
       </Router>
-      <Footer />
     </div>
   )
 }

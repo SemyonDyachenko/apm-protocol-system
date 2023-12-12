@@ -103,6 +103,7 @@ const LeagueEditingPage = (props: Props) => {
         <UpBanner
           disabledButton={false}
           name={leagueName}
+          editingLink="league"
           logo={league.logo}
           editing={true}
           banner={league.banner}

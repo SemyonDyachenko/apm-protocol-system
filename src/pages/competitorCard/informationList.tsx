@@ -42,10 +42,12 @@ const InformationList = ({ competitor, place }: Props) => {
 
     {
       title: "Команда",
-      value: (
-        <Link className={linkStyles} to="/">
-          APMTeam
+      value: competitor.team ? (
+        <Link className={linkStyles} to={`/team/${competitor.team?.id}`}>
+          {competitor.team?.name}
         </Link>
+      ) : (
+        "Нет"
       ),
     },
     {

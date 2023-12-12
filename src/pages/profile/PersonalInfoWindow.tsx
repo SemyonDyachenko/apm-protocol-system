@@ -93,12 +93,12 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
           {formIsDisabled ? "Редактировать" : "Отменить"}
         </div>
       </div>
-      <div className="flex w-full items-start gap-8">
-        <div className="w-1/5 text-center">
+      <div className="w-full items-start gap-8 md:flex">
+        <div className="w-full text-center md:w-1/5">
           <div className="py-3">
             {competitor && (
               <img
-                className="h-[300px] w-full rounded-xl"
+                className="mx-auto h-[280px] w-[220px]  rounded-full md:h-[350px] md:w-full md:rounded-xl"
                 src={
                   competitor.image?.toString() ||
                   "assets/utils/nonuserimage.jpg"
@@ -134,9 +134,9 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
             )}
           </div>
         </div>
-        <div className="py-3 pl-10">
+        <div className="py-3 md:pl-10">
           <div className="text-lg text-gray-400">Основная информация</div>
-          <div className="grid grid-cols-2 gap-4 py-4">
+          <div className="grid gap-4 py-4 md:grid-cols-2">
             <PersonalDataInput
               type="phone"
               disabled={formIsDisabled}
@@ -169,7 +169,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                 defaultValue={competitor?.country}
                 onChange={(e) => setCountryValue(e.target.value)}
                 disabled={formIsDisabled}
-                className="w-[260px] rounded-lg border-r-4 px-4  py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:border-r-4 disabled:border-r-gray-70  disabled:bg-gray-70"
+                className="w-full rounded-lg border-r-4 px-4 py-2  font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:border-r-4 disabled:border-r-gray-70 disabled:bg-gray-70  md:w-[260px]"
               >
                 {getCountriesList().map((item, index) => (
                   <option key={index} value={item}>

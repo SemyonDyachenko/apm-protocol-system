@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { tournamentAPI } from "@/services/tournamentsService"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import {
   faCheck,
@@ -49,7 +49,7 @@ const TournamentPage = (props: Props) => {
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
   )
-
+  const navigate = useNavigate()
   const { tournamentId } = useParams()
 
   const { data: tournament, isLoading: isTournamentLoading } =
@@ -170,10 +170,12 @@ const TournamentPage = (props: Props) => {
             name={tournament.name}
             onChangeName={() => {}}
             logo={tournament.logo}
+            editingLink="tournaments"
             banner={tournament.banner}
             onClick={() => {
               if (competitor && weightClasses.length > 0)
                 openRegisterWindow(true)
+              else navigate("/signup")
             }}
             editing={false}
             editingButton={competitor?.id === tournament.organizer}
@@ -194,10 +196,10 @@ const TournamentPage = (props: Props) => {
           />
         )}
         <div className="flex w-full justify-between py-8">
-          <div className="w-3/12 md:w-2/12">
+          <div className="hidden w-3/12 md:block md:w-2/12">
             <SideBarMenu classname="" items={menuItems} />
           </div>
-          <div className="w-8/12 md:w-9/12">
+          <div className="w-full md:w-9/12">
             <div className="min-h-[500px] w-full rounded-lg py-2 px-4 shadow-md">
               {getWindow()}
             </div>

@@ -43,7 +43,7 @@ const InfoWindow = ({ competitor }: Props) => {
         changeTarget={competitor?.verified ? setTargetWindow : () => {}}
         items={profileSettingsItems}
       />
-      <div className="pt-4">{getWindow()}</div>
+      <div className="pt-4 pb-2">{getWindow()}</div>
     </div>
   )
 }

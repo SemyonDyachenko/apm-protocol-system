@@ -157,7 +157,7 @@ const ProfilePage = (props: Props) => {
     <div>
       {competitor && (
         <div className="mx-auto w-11/12 py-10">
-          <div className="flex items-center justify-between px-10">
+          <div className="flex w-full items-center justify-between px-4 md:px-10">
             <HText>
               {competitor.birthdate &&
               todayIsBirthdate(competitor.birthdate.toString())
@@ -171,21 +171,21 @@ const ProfilePage = (props: Props) => {
               )}
             </HText>
 
-            <div className="flex items-center gap-4 text-lg text-gray-700">
-              <div className="cursor-default rounded-full bg-secondary-500 px-5 py-2 text-xl font-black text-gray-700 shadow-md transition">
+            <div className="hidden items-center gap-4 text-lg text-gray-700 md:flex">
+              <div className="cursor-default rounded-full bg-secondary-500  py-2 px-5 text-lg font-black text-gray-700 shadow-md transition md:text-xl">
                 {competitor?.elo_rating}
               </div>
             </div>
           </div>
           <div className="flex w-full justify-between gap-4 py-5">
-            <div className="w-1/5 rounded-xl ">
+            <div className="hidden rounded-xl md:block md:w-1/5 ">
               <SideBarMenu
                 disabled={!competitor.verified}
                 classname="w-full py-3"
                 items={sidebarItems}
               />
             </div>
-            <div className="w-4/5 rounded-xl shadow-md">
+            <div className="w-full rounded-xl shadow-md md:w-4/5">
               <div className="py-2 px-5">
                 <div className="">{getCurrentWindow()}</div>
               </div>

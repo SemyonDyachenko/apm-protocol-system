@@ -32,6 +32,8 @@ import {
 } from "@/utils/eloCalculation"
 import ReviewsPage from "./reviewsPage"
 import { reviewAPI } from "@/services/reviewService"
+import PageNotFound from "../404/PageNotFound"
+import Loader from "@/components/loader"
 
 type Props = {}
 
@@ -41,12 +43,12 @@ const LeaguePage = (props: Props) => {
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
   )
-  const { data: leagueCompetitors } = leagueAPI.useFetchLeagueCompetitorsQuery(
-    Number(leagueId)
-  )
+  const { data: leagueCompetitors, isLoading } =
+    leagueAPI.useFetchLeagueCompetitorsQuery(Number(leagueId))
 
   const [selectedWindow, setSelectedItem] = useState("general")
-  const { data: league } = leagueAPI.useFetchLeagueQuery(Number(leagueId))
+  const { data: league, isLoading: leagueLoading } =
+    leagueAPI.useFetchLeagueQuery(Number(leagueId))
 
   const { data: averageRating } = reviewAPI.useFetchLeagueRatingQuery(
     league?.id || 0
@@ -79,6 +81,8 @@ const LeaguePage = (props: Props) => {
       icon: faComment,
     },
   ]
+
+  if (leagueLoading || loading || isLoading) return <Loader />
 
   if (league && competitor) {
     if (+league.president === competitor.id) {
@@ -190,6 +194,7 @@ const LeaguePage = (props: Props) => {
           onChangeName={() => {}}
           league
           onCameraClick={() => {}}
+          editingLink="league"
           rating={averageRating?.average_rating || 0}
           editingButton={
             competitor && competitor.id === +league.president ? true : false
@@ -208,7 +213,7 @@ const LeaguePage = (props: Props) => {
         </div>
       </div>
     )
-  else return <div></div>
+  else return <PageNotFound />
 }
 
 export default LeaguePage

@@ -16,6 +16,7 @@ type Props = {
   logo?: File
   banner?: File
   rating: number
+  editingLink: string
 }
 
 const UpBanner = ({
@@ -29,6 +30,7 @@ const UpBanner = ({
   league,
   editingButton,
   onCameraClick,
+  editingLink,
   logo,
   banner,
   rating,
@@ -165,11 +167,7 @@ const UpBanner = ({
             </div>
             {!editing && editingButton && (
               <div className="flex items-center justify-center gap-2 py-2 text-sm text-gray-400">
-                <Link
-                  to={`/${
-                    league ? "league" : "tournaments"
-                  }/editing/${targetId}`}
-                >
+                <Link to={`/${editingLink}/editing/${targetId}`}>
                   <div className="cursor-pointer transition hover:text-gray-300">
                     Редактировать
                   </div>

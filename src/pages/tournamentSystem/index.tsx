@@ -1,281 +1,129 @@
+import { useAppSelector } from "@/hooks/redux"
+import { useState, useEffect } from "react"
+import PageNotFound from "../404/PageNotFound"
 import { tournamentAPI } from "@/services/tournamentsService"
-import { useEffect, useState } from "react"
-import { useParams, useNavigate, matchPath } from "react-router-dom"
-
 import { competitorAPI } from "@/services/competitorService"
-import Match from "@/models/Match"
-import Competitor, { getCompetitorFullname } from "@/models/Competitor"
-import { findCompetitorById } from "@/utils/dataUtils"
-import { match } from "assert"
-import HText from "@/components/UI/HText"
-/*
+import Loader from "@/components/loader"
+import { getCompetitorFullname } from "@/models/Competitor"
+import { text } from "stream/consumers"
+import ActionButton from "@/components/UI/Button"
+
 type Props = {}
 
-interface Round {
-  index: number
-  name: string
-  group1?: Competitor[]
-  group2?: Competitor[]
-  loosers: Competitor[]
-  winners: Competitor[]
-}
-
-const TournamentSystem = (props: Props) => {
-  const navigate = useNavigate()
-  const { tournamentId } = useParams()
-  const { data: tournament } = tournamentAPI.useFetchTournamentQuery(
-    parseInt(tournamentId?.valueOf() || "")
+const TestSystem = (props: Props) => {
+  const { competitor, loading, error } = useAppSelector(
+    (state) => state.competitors
   )
-  const { data: tournamentRegistrations } =
-    tournamentAPI.useFetchTournamentRegistrationQuery(
-      parseInt(tournamentId?.valueOf() || "")
-    )
-  const matchButtonStyles =
-    "min-w-[280px] cursor-pointer rounded-lg bg-slate-100 py-3 px-10 text-lg font-bold text-gray-700 shadow-md transition hover:bg-green-500 hover:text-white"
+  const { data: tournaments, isLoading } =
+    tournamentAPI.useFetchTournamentsQuery(1)
+  const { data: competitors, isLoading: isLoadingCompetitors } =
+    competitorAPI.useFetchAllCompetitorQuery(100)
 
-  const [round, setRound] = useState(1)
-  const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(100)
-  const [competitorsList, setCompetitorsList] = useState<Competitor[]>(
-    competitors ? competitors : []
+  const selectStyles =
+    "w-full md:max-w-[240px] outline-none rounded-lg border-r-4 bg-gray-200 py-2 px-4 font-medium"
+
+  if (loading || isLoading || isLoadingCompetitors) return <Loader />
+
+  if (
+    competitor &&
+    competitor.mode === "organizer" &&
+    tournaments &&
+    competitors
   )
-  const [rounds, setRounds] = useState<Round[]>([])
-  const [matches, setMatches] = useState<Match[]>([])
-  const [finished, setFinished] = useState<Match[]>([])
-  const [loosers, setLoosers] = useState<Competitor[]>([])
-  const [winners, setWinners] = useState<Competitor[]>([])
-
-  const getTournamentCompetitors = () => {
-    let tournamentCompetitors: Competitor[] = []
-    if (competitors) {
-      tournamentRegistrations?.forEach((element) => {
-        const competitor = findCompetitorById(competitors, element.competitor)
-        if (competitor) tournamentCompetitors.push(competitor)
-      })
-    }
-    return tournamentCompetitors
-  }
-
-  const createGroups = (competitorList: Competitor[]) => {
-    const groupA = getTournamentCompetitors().slice(
-      0,
-      getTournamentCompetitors().length / 2
-    )
-    const groupB = getTournamentCompetitors().slice(
-      getTournamentCompetitors().length / 2
-    )
-    return { group1: groupA, group2: groupB }
-  }
-
-  const generateMatches = (groupA: Competitor[], groupB: Competitor[]) => {
-    const newMatches: Match[] = []
-
-    const createMatches = (group: any) => {
-      let competitorsCount = 0
-      if (group.length % 2) {
-        competitorsCount = group.length
-      } else {
-        competitorsCount = group.length - 1
-        groupA.filter((_, index) => index === groupA.length - 1)
-        groupB.push(groupA[groupA.length - 1])
-      }
-
-      const length = group.length % 2 ? group.length : group.length - 1
-      for (let i = 0; i < length; i += 2) {
-        if (i + 1 < length) {
-          const match = {
-            hand: "Right",
-            tournament: parseInt(tournamentId?.valueOf() || ""),
-            first_competitor: group[i].id,
-            second_competitor: group[i + 1].id,
-            weight_class: 1,
-            date: new Date().toLocaleDateString(),
-            round: round,
-          }
-          newMatches.push(match)
-        }
-      }
-    }
-
-    createMatches(groupA)
-    createMatches(groupB)
-
-    console.log(groupA, groupB)
-    console.log(newMatches)
-    setMatches(newMatches)
-  }
-
-  const selectWinner = (match: Match, id: number, looserId: number) => {
-    matches.map((element) => {
-      if (element == match) {
-        return {
-          ...element,
-          winner: id,
-        }
-      }
-    })
-    if (competitors) {
-      const winnerCompetitor = findCompetitorById(competitors, id)
-      winnerCompetitor && setWinners([...winners, winnerCompetitor])
-      const looserCompetitor = findCompetitorById(competitors, looserId)
-      looserCompetitor && setLoosers([...loosers, looserCompetitor])
-    }
-
-    const mtch = matches.find((element) => element === match)
-    mtch && setFinished([...finished, mtch])
-    setMatches(matches.filter((value) => value !== match))
-
-    if (matches.length === 1) {
-      const newRound: Round = {
-        index: round,
-        name: `Round ${round.toString()}`,
-        loosers,
-        winners,
-      }
-      setRounds([...rounds, newRound])
-      setRound(round + 1)
-      console.log(loosers, winners)
-      generateMatches(loosers, winners)
-    }
-  }
-
-  useEffect(() => {
-    if (tournament && !tournament?.is_started) {
-      navigate("/")
-    }
-  }, [tournament, navigate])
-
-  if (competitors && tournament && tournament?.is_started)
     return (
-      <div className="min-h-[500px]">
-        <div className="flex w-full justify-between">
-          <div className="w-2/5 p-10">
-            <div>
-              <TournamentCompetitorsList
-                tournamentRegistrations={tournamentRegistrations}
-                competitors={competitors}
-                tournament={tournament}
-              />
+      <div className="mx-auto h-full w-11/12">
+        <div className="flex items-center justify-center py-5 md:p-10">
+          <div className="h-full w-full rounded-xl border-2 border-gray-200 bg-white p-4 shadow-md md:min-h-[400px] md:max-w-[800px]">
+            <div className="flex w-full justify-center pt-2 pb-4 text-xl font-semibold text-gray-700">
+              Добавление матчей
             </div>
-          </div>
-          <div className="p-10">
-            <div className="mb-4 flex justify-end">
-              <button
-                onClick={() =>
-                  generateMatches(
-                    createGroups(competitorsList).group1,
-                    createGroups(competitorsList).group2
-                  )
-                }
-                className="rounded-lg bg-green-500 px-10 py-2 text-lg text-white shadow-md transition-all hover:bg-green-400"
+            <div className="grid gap-x-6 gap-y-4 md:grid-cols-3">
+              <div>
+                <div className="py-1 text-sm text-gray-400">Турнир:</div>
+                <select className={selectStyles}>
+                  {tournaments.map((tournament, index) => (
+                    <option
+                      className="font-medium"
+                      key={index}
+                      value={tournament.id}
+                    >
+                      {tournament.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <div className="py-1 text-sm text-gray-400">Спортсмен 1:</div>
+                <select className={selectStyles}>
+                  {competitors.map((competitor, index) => (
+                    <option
+                      className="font-medium"
+                      key={index}
+                      value={competitor.id}
+                    >
+                      {getCompetitorFullname(competitor)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <div className="py-1 text-sm text-gray-400">Спортсмен 2:</div>
+                <select className={selectStyles}>
+                  {competitors.map((competitor, index) => (
+                    <option
+                      className="font-medium"
+                      key={index}
+                      value={competitor.id}
+                    >
+                      {getCompetitorFullname(competitor)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <div className="py-1 text-sm text-gray-400">Победитель</div>
+                <select className={selectStyles}>
+                  {competitors.map((competitor, index) => (
+                    <option
+                      className="font-medium"
+                      key={index}
+                      value={competitor.id}
+                    >
+                      {getCompetitorFullname(competitor)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <div className="py-1 text-sm text-gray-400">Дата и время:</div>
+                <input className={selectStyles} type="datetime-local" />
+              </div>
+              <div>
+                <div className="py-1 text-sm text-gray-400">Рука:</div>
+                <select className={selectStyles}>
+                  <option className="font-medium" value="left">
+                    Левая
+                  </option>
+                  <option className="font-medium" value="right">
+                    Правая
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div className="w-full py-8">
+              <ActionButton
+                className="w-full py-3 font-semibold"
+                onClick={() => {}}
               >
-                Начать
-              </button>
-            </div>
-            <div>
-              {matches
-                .map((element, index) => (
-                  <div
-                    className={`my-4 rounded-2xl bg-gray-400 px-10 py-4 shadow-md ${
-                      index === 1 && "bg-gray-200"
-                    }`}
-                    key={index}
-                  >
-                    <div className="flex items-center justify-between gap-12">
-                      <button
-                        className={matchButtonStyles}
-                        onClick={() =>
-                          selectWinner(
-                            element,
-                            findCompetitorById(
-                              competitors,
-                              element.first_competitor
-                            )?.id || 0,
-                            element.second_competitor
-                          )
-                        }
-                      >
-                        {getCompetitorFullname(
-                          findCompetitorById(
-                            competitors,
-                            element.first_competitor
-                          )
-                        )}
-                      </button>
-                      <div className="text-xl font-bold text-gray-700">VS</div>
-                      <button
-                        className={matchButtonStyles}
-                        onClick={() =>
-                          selectWinner(
-                            element,
-                            findCompetitorById(
-                              competitors,
-                              element.second_competitor
-                            )?.id || 0,
-                            element.first_competitor
-                          )
-                        }
-                      >
-                        {getCompetitorFullname(
-                          findCompetitorById(
-                            competitors,
-                            element.second_competitor
-                          )
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                ))
-                .slice(0, 2)}
-            </div>
-            <div>
-              <HText>Прошедшие матчи</HText>
-            </div>
-            <div>
-              {finished.map((element, index) => (
-                <div
-                  className={`my-4 rounded-2xl bg-gray-400 px-10 py-4 shadow-md ${
-                    index === 1 && "bg-gray-200"
-                  }`}
-                  key={index}
-                >
-                  <div className="flex items-center justify-between gap-12">
-                    <button
-                      className={`${matchButtonStyles} ${
-                        element.first_competitor === element.winner &&
-                        "bg-green-400"
-                      }`}
-                    >
-                      {getCompetitorFullname(
-                        findCompetitorById(
-                          competitors,
-                          element.first_competitor
-                        )
-                      )}
-                    </button>
-                    <div className="text-xl font-bold text-gray-700">VS</div>
-                    <button
-                      className={`${matchButtonStyles} ${
-                        element.second_competitor === element.winner &&
-                        "bg-green-400"
-                      }`}
-                    >
-                      {getCompetitorFullname(
-                        findCompetitorById(
-                          competitors,
-                          element.second_competitor
-                        )
-                      )}
-                    </button>
-                  </div>
-                </div>
-              ))}
+                Добавить матч
+              </ActionButton>
             </div>
           </div>
         </div>
       </div>
     )
-  else return <div>Page Not Found.</div>
+  else return <PageNotFound />
 }
 
-export default TournamentSystem
-*/
+export default TestSystem

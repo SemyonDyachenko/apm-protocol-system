@@ -47,7 +47,7 @@ const CompetitorListNode = ({ place, data }: Props) => {
         {data.rank}
       </div>
       <div className={`${baseNodeLabelStyles} w-1/6 text-right`}>
-        <div className="flex justify-end gap-2 text-3xl font-extrabold text-secondary-500">
+        <div className="flex justify-end gap-2 text-xl font-extrabold text-secondary-500 md:text-3xl">
           {data?.elo_rating}
         </div>
       </div>

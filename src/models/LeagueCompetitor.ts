@@ -7,4 +7,5 @@ export default interface LeagueCompetitor {
   competitor: Competitor
   accepted: boolean
   request_date: Date
+  status: string
 }

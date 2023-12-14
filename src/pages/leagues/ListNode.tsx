@@ -19,7 +19,7 @@ const LeagueListNode = ({ data }: Props) => {
   return (
     <ListNode>
       <div
-        className={`w-3/5 font-extrabold md:w-1/5 ${baseNodeLabelStyles} text-lg `}
+        className={`w-3/5 font-extrabold md:w-2/5 ${baseNodeLabelStyles} text-lg `}
       >
         {data.name}
       </div>

@@ -4,6 +4,12 @@ import { SERVER_URL } from "@/api/instance"
 import axios, { AxiosError } from "axios"
 import LeagueCompetitor from "@/models/LeagueCompetitor"
 
+export enum LeagueCompetitorStatus {
+  ACCEPTED = "accepted",
+  DECLINED = "declined",
+  SENT = "sent",
+}
+
 export const updateLeagueImages =
   (leagueId: number, data: any) => async (dispatch: AppDispatch) => {
     try {
@@ -44,12 +50,14 @@ export const deleteLeague =
   }
 
 export const acceptCompetitorToLeague =
-  (competitorId: number) => async (dispatch: AppDispatch) => {
+  (competitorId: number, status: LeagueCompetitorStatus) =>
+  async (dispatch: AppDispatch) => {
     try {
       const response = await axios.put<any>(
         `${SERVER_URL}/leagueCompetitorAccept/${competitorId}/`,
         {
           competitorId,
+          status,
         }
       )
       return response

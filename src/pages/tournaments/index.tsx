@@ -21,7 +21,7 @@ type Props = {}
 
 const TournamentsPage = (props: Props) => {
   const { data: tournaments } = tournamentAPI.useFetchTournamentsQuery(1)
-  const [tournamentsView, setTournamentsView] = useState("list")
+  const [tournamentsView, setTournamentsView] = useState("sections")
   const [searchString, setSearchString] = useState("")
   const [actualTournaments, setActuallTournaments] = useState(true)
   const [casualFilter, setCasualFilter] = useState(true)

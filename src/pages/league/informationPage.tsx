@@ -60,14 +60,6 @@ const LeagueInformationWindow = ({ league, count, rating }: Props) => {
       title: "Почта",
       value: league.email,
     },
-    {
-      title: "Телефон",
-      value: "+7 (918)-064-33-82",
-    },
-    {
-      title: "Почта",
-      value: "apm@league.com",
-    },
   ]
 
   return (

@@ -72,6 +72,8 @@ const CategoryModal = ({
   const [juniors18Categiores, setJuniors18Categories] = useState("")
   const [juniors21Categiores, setJuniors21Categories] = useState("")
 
+  const [isValid, setIsValid] = useState(true)
+
   useEffect(() => {
     setMenCategoires(getStringFromWeightCategiores(weightClasses, "men"))
     setWomenCategoires(getStringFromWeightCategiores(weightClasses, "women"))
@@ -107,24 +109,30 @@ const CategoryModal = ({
   }
 
   const setValue = (value: string) => {
-    switch (target) {
-      case "men":
-        setMenCategoires(value)
-        break
-      case "women":
-        setWomenCategoires(value)
-        break
-      case "old":
-        setOldCategiores(value)
-        break
-      case "juniors18":
-        setJuniors18Categories(value)
-        break
-      case "juniors21":
-        setJuniors21Categories(value)
-        break
-      default:
-        break
+    const pattern = /^[0-9\+,]+$/
+    const isValidInput = pattern.test(value)
+    setIsValid(isValidInput)
+
+    if (isValid) {
+      switch (target) {
+        case "men":
+          setMenCategoires(value)
+          break
+        case "women":
+          setWomenCategoires(value)
+          break
+        case "old":
+          setOldCategiores(value)
+          break
+        case "juniors18":
+          setJuniors18Categories(value)
+          break
+        case "juniors21":
+          setJuniors21Categories(value)
+          break
+        default:
+          break
+      }
     }
   }
 

@@ -59,6 +59,8 @@ const TournamentEditingPage = (props: Props) => {
 
   const [tournamentName, setTournamentName] = useState(tournament?.name)
 
+  const [saveMessage, setSaveMessage] = useState(false)
+
   useEffect(() => {
     if (tournament) setTournamentName(tournament.name)
   }, [tournament])
@@ -69,7 +71,8 @@ const TournamentEditingPage = (props: Props) => {
     let data = type === "banner" ? { banner: image } : { logo: image }
     if (tournament) {
       dispatch(updateTournamentImages(tournament.id, data)).then((res) =>
-        window.location.reload()
+        // window.location.reload()
+        {}
       )
     }
   }
@@ -79,13 +82,12 @@ const TournamentEditingPage = (props: Props) => {
       let league = leagues?.find(
         (item: any) => item.id === +getValues("league")
       )
-      console.log(afisha)
 
       if (data) {
         dispatch(
           updateTournament(tournament.id, {
             name: tournamentName,
-            afisha: afisha,
+            ...(afisha ? { afisha } : {}),
             ...data,
           })
         ).then((res) => {
@@ -98,7 +100,11 @@ const TournamentEditingPage = (props: Props) => {
               read: false,
             })
           ).then((res) => console.log(res))
-          window.location.reload()
+          setSaveMessage(true)
+          // window.location.reload()
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000)
         })
       }
     }
@@ -134,153 +140,179 @@ const TournamentEditingPage = (props: Props) => {
           <div className="w-1/5">
             <SideBarMenu classname="w-full" items={menuItems} />
           </div>
-          <div className="w-9/12 rounded-lg py-2 px-4 shadow-md">
-            <div>
-              <div className="w-full py-2">
-                <div className="py-1 text-sm text-gray-400 ">Описание:</div>
-                <div>
-                  <textarea
-                    defaultValue={tournament.description}
-                    {...register("description")}
-                    className="min-h-[150px] w-full rounded-lg bg-gray-200 px-4 py-3 outline-none"
-                  ></textarea>
+          <div className="w-9/12 justify-between rounded-lg py-2 px-4 shadow-md ">
+            <div className="w-full md:flex ">
+              <div>
+                <div className="rounded-lg py-4">
+                  <img
+                    className="h-[300px] rounded-xl md:w-[250px]"
+                    src={tournament.afisha?.toString()}
+                  />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-y-4 pb-4 md:grid-cols-4">
-                <div>
-                  <div className="py-1 text-sm text-gray-400">Лига:</div>
+              <div className="w-full md:pl-4">
+                <div className="w-full py-2">
+                  <div className="py-1 text-sm text-gray-400 ">Описание:</div>
                   <div>
-                    {leagues && (
-                      <select
-                        className={`${inputStyle} border-r-8`}
-                        defaultValue={tournament.league}
-                        {...register("league")}
-                      >
-                        {leagues.map((element, index) => (
-                          <option key={index} value={element.id}>
-                            {element.name}
-                          </option>
-                        ))}
-                      </select>
-                    )}
+                    <textarea
+                      defaultValue={tournament.description}
+                      {...register("description")}
+                      className="min-h-[150px] w-full rounded-lg bg-gray-200 px-4 py-3 outline-none"
+                    ></textarea>
                   </div>
                 </div>
-                <div>
-                  <div className="py-1 text-sm text-gray-400">
-                    Дата проведения:
-                  </div>
+                <div className="grid grid-cols-2 gap-y-4 pb-4 md:grid-cols-3">
                   <div>
-                    <input
-                      defaultValue={tournament.date}
-                      className={inputStyle}
-                      type="date"
-                      {...register("date")}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="py-1 text-sm text-gray-400">Город:</div>
-                  <div>
-                    <input
-                      defaultValue={tournament.location}
-                      className={inputStyle}
-                      type="text"
-                      {...register("city")}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="py-1 text-sm text-gray-400">Телефон:</div>
-                  <div>
-                    <input
-                      defaultValue={tournament.phone}
-                      className={inputStyle}
-                      type="text"
-                      {...register("phone")}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="py-1 text-sm text-gray-400">Статус:</div>
-                  <div>
-                    <select
-                      className={`${inputStyle} border-r-8`}
-                      defaultValue={tournament.level}
-                      {...register("level")}
-                    >
-                      <option value="pro">Профессиональный</option>
-                      <option value="casual">Любительский</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <div className="py-1 text-sm text-gray-400">Судья:</div>
-                  <div>
-                    {competitors && (
-                      <select
-                        defaultValue={tournament.main_referee}
-                        className={`${inputStyle} border-r-8`}
-                        {...register("judge")}
-                      >
-                        {competitors
-                          .filter((item) => item.mode === "judge")
-                          .map((competitor, index) => (
-                            <option key={index} value={competitor.id}>
-                              {getCompetitorFullname(competitor)}
+                    <div className="py-1 text-sm text-gray-400">Лига:</div>
+                    <div>
+                      {leagues && (
+                        <select
+                          className={`${inputStyle} border-r-8`}
+                          defaultValue={tournament.league}
+                          {...register("league")}
+                        >
+                          {leagues.map((element, index) => (
+                            <option key={index} value={element.id}>
+                              {element.name}
                             </option>
                           ))}
-                      </select>
-                    )}
+                        </select>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div className="py-1 text-sm text-gray-400">Секретарь:</div>
                   <div>
-                    {competitors && (
-                      <select
-                        defaultValue={tournament.main_secretary}
-                        {...register("secretary")}
-                        className={`${inputStyle} border-r-8`}
-                      >
-                        {competitors
-                          .filter((item) => item.mode === "secretary")
-                          .map((competitor, index) => (
-                            <option key={index} value={competitor.id}>
-                              {getCompetitorFullname(competitor)}
-                            </option>
-                          ))}
-                      </select>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <div className="py-1 text-sm text-gray-400">Афиша:</div>
-                  <label>
-                    <label className="w-full cursor-pointer rounded-lg bg-gray-700 px-4 py-2 font-medium text-white transition hover:bg-gray-600 ">
+                    <div className="py-1 text-sm text-gray-400">
+                      Дата проведения:
+                    </div>
+                    <div>
                       <input
-                        type="file"
-                        accept="image/png, image/jpeg"
-                        onChange={(e) => {
-                          if (e.target.files) {
-                            setAfisha(e.target.files[0])
-                          }
-                        }}
-                        className="hover:bg-secondary-00 hidden w-full rounded-lg bg-secondary-500 py-2 shadow-md transition"
+                        defaultValue={tournament.date}
+                        className={inputStyle}
+                        type="date"
+                        {...register("date")}
                       />
-                      Загрузить
-                    </label>
-                  </label>
-                </div>
-                <div className="">
-                  <div className="py-1 text-sm text-gray-400">
-                    Весовые категории:
+                    </div>
                   </div>
-                  <ActionButton onClick={() => setCategoryWindow(true)}>
-                    Указать категории
-                  </ActionButton>
+                  <div>
+                    <div className="py-1 text-sm text-gray-400">Город:</div>
+                    <div>
+                      <input
+                        defaultValue={tournament.location}
+                        className={inputStyle}
+                        type="text"
+                        {...register("city")}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="py-1 text-sm text-gray-400">Телефон:</div>
+                    <div>
+                      <input
+                        defaultValue={tournament.phone}
+                        className={inputStyle}
+                        type="text"
+                        {...register("phone")}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="py-1 text-sm text-gray-400">Статус:</div>
+                    <div>
+                      <select
+                        className={`${inputStyle} border-r-8`}
+                        defaultValue={tournament.level}
+                        {...register("level")}
+                      >
+                        <option value="pro">Профессиональный</option>
+                        <option value="casual">Любительский</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="py-1 text-sm text-gray-400">Судья:</div>
+                    <div>
+                      {competitors && (
+                        <select
+                          defaultValue={tournament.main_referee}
+                          className={`${inputStyle} border-r-8`}
+                          {...register("judge")}
+                        >
+                          {competitors
+                            .filter((item) => item.mode === "judge")
+                            .map((competitor, index) => (
+                              <option key={index} value={competitor.id}>
+                                {getCompetitorFullname(competitor)}
+                              </option>
+                            ))}
+                        </select>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="py-1 text-sm text-gray-400">Секретарь:</div>
+                    <div>
+                      {competitors && (
+                        <select
+                          defaultValue={tournament.main_secretary}
+                          {...register("secretary")}
+                          className={`${inputStyle} border-r-8`}
+                        >
+                          {competitors
+                            .filter((item) => item.mode === "secretary")
+                            .map((competitor, index) => (
+                              <option key={index} value={competitor.id}>
+                                {getCompetitorFullname(competitor)}
+                              </option>
+                            ))}
+                        </select>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="py-1 text-sm text-gray-400">Афиша:</div>
+                    <label>
+                      <label className="w-full cursor-pointer rounded-lg bg-gray-700 px-4 py-2 font-medium text-white transition hover:bg-gray-600 ">
+                        <input
+                          type="file"
+                          accept="image/png, image/jpeg"
+                          onChange={(e) => {
+                            if (e.target.files) {
+                              setAfisha(e.target.files[0])
+                            }
+                          }}
+                          className="hover:bg-secondary-00 hidden w-full rounded-lg bg-secondary-500 py-2 shadow-md transition"
+                        />
+                        Загрузить
+                      </label>
+                    </label>
+                  </div>
+                  <div className="">
+                    <div className="py-1 text-sm text-gray-400">
+                      Весовые категории:
+                    </div>
+                    <ActionButton onClick={() => setCategoryWindow(true)}>
+                      Указать категории
+                    </ActionButton>
+                  </div>
                 </div>
               </div>
             </div>
+            {saveMessage && (
+              <motion.div
+                initial={{ opacity: 0.3 }}
+                whileInView={{ opacity: 1.0 }}
+                transition={{ delay: 0.2 }}
+                viewport={{ amount: 0.5, once: true }}
+              >
+                <div className="w-full justify-center py-2 text-center text-lg font-medium transition">
+                  Изменения сохранены
+                  <FontAwesomeIcon
+                    className="px-2 text-green-400"
+                    icon={faCheck}
+                  />
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
         <CategoryModal

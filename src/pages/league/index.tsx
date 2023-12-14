@@ -102,7 +102,7 @@ const LeaguePage = (props: Props) => {
           competitor.id,
           formatDate(new Date()).toString()
         )
-      )
+      ).then((res) => window.location.reload())
     }
   }
 
@@ -173,11 +173,9 @@ const LeaguePage = (props: Props) => {
     if (leagueCompetitors && competitor && league) {
       let filtered = leagueCompetitors.filter(
         (item) =>
-          item.league.id === league.id &&
-          item.competitor.id === competitor.id &&
-          item.accepted
+          item.league.id === league.id && item.competitor.id === competitor.id
       )
-      if (filtered.length > 0) return true
+      if (filtered.length > 0) return filtered[0].status
     }
     return false
   }

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 type Props = {
   name?: string
   onClick?: () => void
-  disabledButton: boolean
+  disabledButton: string | false
   editing?: boolean
   verified?: boolean
   onChangeName: (val: string) => void
@@ -141,12 +141,12 @@ const UpBanner = ({
               {!editing ? (
                 <button
                   onClick={onClick}
-                  disabled={disabledButton}
+                  disabled={disabledButton !== false}
                   className="w-full rounded-xl bg-secondary-500 py-2 px-4 font-semibold text-gray-700 shadow-md transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-200 md:w-auto"
                 >
-                  {!disabledButton ? (
-                    "Подать заявку"
-                  ) : (
+                  {disabledButton === "sent" && "Заявка отправлена"}
+                  {!disabledButton && "Подать заявку"}
+                  {disabledButton === "accepted" && (
                     <div className="text-gray-400">
                       Вы участник
                       <FontAwesomeIcon
@@ -159,7 +159,7 @@ const UpBanner = ({
               ) : (
                 <button
                   onClick={onClick}
-                  className="rounded-xl bg-secondary-500 py-2 px-4 font-medium text-gray-700 shadow-md transition hover:bg-secondary-600 active:translate-y-1 disabled:bg-gray-200"
+                  className="rounded-xl bg-secondary-500 py-2 px-5 font-semibold text-gray-700 shadow-md transition hover:bg-secondary-600 disabled:bg-gray-200"
                 >
                   Сохранить
                 </button>

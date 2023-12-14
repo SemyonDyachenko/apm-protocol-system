@@ -6,7 +6,7 @@ export const getWeightCategoriesFromString = (
   if (value) {
     let array = value.split(",")
     return array.map((item) => {
-      return { name: item.trim() }
+      return { name: isNaN(parseInt(item.trim())) ? item.trim() : "" }
     })
   }
   return null

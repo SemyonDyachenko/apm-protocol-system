@@ -63,7 +63,8 @@ const LeagueEditingPage = (props: Props) => {
     let data = type === "banner" ? { banner: image } : { logo: image }
     if (league) {
       dispatch(updateLeagueImages(league?.id, data)).then((res) =>
-        window.location.reload()
+        // window.location.reload()
+        {}
       )
     }
   }
@@ -137,7 +138,7 @@ const LeagueEditingPage = (props: Props) => {
                     <input
                       defaultValue={league.phone}
                       className={inputStyle}
-                      type="number"
+                      type="phone"
                       {...register("phone")}
                     />
                   </div>

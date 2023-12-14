@@ -134,7 +134,7 @@ const ProfilePage = (props: Props) => {
         case "tournaments":
           return (
             <CompetitorTournamentsList
-              organizer={competitor.mode === "organizer"}
+              organizer={competitor.mode !== "competitor"}
               competitorId={competitor.id}
             />
           )

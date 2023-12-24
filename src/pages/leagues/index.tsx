@@ -91,23 +91,33 @@ const LeagueList = (props: Props) => {
                 </div>
               </div>
             </div>
-            <div className="py-3">
-              {countryItems.map((item, index) => (
-                <div className="flex items-center gap-2 pt-2">
-                  <div>
-                    <Checkbox
-                      isChecked={checkboxState[item.title as Country]}
-                      className="mt-1"
-                      changeState={() =>
-                        handleCheckboxChange(item.title as Country)
-                      }
-                    />
-                  </div>
-                  <div className="text-md font-medium text-gray-700">
-                    {item.title}
-                  </div>
+            <div className="mt-3">
+              <div className="flex cursor-pointer items-center justify-between">
+                <div className="text-md font-semibold text-gray-700">
+                  Страна
                 </div>
-              ))}
+                <div>
+                  <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
+                </div>
+              </div>
+              <div className="py-2">
+                {countryItems.map((item, index) => (
+                  <div className="flex items-center gap-2 pt-2">
+                    <div>
+                      <Checkbox
+                        isChecked={checkboxState[item.title as Country]}
+                        className="mt-1"
+                        changeState={() =>
+                          handleCheckboxChange(item.title as Country)
+                        }
+                      />
+                    </div>
+                    <div className="text-md font-medium text-gray-700">
+                      {item.title}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </FilterBar>
           {/* main bar*/}

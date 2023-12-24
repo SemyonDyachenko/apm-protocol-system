@@ -34,7 +34,7 @@ const TeamInformationPage = ({ team }: Props) => {
           </p>
         </div>
         <div className="w-full py-4">
-          <div className="grid gap-y-12 md:grid-cols-3">
+          <div className="grid gap-y-12 font-medium md:grid-cols-3">
             <div>
               <p className="py-1 text-sm text-gray-400">Организатор:</p>
               <div className="text-sm">

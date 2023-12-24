@@ -169,7 +169,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                 defaultValue={competitor?.country}
                 onChange={(e) => setCountryValue(e.target.value)}
                 disabled={formIsDisabled}
-                className="w-full rounded-lg border-r-4 px-4 py-2  font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:border-r-4 disabled:border-r-white disabled:bg-white md:w-[260px]"
+                className="w-full rounded-lg border-r-4 px-4 py-2  font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:border-r-4 disabled:border-r-gray-70 disabled:bg-gray-70 md:w-[260px]"
               >
                 {getCountriesList().map((item, index) => (
                   <option key={index} value={item}>
@@ -208,7 +208,7 @@ const PersonalInfoWindow = ({ competitor }: Props) => {
                   updateProfile()
                 }}
                 disabled={formIsDisabled}
-                className="rounded-md bg-secondary-500 py-2 px-4 font-medium text-gray-700 transition enabled:hover:bg-secondary-300 disabled:bg-gray-300 disabled:text-gray-400"
+                className="w-full rounded-md bg-secondary-500 py-2 px-4 font-medium text-gray-700 transition enabled:hover:bg-secondary-300 disabled:bg-gray-300 disabled:text-gray-400 md:w-auto"
               >
                 Обновить информацию
               </button>

@@ -55,7 +55,7 @@ const PropsInfo = ({ competitor }: Props) => {
             {isDisabled ? "Редактировать" : "Отменить"}
           </div>
         </div>
-        <div className="grid w-full grid-cols-2 gap-4 pt-4 md:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-4 pt-4 md:grid-cols-3">
           <div>
             <div
               className={`${isDisabled && "text-gray-400"} 
@@ -65,7 +65,7 @@ const PropsInfo = ({ competitor }: Props) => {
               Тренер:
             </div>
             <select
-              className=" rounded-lg border-r-8 border-gray-200 bg-gray-200 py-[10px] px-3 font-medium text-gray-700"
+              className="w-full rounded-lg border-r-8 py-[10px] px-3 font-medium text-gray-700 enabled:border-gray-200 enabled:bg-gray-200 disabled:border-gray-70 disabled:bg-gray-70 md:w-auto"
               onChange={(e) => setTrainer(Number(e.target.value))}
               disabled={isDisabled}
               value={trainerInput}
@@ -118,6 +118,7 @@ const PropsInfo = ({ competitor }: Props) => {
             type="date"
             disabled={isDisabled}
           />
+
           <div>
             <div
               className={`"text-gray-400" } 
@@ -128,7 +129,7 @@ const PropsInfo = ({ competitor }: Props) => {
             </div>
             <textarea
               onChange={(e) => setDescription(e.target.value)}
-              className="rounded-lg border-none px-4 py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:overflow-hidden md:w-[650px]"
+              className="w-full rounded-lg border-none px-4 py-2 font-medium text-gray-700 outline-none enabled:bg-gray-200 disabled:overflow-hidden md:w-[650px]"
               defaultValue={description}
               disabled={isDisabled}
             ></textarea>
@@ -142,7 +143,7 @@ const PropsInfo = ({ competitor }: Props) => {
               window.location.reload()
             }}
             disabled={isDisabled}
-            className="rounded-lg px-8 py-2 font-medium text-gray-700 transition enabled:bg-secondary-500 enabled:hover:bg-secondary-400 disabled:bg-gray-400 "
+            className="w-full rounded-lg px-8 py-2 font-medium text-gray-700 transition enabled:bg-secondary-500 enabled:hover:bg-secondary-400 disabled:bg-gray-400 md:w-auto "
           >
             Сохранить
           </button>

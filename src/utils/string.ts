@@ -5,10 +5,19 @@ export const getWeightCategoriesFromString = (
 ): Array<WeightClassData> | null => {
   if (value) {
     let array = value.split(",")
-    return array.map((item) => {
-      return { name: isNaN(parseInt(item.trim())) ? item.trim() : "" }
+    const uniqueSet = new Set<string>()
+
+    const resultArray = array.map((item) => {
+      const trimmedItem = item.trim()
+      if (trimmedItem !== "") {
+        uniqueSet.add(trimmedItem)
+      }
+      return { name: isNaN(parseInt(trimmedItem)) ? trimmedItem : "" }
     })
+    const uniqueArray = Array.from(uniqueSet)
+    return uniqueArray.map((item) => ({ name: item }))
   }
+
   return null
 }
 

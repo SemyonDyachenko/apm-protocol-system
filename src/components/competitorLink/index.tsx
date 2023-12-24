@@ -7,7 +7,7 @@ type CompetitorLinkProps = {
   competitor: Competitor
 }
 
-const CompetitorLinkItem = ({ competitor }: CompetitorLinkProps) => {
+export const CompetitorLinkItem = ({ competitor }: CompetitorLinkProps) => {
   return (
     <Link className="hover:text-gray-700" to={`/competitor/${competitor.id}`}>
       <ListNode>

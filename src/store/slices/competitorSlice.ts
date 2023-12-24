@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import Competitor from "../../models/Competitor"
 import { fetchCompetitors } from "../thunks/competitors"
+import Team from "@/models/Team"
 
 export interface CompetitorData {
   image: File | null
@@ -31,6 +32,7 @@ export interface CompetitorData {
   press?: number
   side?: number
   verified?: boolean
+  team?: number
 }
 
 export interface competitorState {

@@ -65,6 +65,21 @@ export const deleteCompetitorImage =
     }
   }
 
+export const setCompetitorTeam =
+  (competitorId: number, teamId: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put<Competitor>(
+        `${SERVER_URL}/updateCompetitorTeam/${competitorId}/`,
+        { competitorId, teamId }
+      )
+
+      console.log(response)
+      return response
+    } catch (e: AxiosError | any) {
+      console.log(e.message)
+    }
+  }
+
 export const updateCompetitorProfile =
   (
     id: number,

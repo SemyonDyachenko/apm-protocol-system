@@ -19,8 +19,16 @@ const LeagueListNode = ({ data }: Props) => {
   return (
     <ListNode>
       <div
-        className={`w-3/5 font-extrabold md:w-2/5 ${baseNodeLabelStyles} text-lg `}
+        className={`w-3/5 font-extrabold md:w-2/5 ${baseNodeLabelStyles} flex items-center gap-4 text-lg`}
       >
+        {data.logo && (
+          <div>
+            <img
+              className="max-h-[40px] max-w-[40px]"
+              src={data.logo?.toString()}
+            />
+          </div>
+        )}
         {data.name}
       </div>
       <div className="hidden w-1/5 items-center  justify-start md:flex">

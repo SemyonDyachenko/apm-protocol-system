@@ -55,19 +55,21 @@ const TournamentsList = ({ competitorId }: Props) => {
           <div className="text-sm font-medium">Прошедшие</div>
         </div>
       </div>
-      <div className="py-2 pr-4">
+      <div className="py-2 md:pr-4">
         {getFilteredTournaments()?.map((element, index) => (
           <Link
             className="hover:text-gray-700"
             to={`/tournaments/${element.id}`}
             key={index}
           >
-            <ListNode>
-              <div className="text-md w-1/3 py-2 font-semibold">
+            <ListNode classname="">
+              <div className="md:text-md w-full py-2 text-sm font-semibold md:w-1/3">
                 {element.name}
               </div>
-              <div className="text-md font-medium">{element.location}</div>
-              <div className="text-md font-medium">
+              <div className="text-md hidden font-medium md:block">
+                {element.location}
+              </div>
+              <div className="text-md hidden font-medium md:block">
                 {getNormalizeDate(element.date)}
               </div>
               <div>

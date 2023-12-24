@@ -12,7 +12,7 @@ import CustomInput from "@/components/UI/Input"
 import { getCountriesList } from "@/utils/dataUtils"
 import { useForm } from "react-hook-form"
 import { getLeagueStatus } from "@/models/Team"
-import { updateTeam } from "@/store/actions/teamAction"
+import { updateTeam, updateTeamImages } from "@/store/actions/teamAction"
 import ErrorModal from "@/components/modals/errorModal"
 
 type Props = {}
@@ -57,6 +57,16 @@ const TeamEditingPage = (props: Props) => {
     }
   }
 
+  const updateImage = (type: string, image: any) => {
+    let data = type === "banner" ? { banner: image } : { logo: image }
+    if (team) {
+      dispatch(updateTeamImages(team.id, data)).then((res) =>
+        // window.location.reload()
+        {}
+      )
+    }
+  }
+
   useEffect(() => {
     if (team) {
       setName(team.name)
@@ -76,7 +86,7 @@ const TeamEditingPage = (props: Props) => {
             disabledButton={false}
             league={false}
             onChangeName={setName}
-            onCameraClick={() => {}}
+            onCameraClick={updateImage}
             editing={true}
             rating={0}
             editingLink="team"

@@ -7,10 +7,17 @@ import {
   faBuildingColumns,
   faComment,
   faDisplay,
+  faHandshake,
+  faHandshakeAngle,
   faHouse,
+  faLayerGroup,
   faList,
   faMessage,
+  faPeopleGroup,
+  faPerson,
   faRightFromBracket,
+  faUser,
+  faUserGroup,
   faVolleyball,
 } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
@@ -28,6 +35,7 @@ import MessagesWindow from "./MessagesWindow"
 import LeaguesWindow from "./leaguesWindow"
 import { todayIsBirthdate } from "@/utils/date"
 import Loader from "@/components/loader"
+import TeamsWindow from "./TeamsWindow"
 
 type Props = {}
 
@@ -64,12 +72,20 @@ const ProfilePage = (props: Props) => {
       disabled: !competitor?.verified,
     },
     {
+      onClick: () => setWindow("teams"),
+      selected: false,
+      icon: faUser,
+      children: "Команды",
+      disabled: !competitor?.verified,
+    },
+    {
       onClick: () => setWindow("leagues"),
       selected: false,
       icon: faBuildingColumns,
       children: "Лиги",
       disabled: !competitor?.verified,
     },
+
     {
       onClick: () => {},
       selected: false,
@@ -142,6 +158,8 @@ const ProfilePage = (props: Props) => {
           return <LeaguesWindow competitor={competitor} />
         case "messages":
           return <MessagesWindow competitor={competitor} />
+        case "teams":
+          return <TeamsWindow competitor={competitor} />
       }
     } else {
       return <div>NOT FOUND</div>

@@ -108,7 +108,7 @@ const StatsPage = ({ competitor }: Props) => {
             {disabled ? "Редактировать" : "Отменить"}
           </div>
         </div>
-        <div className="grip-cols-3 lg:w-2/3 grid w-full gap-4 pt-4 md:grid-cols-4">
+        <div className="lg:w-2/3 grid w-full grid-cols-2 gap-4 pt-4 md:grid-cols-4">
           {items.map((item, index) => (
             <PersonalDataInput
               className="max-w-[180px]"
@@ -129,7 +129,7 @@ const StatsPage = ({ competitor }: Props) => {
               window.location.reload()
             }}
             disabled={disabled}
-            className="font-medium disabled:bg-gray-400"
+            className="w-full font-medium disabled:bg-gray-400 md:w-auto"
           >
             Сохранить
           </ActionButton>

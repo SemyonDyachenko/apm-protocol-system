@@ -55,7 +55,7 @@ const LeagueCompetitors = ({ league, count, rating }: Props) => {
   return (
     <div>
       <div className="flex">
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <UpMenuBar changeTarget={setTargetRole} items={items} />
         </div>
         <RatingInfo count={count.toString()} rating={rating.toString()} />

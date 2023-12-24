@@ -95,8 +95,8 @@ const CompetitorCardPage = (props: Props) => {
       <div className="w-full py-8">
         <div className="mx-auto h-auto w-11/12 rounded-xl ">
           <div className="rounded-3xl md:rounded-t-3xl md:py-5">
-            <div className="flex items-center justify-between px-5 py-2  md:py-3 md:px-5">
-              <div className="font-extrabold uppercase text-gray-700 md:text-3xl">
+            <div className="flex items-center justify-between px-2 py-2  md:py-3 md:px-5">
+              <div className="text-lg font-extrabold uppercase text-gray-700 md:text-4xl">
                 {getCompetitorFullname(competitor)}
               </div>
               <div className="cursor-default rounded-full bg-secondary-500 px-4 py-1 text-xl  font-bold text-gray-700 md:flex  md:px-3">
@@ -104,10 +104,10 @@ const CompetitorCardPage = (props: Props) => {
               </div>
             </div>
           </div>
-          <div className="gap-10 rounded-xl py-2 shadow-sm md:flex">
+          <div className="gap-10 rounded-xl py-2 md:flex md:shadow-sm">
             <div className="w-auto py-3 md:pl-4">
               <img
-                className="mx-auto max-h-[150px] max-w-[150px] rounded-full md:max-h-[450px]  md:max-w-[320px] md:rounded-lg"
+                className="mx-auto h-[150px] w-[150px] rounded-full md:h-[400px]  md:w-[350px] md:rounded-lg"
                 src={competitor.image?.toString() || Logo}
               />
             </div>

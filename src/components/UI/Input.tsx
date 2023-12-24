@@ -8,6 +8,7 @@ type Props = {
   disabled?: boolean
   className?: string
   type: string
+  pattern?: string
 }
 
 const CustomInput = ({
@@ -18,6 +19,7 @@ const CustomInput = ({
   disabled,
   className,
   type,
+  pattern,
 }: Props) => {
   return (
     <div>

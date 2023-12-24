@@ -15,6 +15,14 @@ export default interface Team {
   banner?: File
 }
 
+export interface TeamCompetitor {
+  id: number
+  team: Team
+  competitor: Competitor
+  status: string
+  datetime: Date
+}
+
 export const getLeagueStatus = (team: Team) => {
   return team.status.toLocaleLowerCase() === "pro"
     ? "Профессиональная"

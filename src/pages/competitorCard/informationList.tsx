@@ -83,7 +83,7 @@ const InformationList = ({ competitor, place }: Props) => {
             </div>
           ))}
         </div>
-        <div className="mt-4 flex flex-col gap-12 md:mt-0">
+        <div className="flex flex-col gap-12">
           <div className="flex gap-3">
             <div className="flex w-full justify-end text-5xl font-extrabold text-secondary-500 md:w-1/2">
               {competitor.elo_rating}
@@ -97,7 +97,7 @@ const InformationList = ({ competitor, place }: Props) => {
             <div className=" flex w-full justify-end text-5xl font-black text-gray-700 md:w-1/2">
               {place}
             </div>
-            <div className="text-md font-semibold">
+            <div className="text-md font-black">
               Место в<br /> рейтинге
             </div>
           </div>

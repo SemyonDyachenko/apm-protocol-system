@@ -27,7 +27,7 @@ const RatingInfo = ({ rating, count }: Props) => {
           </div>
         </div>
       </div>
-      <div className="my-[24px] h-[1px] w-full bg-gray-80"></div>
+      <div className="my-[24px]  h-[1px] w-full bg-gray-80 "></div>
     </div>
   )
 }

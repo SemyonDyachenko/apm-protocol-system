@@ -59,3 +59,16 @@ export const leaguesNavItems: Array<upMenuItem> = [
     target: "founder",
   },
 ]
+
+export const teamsNavItems: Array<upMenuItem> = [
+  {
+    title: "Участник",
+    selected: true,
+    target: "competitor",
+  },
+  {
+    title: "Создатель",
+    selected: false,
+    target: "organizer",
+  },
+]

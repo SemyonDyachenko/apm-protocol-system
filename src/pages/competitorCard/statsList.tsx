@@ -53,8 +53,8 @@ const StatsList = ({ competitor, place }: Props) => {
           {competitor.description}
         </div>
       </div>
-      <div className="flex w-11/12 justify-between gap-12 py-4">
-        <div className="grid grid-cols-4 grid-rows-2 gap-12">
+      <div className=" w-11/12  justify-between gap-12 py-4  md:flex">
+        <div className="grid  grid-cols-2 gap-12 md:grid-cols-4 md:grid-rows-2">
           {competitorStats.map((element, index) => (
             <div key={index} className="flex flex-col gap-1">
               <div className="text-sm text-gray-400">{element.title}</div>
@@ -64,20 +64,21 @@ const StatsList = ({ competitor, place }: Props) => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-12">
+        <div className="flex gap-12 md:mt-0 md:flex-col">
           <div className="flex gap-3">
-            <div className="flex w-1/2 justify-end text-5xl font-extrabold text-secondary-500">
+            <div className="flex w-1/2 justify-end text-3xl font-extrabold text-secondary-500 md:text-5xl">
               {competitor.elo_rating}
             </div>
-            <div className="text-md font-black ">
-              Рейтинг в<br /> спортсмена
+            <div className="md:text-md font-black ">
+              Рейтинг
+              <br /> спортсмена
             </div>
           </div>
           <div className="flex gap-3">
-            <div className=" flex w-1/2 justify-end text-5xl font-black text-gray-700">
+            <div className=" flex w-1/2 justify-end text-3xl font-black text-gray-700 md:text-5xl">
               {place}
             </div>
-            <div className="text-md font-semibold">
+            <div className="md:text-md  font-black">
               Место в<br /> рейтинге
             </div>
           </div>

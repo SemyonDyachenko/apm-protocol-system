@@ -109,30 +109,25 @@ const CategoryModal = ({
   }
 
   const setValue = (value: string) => {
-    const pattern = /^[0-9\+,]+$/
-    const isValidInput = pattern.test(value)
-    setIsValid(isValidInput)
-
-    if (isValid) {
-      switch (target) {
-        case "men":
-          setMenCategoires(value)
-          break
-        case "women":
-          setWomenCategoires(value)
-          break
-        case "old":
-          setOldCategiores(value)
-          break
-        case "juniors18":
-          setJuniors18Categories(value)
-          break
-        case "juniors21":
-          setJuniors21Categories(value)
-          break
-        default:
-          break
-      }
+    const filteredValue = value.replace(/[^0-9+,]/g, "")
+    switch (target) {
+      case "men":
+        setMenCategoires(filteredValue)
+        break
+      case "women":
+        setWomenCategoires(filteredValue)
+        break
+      case "old":
+        setOldCategiores(filteredValue)
+        break
+      case "juniors18":
+        setJuniors18Categories(filteredValue)
+        break
+      case "juniors21":
+        setJuniors21Categories(filteredValue)
+        break
+      default:
+        break
     }
   }
 

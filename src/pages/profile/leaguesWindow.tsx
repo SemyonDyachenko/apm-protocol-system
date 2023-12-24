@@ -62,7 +62,7 @@ const LeaguesWindow = ({ competitor }: Props) => {
         <div className="w-1/4">
           <div className="flex justify-end">
             <ActionButton
-              className="mb-3 font-medium"
+              className="mb-3 font-semibold"
               onClick={() => setModalActive(true)}
             >
               Создать лигу
@@ -74,28 +74,32 @@ const LeaguesWindow = ({ competitor }: Props) => {
       <div>
         <div className="py-4">
           {target === "competitor" ? (
-            leagues?.map((league, index) => (
-              <ListNode classname="font-medium" key={index}>
-                <div className="w-1/4">{league.league.name}</div>
-                <div className="w-1/4">{league.league.country}</div>
-                <div className="w-1/4 text-end">
-                  {getLeagueLevel(league.league)}
-                </div>
-                <div className="w-1/4 text-end">
-                  <Link
-                    className="hover:text-gray-700"
-                    to={`/league/${league.id}`}
-                  >
-                    <button
-                      className="rounded-lg bg-secondary-500 px-4 py-1 font-medium text-gray-700 transition hover:bg-secondary-600"
-                      onClick={() => {}}
+            leagues
+              ?.filter((item) => item.status === "accepted")
+              .map((league, index) => (
+                <ListNode classname="font-medium" key={index}>
+                  <div className="w-1/4 font-semibold">
+                    {league.league.name}
+                  </div>
+                  <div className="w-1/4">{league.league.country}</div>
+                  <div className="w-1/4 text-end">
+                    {getLeagueLevel(league.league)}
+                  </div>
+                  <div className="w-1/4 text-end">
+                    <Link
+                      className="hover:text-gray-700"
+                      to={`/league/${league.id}`}
                     >
-                      Подробнее
-                    </button>
-                  </Link>
-                </div>
-              </ListNode>
-            ))
+                      <button
+                        className="rounded-lg bg-secondary-500 px-4 py-1 font-medium text-gray-700 transition hover:bg-secondary-600"
+                        onClick={() => {}}
+                      >
+                        Подробнее
+                      </button>
+                    </Link>
+                  </div>
+                </ListNode>
+              ))
           ) : (
             <div>
               {myLeagues &&
@@ -113,7 +117,7 @@ const LeaguesWindow = ({ competitor }: Props) => {
                           icon={faTrash}
                         />
                       </div>
-                      <div className="w-1/4">{league.name}</div>
+                      <div className="w-1/4 font-semibold">{league.name}</div>
                       <div className="w-1/4">{league.country}</div>
                       <div className="w-1/4 text-end">
                         {getLeagueLevel(league)}

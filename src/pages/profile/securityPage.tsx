@@ -54,7 +54,7 @@ const SecurityPage = ({ competitor }: Props) => {
           Редактировать
         </div>
       </div>
-      <div className="flex items-end gap-4">
+      <div className="items-end gap-4 md:flex">
         <PersonalDataInput
           disabled={disabled}
           type="password"
@@ -69,11 +69,11 @@ const SecurityPage = ({ competitor }: Props) => {
           title="Новый пароль"
           value={newPassword}
         />
-        <div>
+        <div className="mt-3 md:mt-0">
           <button
             disabled={disabled}
             onClick={updatePassword}
-            className="rounded-lg bg-secondary-500 px-4 py-2 font-medium transition hover:bg-secondary-600 disabled:bg-gray-300 disabled:text-gray-400"
+            className="w-full rounded-lg bg-secondary-500 px-4 py-2 font-medium transition hover:bg-secondary-600 disabled:bg-gray-300 disabled:text-gray-400 md:w-auto"
           >
             Обновить
           </button>

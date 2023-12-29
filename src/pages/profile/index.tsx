@@ -36,6 +36,8 @@ import LeaguesWindow from "./leaguesWindow"
 import { todayIsBirthdate } from "@/utils/date"
 import Loader from "@/components/loader"
 import TeamsWindow from "./TeamsWindow"
+import InfoModal from "@/components/modals/infoModal"
+import { copyFile } from "fs"
 
 type Props = {}
 
@@ -43,6 +45,8 @@ const ProfilePage = (props: Props) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { competitor, loading } = useAppSelector((state) => state.competitors)
+
+  const [confirm, setConfirm] = useState(false)
 
   const [profileWindow, setProfileWindow] = useState("personal")
 
@@ -142,6 +146,14 @@ const ProfilePage = (props: Props) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (competitor) {
+      if (!competitor.verified) {
+        setConfirm(true)
+      }
+    }
+  }, [])
+
   const getCurrentWindow = () => {
     if (competitor) {
       switch (profileWindow) {
@@ -175,7 +187,7 @@ const ProfilePage = (props: Props) => {
     <div>
       {competitor && (
         <div className="mx-auto w-11/12 py-10">
-          <div className="flex w-full items-center justify-between px-4 md:px-10">
+          <div className="hidden w-full items-center justify-between px-4 md:flex md:px-10">
             <HText>
               {competitor.birthdate &&
               todayIsBirthdate(competitor.birthdate.toString())
@@ -195,8 +207,8 @@ const ProfilePage = (props: Props) => {
               </div>
             </div>
           </div>
-          <div className="flex w-full justify-between gap-4 py-5">
-            <div className="hidden rounded-xl md:block md:w-1/5 ">
+          <div className="mt-4 w-full justify-between gap-4 md:flex">
+            <div className="w-full rounded-xl md:block md:w-1/5">
               <SideBarMenu
                 disabled={!competitor.verified}
                 classname="w-full py-3"
@@ -211,6 +223,12 @@ const ProfilePage = (props: Props) => {
           </div>
         </div>
       )}
+      <InfoModal active={confirm} closeFunc={() => setConfirm(false)}>
+        <div className="w-full text-center">Необходимо подтвердить профиль</div>
+        <div className="mt-4 text-center text-sm font-medium text-gray-700">
+          Ссылка для подтверждения направлена на E-mail
+        </div>
+      </InfoModal>
     </div>
   )
 }

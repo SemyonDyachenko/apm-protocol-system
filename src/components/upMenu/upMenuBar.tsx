@@ -30,6 +30,11 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
     element.selected = true
   }
 
+  const getSelectedIndex = () => {
+    const index = items.findIndex((item) => item.selected)
+    return index
+  }
+
   const setNextItem = () => {
     const index = items.findIndex((item) => item.selected)
     if (index !== items.length - 1) {
@@ -77,10 +82,13 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
       <div className="w-full md:hidden">
         <div className="flex w-full items-center justify-between py-3">
           {items.length > 1 && (
-            <div>
+            <div onClick={setPreviousItem}>
               <FontAwesomeIcon
-                onClick={setPreviousItem}
-                className="text-xl font-medium text-secondary-500"
+                className={`text-xl font-medium ${
+                  getSelectedIndex() === 0
+                    ? "text-gray-400"
+                    : "text-secondary-500"
+                } `}
                 icon={faChevronLeft}
               />
             </div>
@@ -98,10 +106,13 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
             </button>
           </div>
           {items.length > 1 && (
-            <div>
+            <div onClick={setNextItem}>
               <FontAwesomeIcon
-                onClick={setNextItem}
-                className="text-xl font-medium text-secondary-500"
+                className={`text-xl font-medium ${
+                  getSelectedIndex() === items.length - 1
+                    ? "text-gray-400"
+                    : "text-secondary-500"
+                }`}
                 icon={faChevronRight}
               />
             </div>

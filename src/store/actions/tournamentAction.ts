@@ -94,7 +94,7 @@ export const createDefaultTournament =
         address: "-",
         organizer: organizer,
         date: new Date().toISOString().slice(0, 10),
-        league: 2,
+        league: 10,
       }
 
       const response = await axios.post<Tournament>(

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 type Props = {
   name?: string
   onClick?: () => void
-  disabledButton: string | false
+  disabledButton: string | boolean
   editing?: boolean
   verified?: boolean
   onChangeName: (val: string) => void
@@ -146,6 +146,7 @@ const UpBanner = ({
                 >
                   {disabledButton === "sent" && "Заявка отправлена"}
                   {!disabledButton && "Подать заявку"}
+                  {!league && disabledButton === true && "Турнир завершен"}
                   {disabledButton === "accepted" && (
                     <div className="text-gray-400">
                       Вы участник

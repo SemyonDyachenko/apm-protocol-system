@@ -75,7 +75,7 @@ const GallerySection = (props: Props) => {
                       whileInView={{ opacity: 1, x: 0 }}
                       key={index}
                     >
-                      <li className="relative mx-3 inline-block h-[350px] w-[500px]">
+                      <li className="relative inline-block h-[350px] w-screen px-3 md:mx-3 md:w-[500px] md:px-0">
                         <div className={overlayStyles}>
                           <div className=" text-xl font-semibold text-secondary-500">
                             TOURNAMENT
@@ -87,7 +87,7 @@ const GallerySection = (props: Props) => {
                           </div>
                         </div>
                         <img
-                          className="h-full w-full rounded-xl transition"
+                          className="h-full w-screen rounded-xl  transition "
                           src={`assets/landing/gallery/${element.url}`}
                           alt="image"
                         />

@@ -18,10 +18,13 @@ const GalleryPage = (props: Props) => {
         <UpMenuBar items={items} />
       </div>
       <div>
-        <div className="flex flex-wrap py-4">
+        <div className="flex flex-wrap gap-4 py-4">
           {new Array(1, 2, 3, 4).map((_, index) => (
-            <div className="p-4">
-              <img className="max-w-[370px] rounded-xl" src={Image} />
+            <div className="md:p-4">
+              <img
+                className="max-w-full rounded-xl md:max-w-[370px]"
+                src={Image}
+              />
             </div>
           ))}
         </div>

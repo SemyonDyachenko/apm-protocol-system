@@ -1,6 +1,4 @@
 import {
-  faBars,
-  faBell,
   faCaretDown,
   faRightToBracket,
   faUserCircle,
@@ -11,8 +9,13 @@ import { Link, useLocation } from "react-router-dom"
 import LangSwitch from "./langSwitch"
 import SideBarHeader from "./sidebarHeader"
 import MainLogo from "/assets/logo/mainlogo.png"
+import DarkLogo from "/assets/logo/blacklogo.png"
 import { navLinks } from "./links"
 import NotificationBar from "./notificationBar"
+import MobileNavBar from "./mobileBar"
+import { useAppSelector } from "@/hooks/redux"
+import NonImage from "/assets/utils/nonuserimage.jpg"
+import Main from "@/pages/main"
 
 type Props = {}
 
@@ -25,6 +28,10 @@ const Navbar = (props: Props) => {
   const [fixed, setFixed] = useState("")
   const [langHidden, setLangHidden] = useState(false)
   const [sidebarOpened, openSidebar] = useState(false)
+
+  const { competitor, loading, error } = useAppSelector(
+    (state) => state.competitors
+  )
 
   const isAuth = () => {
     const token = localStorage.getItem("token")
@@ -78,12 +85,25 @@ const Navbar = (props: Props) => {
   return (
     <div>
       <nav
-        className={`  ${hidden} center ${fixed}  z-20 mx-auto mt-3 w-11/12 rounded-[25px]  bg-gray-700 shadow-md transition duration-300`}
+        className={`  ${hidden} center ${fixed}  z-20 mx-auto  mt-3 w-11/12 rounded-[25px] ${
+          location.pathname === "/"
+            ? "bg-gray-700"
+            : " sm:bg-white md:bg-gray-700"
+        }  shadow-sm transition duration-300 md:border-b-0 md:shadow-md`}
       >
-        <div className="flex items-center justify-between py-3 px-16">
+        <div className="flex items-center justify-between py-3 px-10 md:px-16">
           <div>
             <Link to="/">
-              <img className="h-[50px]" src={MainLogo} alt="image" />
+              <img
+                className="hidden h-[50px] md:block"
+                src={MainLogo}
+                alt="image"
+              />
+              <img
+                className="h-[50px] md:hidden"
+                src={location.pathname === "/" ? MainLogo : DarkLogo}
+                alt="image"
+              />
             </Link>
           </div>
           <div className="hidden items-center justify-center text-sm font-medium text-white md:flex">
@@ -115,8 +135,8 @@ const Navbar = (props: Props) => {
             ))}
           </div>
 
-          <div className="hidden  items-center justify-center gap-3 md:flex">
-            <div className="px-3 text-white ">
+          <div className="hidden items-center justify-center gap-3 md:flex">
+            <div className="hidden px-3 text-white md:block">
               <div
                 ref={langSwitchRef}
                 onClick={() => setLangHidden(!langHidden)}
@@ -129,7 +149,7 @@ const Navbar = (props: Props) => {
             </div>
             {localStorage.getItem("token") !== null && <NotificationBar />}
             {isAuth() ? (
-              <div>
+              <div className="hidden md:block">
                 <Link to="/profile">
                   <div className={`${buttonStyles} flex items-center gap-2`}>
                     <FontAwesomeIcon icon={faUserCircle} />
@@ -138,7 +158,7 @@ const Navbar = (props: Props) => {
                 </Link>
               </div>
             ) : (
-              <div className="flex gap-2 ">
+              <div className="hidden gap-2 md:flex">
                 <Link className="text-white " to="/login">
                   <div className="text-md flex items-center gap-2 rounded-lg px-0 py-2 font-medium transition hover:text-secondary-500">
                     <div>Войти</div>
@@ -150,11 +170,30 @@ const Navbar = (props: Props) => {
           </div>
 
           <div className="md:hidden">
-            <FontAwesomeIcon
-              onClick={() => openSidebar(!sidebarOpened)}
-              className="cursor-pointer text-3xl text-secondary-500"
-              icon={faBars}
-            />
+            {competitor ? (
+              <Link to="/profile">
+                <div className="max-h-[65px] max-w-[65px]">
+                  <img
+                    className="h-[55px] w-[55px] rounded-full border-2 border-gray-200"
+                    src={competitor?.image?.toString() || NonImage}
+                  />
+                </div>
+              </Link>
+            ) : (
+              <div className="gap-2 md:hidden">
+                <Link
+                  className={`${
+                    location.pathname === "/" ? "text-white" : "text-gray-700 "
+                  }`}
+                  to="/login"
+                >
+                  <div className="text-md flex items-center gap-2 rounded-lg px-0 py-2 font-medium transition hover:text-secondary-500">
+                    <div>Войти</div>
+                    <FontAwesomeIcon icon={faRightToBracket} />
+                  </div>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -163,6 +202,7 @@ const Navbar = (props: Props) => {
         sidebarOpened={sidebarOpened}
         navLinks={navLinks}
       />
+      <MobileNavBar />
     </div>
   )
 }

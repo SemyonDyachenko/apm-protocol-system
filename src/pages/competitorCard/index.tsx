@@ -107,7 +107,7 @@ const CompetitorCardPage = (props: Props) => {
           <div className="gap-10 rounded-xl py-2 md:flex md:shadow-sm">
             <div className="w-auto py-3 md:pl-4">
               <img
-                className="mx-auto h-[150px] w-[150px] rounded-full md:h-[400px]  md:w-[350px] md:rounded-lg"
+                className="mx-auto h-[280px] w-[220px] rounded-full md:h-[400px]  md:w-[350px] md:rounded-lg"
                 src={competitor.image?.toString() || Logo}
               />
             </div>

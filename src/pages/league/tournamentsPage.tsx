@@ -66,11 +66,13 @@ const LeagueTournaments = ({ league, count, rating }: Props) => {
             to={`/tournaments/${element.id}`}
           >
             <ListNode>
-              <div className="text-md w-1/3 py-2 font-semibold">
+              <div className="text-md w-2/3 py-2 font-semibold md:w-1/3">
                 {element.name}
               </div>
-              <div className="text-md font-medium">{element.location}</div>
-              <div className="text-md font-medium">
+              <div className="text-md hidden font-medium md:block">
+                {element.location}
+              </div>
+              <div className="text-md hidden font-medium md:block">
                 {getNormalizeDate(element.date)}
               </div>
               <div>

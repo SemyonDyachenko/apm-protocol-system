@@ -133,8 +133,8 @@ const TeamPage = (props: Props) => {
             targetId={team.id}
           />
         </div>
-        <div className="flex w-full justify-between py-4">
-          <div className="hidden w-2/12 md:block">
+        <div className="w-full justify-between py-4 md:flex">
+          <div className="w-full md:w-2/12">
             <SideBarMenu classname="" items={items} />
           </div>
           <div className="w-full rounded-lg px-4 py-2 shadow-md md:min-h-[500px] md:w-9/12">

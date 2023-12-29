@@ -11,8 +11,8 @@ export const CompetitorLinkItem = ({ competitor }: CompetitorLinkProps) => {
   return (
     <Link className="hover:text-gray-700" to={`/competitor/${competitor.id}`}>
       <ListNode>
-        <div className="flex w-full items-center justify-between px-10">
-          <div className="flex w-1/4 items-center gap-8">
+        <div className="flex w-full items-center justify-between md:px-10">
+          <div className="flex  items-center gap-8 md:w-1/4">
             <div>
               <img
                 className="h-[65px] w-[65px] rounded-full"
@@ -23,17 +23,17 @@ export const CompetitorLinkItem = ({ competitor }: CompetitorLinkProps) => {
               {getCompetitorFullname(competitor)}
             </div>
           </div>
-          <div className="flex w-1/6 justify-start font-medium">
+          <div className="hidden w-1/6 justify-start font-medium md:flex">
             {competitor.city}
           </div>
-          <div className="flex w-1/6 justify-start font-medium">
+          <div className="hidden w-1/6 justify-start font-medium md:flex">
             {competitor.rank}
           </div>
           <div className="flex items-center gap-2">
-            <div className="text-3xl font-black text-secondary-500 ">
+            <div className="text-xl font-black text-secondary-500 md:text-3xl ">
               {competitor.elo_rating}
             </div>
-            <div className="text-md font-semibold">
+            <div className="text-md hidden font-semibold md:block">
               Рейтинг
               <br />
               Спортсмена

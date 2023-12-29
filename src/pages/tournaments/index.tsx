@@ -17,6 +17,7 @@ import ListTournamentsView from "./listView"
 import CalendarView from "./calendarView"
 import Checkbox from "@/components/UI/Checkbox"
 import { Country, countryItems } from "@/components/filterBar/items"
+import MobileFilterBar from "@/components/mobileFilterBar"
 
 type Props = {}
 
@@ -111,8 +112,9 @@ const TournamentsPage = (props: Props) => {
 
   return (
     <div className="mx-auto flex w-11/12 items-start justify-between py-5 md:min-h-[650px]">
-      <div className="hidden md:block">
+      <div className="">
         <FilterBar
+          className="hidden md:block"
           genderFilter={false}
           searchString={searchString}
           setSearchString={setSearchString}
@@ -229,12 +231,13 @@ const TournamentsPage = (props: Props) => {
           </div>
         </FilterBar>
       </div>
-      <div className="w-full md:w-10/12 md:pl-6">
-        <div className="flex w-full justify-between px-3 md:px-0 md:pr-5">
-          <div className="text-xl font-bold md:text-3xl">
+      <div className="relative w-full md:w-10/12 md:pl-6">
+        <div className="flex w-full justify-between px-3 md:px-0 md:pr-5 ">
+          <div className="text-2xl font-bold md:text-3xl">
             {actualTournaments ? "Актуальные турниры" : "Прошедшие турниры"}
           </div>
-          <div className="flex gap-2 text-xl font-medium">
+
+          <div className=" hidden gap-2 text-xl font-medium md:flex">
             <div
               onClick={() => setTournamentsView("sections")}
               className={`cursor-pointer transition hover:text-secondary-500 ${
@@ -253,6 +256,60 @@ const TournamentsPage = (props: Props) => {
             </div>
           </div>
         </div>
+        <MobileFilterBar
+          className="md:hidden"
+          searchString={searchString}
+          setSearchString={setSearchString}
+        >
+          <div className="px-4 py-4">
+            <div>
+              <div className="mb-1 text-sm text-gray-400">Статус</div>
+              <div className="flex w-full gap-2 text-sm">
+                <div
+                  onClick={() => setActuallTournaments(true)}
+                  className={`${
+                    actualTournaments
+                      ? "bg-secondary-500 text-white"
+                      : "bg-white"
+                  } w-1/2 rounded-md border-[1px] px-4 py-2 text-center font-medium`}
+                >
+                  Актуальные
+                </div>
+                <div
+                  onClick={() => setActuallTournaments(false)}
+                  className={`rounded-md border-[1px] ${
+                    !actualTournaments
+                      ? "bg-secondary-500 text-white"
+                      : "bg-white"
+                  } w-1/2 px-4 py-2 text-center font-medium`}
+                >
+                  Прошедшие
+                </div>
+              </div>
+            </div>
+            <div className="mt-2">
+              <div className="mb-1 text-sm text-gray-400">Уровень</div>
+              <div className="flex w-full gap-2 text-sm">
+                <div
+                  onClick={() => setCasualFilter(!casualFilter)}
+                  className={`${
+                    casualFilter ? "bg-secondary-500 text-white" : "bg-white"
+                  } w-1/2 rounded-md border-[1px] px-4 py-2 text-center font-medium`}
+                >
+                  Любительский
+                </div>
+                <div
+                  onClick={() => setProFilter(!proFilter)}
+                  className={`rounded-md border-[1px] ${
+                    proFilter ? "bg-secondary-500 text-white" : "bg-white"
+                  } w-1/2 px-4 py-2 text-center font-medium`}
+                >
+                  Про
+                </div>
+              </div>
+            </div>
+          </div>
+        </MobileFilterBar>
         <div className="px-2 md:px-0">{getTournamentsView()}</div>
       </div>
     </div>

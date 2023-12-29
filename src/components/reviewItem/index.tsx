@@ -14,7 +14,7 @@ const ReviewItem = ({ rating, text, author, date }: Props) => {
   return (
     <div className="my-4">
       <div>
-        <div className="flex items-center justify-between gap-4 pb-1">
+        <div className="items-center justify-between gap-4 pb-1 md:flex">
           <div className="flex items-center gap-3">
             <div>
               <Link

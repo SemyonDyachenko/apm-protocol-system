@@ -18,7 +18,7 @@ const Footer = (props: Props) => {
       <div className="mx-auto w-4/5 ">
         <div className="items-center justify-between gap-4 pb-4 md:flex">
           <div className="">
-            <div className="items-center justify-between md:flex">
+            <div className="hidden items-center justify-between md:flex">
               <div className={"text-white"}>
                 <p>
                   &copy; 2023 Всероссийская Федерация Армрестлинга. All Rights
@@ -27,33 +27,27 @@ const Footer = (props: Props) => {
               </div>
             </div>
           </div>
-          <div className="flex gap-2 md:mt-0">
+          <div className="mb-14 flex gap-4 md:mb-0 md:mt-0 md:gap-2">
             <div>
               <SocialIcon
                 bgColor="#1DA1F2"
                 style={{ width: "40px", height: "40px" }}
-                url="https://twitter.com/jaketrent"
+                url="https://t.me/Armwrestling_news"
               />
             </div>
-            <div>
-              <SocialIcon
-                bgColor="#E1306C"
-                style={{ width: "40px", height: "40px" }}
-                url="https://instagram.com"
-              />
-            </div>
+
             <div>
               <SocialIcon
                 bgColor="#0077FF"
                 style={{ width: "40px", height: "40px" }}
-                url="https://vk.com"
+                url="https://vk.com/apm_league"
               />
             </div>
             <div>
               <SocialIcon
                 bgColor="#FF0000"
                 style={{ width: "40px", height: "40px" }}
-                url="https://youtube.com"
+                url="https://www.youtube.com/@armwrestlingpromotionmachi5141"
               />
             </div>
           </div>

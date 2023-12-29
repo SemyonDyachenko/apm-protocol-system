@@ -8,7 +8,8 @@ import { Country, countryItems } from "@/components/filterBar/items"
 import { useForm } from "react-hook-form"
 import Checkbox from "@/components/UI/Checkbox"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
+import { faChevronDown, faSearch } from "@fortawesome/free-solid-svg-icons"
+import MobileFilterBar from "@/components/mobileFilterBar"
 type Props = {}
 
 const competitorPropsList = [
@@ -23,7 +24,7 @@ const competitorPropsList = [
 const RatingList = (props: Props) => {
   const [search, setSearch] = useState("")
   const { data: competitors } = competitorAPI.useFetchAllCompetitorQuery(100)
-  const [filterData, setFilterData] = useState([0])
+  const [filterData, setFilterData] = useState([true, true])
 
   const [checkboxState, setCheckboxState] = useState<Record<Country, boolean>>({
     [Country.Russia]: true,
@@ -41,7 +42,7 @@ const RatingList = (props: Props) => {
   }
 
   return (
-    <div className="mx-auto flex w-11/12 justify-between py-8 md:px-2">
+    <div className="mx-auto flex  w-11/12 justify-between py-8 md:px-2">
       {/* filter bar */}
       <FilterBar
         searchString={search}
@@ -87,25 +88,88 @@ const RatingList = (props: Props) => {
         <div className="px-2 text-2xl font-bold md:text-3xl">
           Рейтинг спортсменов
         </div>
-        <div className="hidden">
-          <div className="w-full rounded-[10px]  border-gray-300 bg-white shadow-md">
-            <div className="flex items-center justify-between py-[10px] px-10">
-              {competitorPropsList.map((element) => (
-                <div
-                  className={`font-semibold text-gray-700 first:hidden   md:first:block md:last:block`}
-                  key={element}
-                >
-                  {element}
-                </div>
-              ))}
+        <div className="mt-4 hidden md:block">
+          <div className="flex w-full">
+            <div className="w-full">
+              <input
+                className="text-md w-full rounded-l-lg bg-gray-80 px-4 py-3 text-gray-700 outline-none transition "
+                value={search}
+                placeholder="Поиск"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <div className="rounded-r-lg bg-secondary-500 py-3 px-4 font-medium">
+              <FontAwesomeIcon
+                className="text-lg font-medium text-white"
+                icon={faSearch}
+              />
             </div>
           </div>
         </div>
+        <MobileFilterBar
+          className="md:hidden"
+          searchString={search}
+          setSearchString={setSearch}
+        >
+          <div className="p-4">
+            <div>
+              <div className="mb-1 text-sm text-gray-400">Категория</div>
+              <div className="flex w-full items-center gap-2">
+                <div
+                  onClick={() => {
+                    setFilterData([!filterData[0], filterData[1]])
+                  }}
+                  className={` w-1/2   ${
+                    filterData[0] ? "bg-secondary-500 text-white" : "bg-white"
+                  }
+                    rounded-md border-[1px]
+                  px-4 py-2 text-center font-medium`}
+                >
+                  Мужчины
+                </div>
+                <div
+                  onClick={() => {
+                    setFilterData([filterData[0], !filterData[1]])
+                  }}
+                  className={` w-1/2 ${
+                    filterData[1] ? "bg-secondary-500 text-white" : "bg-white"
+                  }
+                    rounded-md border-[1px] 
+                  px-4 py-2 text-center font-medium`}
+                >
+                  Женщины
+                </div>
+              </div>
+            </div>
+            <div className="mt-2">
+              <div className="mb-1 text-sm text-gray-400">Рука</div>
+              <div className="flex w-full items-center gap-2">
+                <div
+                  className={` w-1/2  
+                    rounded-md  border-[1px]   bg-white
+                  px-4 py-2 text-center font-medium`}
+                >
+                  Правая
+                </div>
+                <div
+                  className={` w-1/2 
+                    rounded-md  border-[1px]  bg-white
+                  px-4 py-2 text-center font-medium`}
+                >
+                  Левая
+                </div>
+              </div>
+            </div>
+          </div>
+        </MobileFilterBar>
         {/* competitors list*/}
-        <div className="flex w-full flex-wrap  justify-center px-1 md:block md:w-auto md:px-0">
-          <PerfectScrollbar>
-            <div className="py-4 md:max-h-screen">
-              <div className="md:pr-4">
+        <div className="flex w-full flex-wrap  justify-center  md:block md:w-auto md:px-0">
+          <PerfectScrollbar className="w-full">
+            <div
+              className="h-auto py-4
+             md:max-h-screen"
+            >
+              <div className="">
                 {competitors
                   ?.filter(
                     (item) =>

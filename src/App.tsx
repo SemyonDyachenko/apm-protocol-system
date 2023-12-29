@@ -33,6 +33,7 @@ import TournamentEditingPage from "./pages/tournamentEditing"
 import TeamPage from "./pages/team"
 import TeamEditingPage from "./pages/teamEditing"
 import TestSystem from "./pages/tournamentSystem"
+import ConfirmPage from "./pages/confirm"
 
 function NavbarWrapper() {
   return (
@@ -87,6 +88,7 @@ function App() {
             <Route path="team/:teamId" element={<TeamPage />} />
             <Route path="team/editing/:teamId" element={<TeamEditingPage />} />
             <Route path="system" element={<TestSystem />} />
+            <Route path="confirm/:token" element={<ConfirmPage />} />
           </Route>
         </Routes>
         <Footer />

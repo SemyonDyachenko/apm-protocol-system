@@ -72,7 +72,7 @@ const TeamMessages = ({ team, competitors }: Props) => {
             </div>
             <div className="py-2">
               <ListNode classname="font-medium">
-                <div className="flex w-2/4 items-center gap-8">
+                <div className="flex w-3/4 items-center gap-8 md:w-2/4">
                   <div>
                     <img
                       className="h-[65px] w-[65px] rounded-full"
@@ -88,8 +88,10 @@ const TeamMessages = ({ team, competitors }: Props) => {
                     </Link>
                   </div>
                 </div>
-                <div className="w-1/5">{item.competitor.country}</div>
-                <div className="w-1/4 text-2xl font-black text-secondary-500">
+                <div className="hidden md:block md:w-1/5">
+                  {item.competitor.country}
+                </div>
+                <div className="hidden text-2xl font-black text-secondary-500 md:block md:w-1/4">
                   {item.competitor.elo_rating}
                 </div>
                 <div className="flex gap-2">

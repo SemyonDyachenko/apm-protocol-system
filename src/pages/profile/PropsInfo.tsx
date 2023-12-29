@@ -32,7 +32,7 @@ const PropsInfo = ({ competitor }: Props) => {
       dispatch(
         updateCompetitorProps(
           competitor.id,
-          Number(trainerInput),
+          Number(trainerInput) === 0 ? -1 : Number(trainerInput),
           birthdateInput,
           Number(height),
           city,
@@ -40,7 +40,13 @@ const PropsInfo = ({ competitor }: Props) => {
           career,
           description
         )
-      )
+      ).then((res) => {
+        if (res) {
+          if (res.status === 200) {
+            window.location.reload()
+          }
+        }
+      })
   }
 
   return (
@@ -140,7 +146,6 @@ const PropsInfo = ({ competitor }: Props) => {
             onClick={() => {
               updateProps()
               setIsDisabled(true)
-              window.location.reload()
             }}
             disabled={isDisabled}
             className="w-full rounded-lg px-8 py-2 font-medium text-gray-700 transition enabled:bg-secondary-500 enabled:hover:bg-secondary-400 disabled:bg-gray-400 md:w-auto "

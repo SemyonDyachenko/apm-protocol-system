@@ -65,7 +65,7 @@ const TournamentCompetitorsPage = ({ tournament, weightClasses }: Props) => {
     <div>
       <div>
         <div className="flex items-start justify-between">
-          <div className="w-4/5">
+          <div className="w-full md:w-4/5">
             <UpMenuBar changeTarget={setCategory} items={items} />
           </div>
           {competitors && (

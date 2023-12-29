@@ -72,32 +72,32 @@ const InformationList = ({ competitor, place }: Props) => {
           {competitor.description}
         </div>
       </div>
-      <div className="w-11/12 justify-between gap-12 py-4 md:flex">
-        <div className="grid w-full grid-cols-2 gap-12 md:grid-cols-4 md:grid-rows-2">
+      <div className="w-full gap-12 py-4 md:flex md:w-11/12 md:justify-between">
+        <div className="flex w-full grid-cols-2 flex-wrap justify-between gap-12 md:grid md:grid-cols-4 md:grid-rows-2 md:gap-12">
           {competitorPropElements.map((element, index) => (
-            <div key={index} className="flex flex-col gap-1">
+            <div key={index} className="flex w-1/3 flex-col gap-1 md:w-auto">
               <div className="text-sm text-gray-400">{element.title}</div>
-              <div className="text-md my-1 min-w-[180px]  font-medium text-gray-700">
+              <div className="text-md my-1 font-medium  text-gray-700 md:min-w-[180px]">
                 {element.value}
               </div>
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-12">
+        <div className="hidden gap-12 md:flex md:flex-col">
           <div className="flex gap-3">
-            <div className="flex w-full justify-end text-5xl font-extrabold text-secondary-500 md:w-1/2">
+            <div className="flex w-full justify-end text-3xl font-extrabold text-secondary-500 md:w-1/2 md:text-5xl">
               {competitor.elo_rating}
             </div>
-            <div className="text-md font-black ">
+            <div className="md:text-md text-sm font-black ">
               Рейтинг
               <br /> спортсмена
             </div>
           </div>
           <div className="flex gap-3">
-            <div className=" flex w-full justify-end text-5xl font-black text-gray-700 md:w-1/2">
+            <div className=" flex w-full justify-end text-3xl font-black text-gray-700 md:w-1/2 md:text-5xl">
               {place}
             </div>
-            <div className="text-md font-black">
+            <div className="md:text-md text-sm font-black">
               Место в<br /> рейтинге
             </div>
           </div>

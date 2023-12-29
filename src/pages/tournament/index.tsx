@@ -161,19 +161,30 @@ const TournamentPage = (props: Props) => {
     } else return <PageNotFound />
   }
 
+  const getTimeStatus = (): boolean => {
+    if (tournament) {
+      if (new Date(tournament.date).getTime() < new Date().getTime()) {
+        return true
+      } else {
+        return false
+      }
+    }
+    return false
+  }
+
   if (tournament)
     return (
       <div className="mx-auto w-11/12">
         {tournament && (
           <UpBanner
-            disabledButton={false}
+            disabledButton={getTimeStatus()}
             name={tournament.name}
             onChangeName={() => {}}
             logo={tournament.logo}
             editingLink="tournaments"
             banner={tournament.banner}
             onClick={() => {
-              if (competitor && weightClasses.length > 0)
+              if (competitor && competitor.verified && weightClasses.length > 0)
                 openRegisterWindow(true)
               else navigate("/signup")
             }}
@@ -195,8 +206,8 @@ const TournamentPage = (props: Props) => {
             closeFunc={() => openRegisterWindow(false)}
           />
         )}
-        <div className="flex w-full justify-between py-8">
-          <div className="hidden w-3/12 md:block md:w-2/12">
+        <div className="w-full justify-between py-8 md:flex">
+          <div className=" md:block md:w-2/12">
             <SideBarMenu classname="" items={menuItems} />
           </div>
           <div className="w-full md:w-9/12">

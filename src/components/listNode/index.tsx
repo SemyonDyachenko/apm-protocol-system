@@ -18,7 +18,7 @@ const ListNode = ({ classname, children }: Props) => {
         className={`mb-2 w-full rounded-[10px] border-gray-300 bg-gray-70 shadow-sm transition hover:bg-gray-80`}
       >
         <div
-          className={`flex items-center justify-between py-2 px-10 ${classname}`}
+          className={`mx-4 flex items-center justify-between py-2 md:px-10 ${classname}`}
         >
           {children}
         </div>

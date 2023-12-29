@@ -6,7 +6,7 @@ import { getNormalizeDate, getNormalizeDateTime } from "@/utils/date"
 import { faBell } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 
 type Props = {}
@@ -17,6 +17,24 @@ const NotificationBar = (props: Props) => {
     (state) => state.competitors
   )
   const [hidden, setHidden] = useState(true)
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as HTMLElement)
+      ) {
+        setHidden(true)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  })
+
+  const popupRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     dispatch(refreshLogin()).then(() => {
@@ -35,7 +53,7 @@ const NotificationBar = (props: Props) => {
   }
 
   return (
-    <div className="cursor-pointer px-2 text-lg text-white ">
+    <div className="mr-4 cursor-pointer px-2 text-lg md:mr-0 md:text-white">
       <div
         onClick={() => {
           getUnreadNotifcationsCount() > 0 && setHidden(!hidden)
@@ -54,34 +72,32 @@ const NotificationBar = (props: Props) => {
 
       <div
         hidden={hidden}
+        ref={popupRef}
         className={`absolute z-[10]  min-w-[300px] rounded-xl bg-gray-700 py-3 shadow-xl`}
       >
         {notifications &&
-          notifications
-            .toReversed()
-            .slice(0, 5)
-            .map((notification, index) => (
-              <div className="" key={index}>
-                <div className="px-4">
-                  <div className="flex justify-end text-sm text-gray-400">
-                    {getNormalizeDateTime(notification.datetime.toString())}
+          notifications.map((notification, index) => (
+            <div className="" key={index}>
+              <div className="px-4">
+                <div className="flex justify-end text-sm text-gray-400">
+                  {getNormalizeDateTime(notification.datetime.toString())}
+                </div>
+                <div className="flex items-center justify-between py-1">
+                  <div className="py-2 text-sm text-white">
+                    {notification.message}
                   </div>
-                  <div className="flex items-center justify-between py-1">
-                    <div className="py-2 text-sm text-white">
-                      {notification.message}
-                    </div>
-                    <div className="py-2 text-sm text-gray-700">
-                      <Link
-                        className="text-secondary-500 underline transition hover:text-secondary-400"
-                        to="/profile"
-                      >
-                        Смотреть
-                      </Link>
-                    </div>
+                  <div className="py-2 text-sm text-gray-700">
+                    <Link
+                      className="text-secondary-500 underline transition hover:text-secondary-400"
+                      to="/profile"
+                    >
+                      Смотреть
+                    </Link>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
       </div>
     </div>
   )

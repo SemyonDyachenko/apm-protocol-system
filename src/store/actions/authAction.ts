@@ -140,3 +140,18 @@ export const createSupportRequest =
       return error
     }
   }
+
+export const confirmRequest =
+  (token: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get<any>(`${SERVER_URL}/confirm/`, {
+        params: {
+          token,
+        },
+      })
+      return response
+    } catch (error: Error | any) {
+      console.log(error)
+      return error
+    }
+  }

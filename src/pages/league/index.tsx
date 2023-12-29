@@ -199,8 +199,8 @@ const LeaguePage = (props: Props) => {
           }
           targetId={league?.id}
         />
-        <div className="flex w-full justify-between py-8">
-          <div className="hidden md:block  md:w-1/5">
+        <div className="w-full justify-between py-8 md:flex">
+          <div className="w-full md:block  md:w-1/5">
             <SideBarMenu classname="w-full" items={menuItems} />
           </div>
           <div className="w-full md:w-9/12">

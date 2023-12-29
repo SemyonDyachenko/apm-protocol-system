@@ -111,7 +111,7 @@ const TournamentRegisterWindow = ({
             <div className="mt-4 w-full">
               <div className="text-gray-400">Категория: </div>
               <select
-                className="mt-1 w-full rounded-md bg-gray-200 p-1 py-2 text-lg outline-none"
+                className="mt-1 w-full rounded-md border-r-8 bg-gray-200 p-1 py-3 text-lg outline-none md:py-2"
                 defaultValue="Категория"
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -125,7 +125,7 @@ const TournamentRegisterWindow = ({
             <div className="mt-2 w-full">
               <div className="text-gray-400">Весовая категория: </div>
               <select
-                className="mt-1 w-full rounded-md bg-gray-200 p-1 py-2 text-lg outline-none"
+                className="mt-1 w-full rounded-md border-r-8 bg-gray-200 px-1 py-3 text-lg outline-none md:py-2"
                 defaultValue={0}
                 onChange={(e) => setWeightClass(+e.target.value)}
               >
@@ -141,7 +141,7 @@ const TournamentRegisterWindow = ({
             <div className="mt-2 w-full">
               <div className="text-gray-400">Команда: </div>
               <select
-                className="mt-1 w-full rounded-md bg-gray-200 p-1 py-2 text-lg outline-none"
+                className="mt-1 w-full rounded-md border-r-8 bg-gray-200 px-1 py-3 text-lg outline-none md:py-2"
                 defaultValue="Категория"
               >
                 <option>Отсутствует</option>

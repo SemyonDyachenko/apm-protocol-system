@@ -1,4 +1,8 @@
-import { faChevronDown, faSearch } from "@fortawesome/free-solid-svg-icons"
+import {
+  faChevronDown,
+  faClose,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
@@ -37,13 +41,12 @@ const FilterBar = ({
 
   return (
     <motion.div
-      className={className}
       initial={{ opacity: 0.5 }}
       whileInView={{ opacity: 1 }}
       transition={{ delay: 0.1 }}
       viewport={{ once: true, amount: 0.5 }}
     >
-      <div className="md:min-w-[300px]">
+      <div className={` md:min-w-[300px] ${className}`}>
         <div className=" mr-4  rounded-[10px]  bg-white p-4 shadow-md">
           <div>
             <div className="flex cursor-pointer items-center justify-between">

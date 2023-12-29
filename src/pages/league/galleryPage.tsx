@@ -24,9 +24,9 @@ const LeagueGallery = ({ count, rating }: Props) => {
         </div>
         <RatingInfo count={count.toString()} rating={rating.toString()} />
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap gap-4">
         {new Array(1, 2, 3, 4).map((_, index) => (
-          <div className="p-4">
+          <div className="md:p-4">
             <img className="max-w-[350px] rounded-xl" src={Image} />
           </div>
         ))}

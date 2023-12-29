@@ -2,6 +2,7 @@ import {
   faCircleExclamation,
   faClose,
   faInfo,
+  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
@@ -41,7 +42,7 @@ const InfoModal = ({ active, closeFunc, children }: Props) => {
 
       <div
         ref={popupRef}
-        className="relative z-[20] h-full w-full rounded-xl bg-white p-4 shadow-md md:h-[200px] md:w-[400px]"
+        className="relative z-[20] h-full w-full rounded-xl bg-white p-4 shadow-md md:h-auto md:w-[400px]"
       >
         <motion.div
           initial={{ opacity: 10 }}
@@ -49,9 +50,9 @@ const InfoModal = ({ active, closeFunc, children }: Props) => {
           viewport={{ once: false, amount: 0.5 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="flex w-full items-center gap-4 py-4 text-secondary-500">
+          <div className="flex w-full flex-wrap items-center justify-center gap-4 py-4 text-secondary-500">
             <div className="text-5xl">
-              <FontAwesomeIcon icon={faInfo} />
+              <FontAwesomeIcon icon={faInfoCircle} />
             </div>
             <div className="text-2xl font-medium">{children}</div>
           </div>

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import Checkbox from "@/components/UI/Checkbox"
 import { Country, countryItems } from "@/components/filterBar/items"
+import MobileFilterBar from "@/components/mobileFilterBar"
 
 type Props = {}
 
@@ -123,8 +124,59 @@ const LeagueList = (props: Props) => {
           {/* main bar*/}
           <div className="w-full md:w-10/12 md:pl-6">
             {/* upper bar*/}
-            <div className="text-xl font-bold md:text-3xl">Активные лиги</div>
+            <div className="text-2xl font-bold md:text-3xl">Активные лиги</div>
             {/* competitors list*/}
+            <MobileFilterBar
+              className="md:hidden"
+              searchString={searchString}
+              setSearchString={setSearchString}
+            >
+              <div className="p-4">
+                <div className="">
+                  <div className="mb-1 text-sm text-gray-400">Уровень</div>
+                  <div className="flex w-full gap-2 text-sm">
+                    <div
+                      onClick={() => setCasualLeague(!casualLeague)}
+                      className={`${
+                        casualLeague
+                          ? "bg-secondary-500 text-white"
+                          : "bg-white"
+                      } w-1/2 rounded-md border-[1px] px-4 py-2 text-center font-medium`}
+                    >
+                      Любительская
+                    </div>
+                    <div
+                      onClick={() => setProLeague(!proLeague)}
+                      className={`rounded-md border-[1px] ${
+                        proLeague ? "bg-secondary-500 text-white" : "bg-white"
+                      } w-1/2 px-4 py-2 text-center font-medium`}
+                    >
+                      Про
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <div className="mb-1 text-sm text-gray-400">Страна</div>
+                  <div className="grid grid-cols-2 flex-wrap gap-2">
+                    {countryItems.map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() =>
+                          handleCheckboxChange(item.title as Country)
+                        }
+                        className={`rounded-md border-[1px] ${
+                          checkboxState[item.title as Country]
+                            ? "bg-secondary-500 text-white"
+                            : "bg-white"
+                        } w-full px-4 py-2 text-center font-medium`}
+                      >
+                        {item.title}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </MobileFilterBar>
             <div>
               <div className="pt-4 md:max-h-[600px] ">
                 {leagues &&

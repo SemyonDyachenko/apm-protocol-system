@@ -126,7 +126,8 @@ export const updateCompetitorProps =
           description,
         }
       )
-      console.log(response)
+      return response
+      // console.log(response)
     } catch (e: AxiosError | any) {
       console.log(e.message)
     }

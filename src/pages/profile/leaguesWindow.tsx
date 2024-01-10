@@ -56,10 +56,10 @@ const LeaguesWindow = ({ competitor }: Props) => {
   return (
     <div>
       <div className="space-between flex items-end ">
-        <div className="w-3/4">
+        <div className="w-full md:w-3/4">
           <UpMenuBar changeTarget={setTarget} items={leaguesNavItems} />
         </div>
-        <div className="w-1/4">
+        <div className="hidden w-1/4 md:block">
           <div className="flex justify-end">
             <ActionButton
               className="mb-3 font-semibold"
@@ -77,21 +77,26 @@ const LeaguesWindow = ({ competitor }: Props) => {
             leagues
               ?.filter((item) => item.status === "accepted")
               .map((league, index) => (
-                <ListNode classname="font-medium" key={index}>
-                  <div className="w-1/4 font-semibold">
+                <ListNode
+                  classname="md:text-md text-sm font-medium"
+                  key={index}
+                >
+                  <div className="w-2/4 md:w-1/4 md:font-semibold">
                     {league.league.name}
                   </div>
-                  <div className="w-1/4">{league.league.country}</div>
-                  <div className="w-1/4 text-end">
+                  <div className="hidden md:block md:w-1/4 ">
+                    {league.league.country}
+                  </div>
+                  <div className="hidden text-end md:block md:w-1/4">
                     {getLeagueLevel(league.league)}
                   </div>
-                  <div className="w-1/4 text-end">
+                  <div className="w-2/4 text-end md:w-1/4">
                     <Link
                       className="hover:text-gray-700"
                       to={`/league/${league.id}`}
                     >
                       <button
-                        className="rounded-lg bg-secondary-500 px-4 py-1 font-medium text-gray-700 transition hover:bg-secondary-600"
+                        className="rounded-lg bg-secondary-500 px-[8px] py-1 font-medium text-gray-700 transition hover:bg-secondary-600 md:px-[25px]"
                         onClick={() => {}}
                       >
                         Подробнее
@@ -106,8 +111,14 @@ const LeaguesWindow = ({ competitor }: Props) => {
                 myLeagues
                   .filter((item) => +item.president === competitor.id)
                   .map((league, index) => (
-                    <ListNode classname="font-medium" key={index}>
-                      <div className="w-1/12 cursor-pointer" onClick={() => {}}>
+                    <ListNode
+                      classname="md:text-md text-sm font-medium"
+                      key={index}
+                    >
+                      <div
+                        className="w-1/4 cursor-pointer md:w-1/12"
+                        onClick={() => {}}
+                      >
                         <FontAwesomeIcon
                           onClick={() => {
                             setOnDeleteLeague(league.id)
@@ -117,17 +128,21 @@ const LeaguesWindow = ({ competitor }: Props) => {
                           icon={faTrash}
                         />
                       </div>
-                      <div className="w-1/4 font-semibold">{league.name}</div>
-                      <div className="w-1/4">{league.country}</div>
-                      <div className="w-1/4 text-end">
+                      <div className="w-2/4 font-medium md:w-1/4 md:font-semibold">
+                        {league.name}
+                      </div>
+                      <div className="hidden w-1/4 md:block">
+                        {league.country}
+                      </div>
+                      <div className="hidden w-1/4 text-end md:block ">
                         {getLeagueLevel(league)}
                       </div>
-                      <div className="w-1/4 text-end">
+                      <div className="w-2/4 text-end md:w-1/4">
                         <Link
                           className="hover:text-gray-700"
                           to={`/league/editing/${league.id}`}
                         >
-                          <button className="rounded-lg bg-secondary-500 px-4 py-1 font-medium text-gray-700 transition hover:bg-secondary-600">
+                          <button className="rounded-lg bg-secondary-500 px-[8px] py-1 font-medium text-gray-700 transition hover:bg-secondary-600 md:px-[25px]">
                             Подробнее
                           </button>
                         </Link>

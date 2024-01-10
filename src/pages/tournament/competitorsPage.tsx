@@ -76,7 +76,7 @@ const TournamentCompetitorsPage = ({ tournament, weightClasses }: Props) => {
           )}
         </div>
         <div>
-          <div className="flex items-center gap-2">
+          <div className="mt-2 flex items-center gap-x-2">
             <div className="text-md mb-2 text-gray-400">Весовая категория:</div>
             <select
               className="mb-2 rounded-lg border-r-4 border-r-gray-70 bg-gray-70 px-4 py-1 font-semibold outline-none"

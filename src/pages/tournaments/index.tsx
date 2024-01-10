@@ -310,7 +310,9 @@ const TournamentsPage = (props: Props) => {
             </div>
           </div>
         </MobileFilterBar>
-        <div className="px-2 md:px-0">{getTournamentsView()}</div>
+        <div className="mb-[70px] px-2 md:mb-[0px] md:px-0">
+          {getTournamentsView()}
+        </div>
       </div>
     </div>
   )

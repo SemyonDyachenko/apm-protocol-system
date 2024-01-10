@@ -51,7 +51,7 @@ const SecurityPage = ({ competitor }: Props) => {
             competitor.verified ? "cursor-pointer" : "cursor-default"
           } text-sm text-gray-400 underline transition hover:text-gray-300`}
         >
-          Редактировать
+          {disabled ? "Редактировать" : "Отменить"}
         </div>
       </div>
       <div className="items-end gap-4 md:flex">

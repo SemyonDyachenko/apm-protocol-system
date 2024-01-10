@@ -85,7 +85,7 @@ export const registerForTournament =
   }
 
 export const createDefaultTournament =
-  (organizer: number) => async (dispatch: AppDispatch) => {
+  (organizer: number, league: number) => async (dispatch: AppDispatch) => {
     try {
       const defaultData: TournamentData = {
         name: "Новый турнир",
@@ -94,7 +94,7 @@ export const createDefaultTournament =
         address: "-",
         organizer: organizer,
         date: new Date().toISOString().slice(0, 10),
-        league: 10,
+        league: league,
       }
 
       const response = await axios.post<Tournament>(

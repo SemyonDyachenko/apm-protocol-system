@@ -162,7 +162,7 @@ const ProfilePage = (props: Props) => {
         case "tournaments":
           return (
             <CompetitorTournamentsList
-              organizer={competitor.mode !== "competitor"}
+              organizer={competitor.mode !== ""}
               competitorId={competitor.id}
             />
           )
@@ -186,7 +186,7 @@ const ProfilePage = (props: Props) => {
   return (
     <div>
       {competitor && (
-        <div className="mx-auto w-11/12 py-10">
+        <div className="mx-auto py-10 md:w-11/12">
           <div className="hidden w-full items-center justify-between px-4 md:flex md:px-10">
             <HText>
               {competitor.birthdate &&
@@ -215,8 +215,8 @@ const ProfilePage = (props: Props) => {
                 items={sidebarItems}
               />
             </div>
-            <div className="w-full rounded-xl shadow-md md:w-4/5">
-              <div className="py-2 px-5">
+            <div className="mb-[70px] w-full rounded-xl md:mb-[0px] md:w-4/5 md:shadow-md">
+              <div className="py-2 px-[18px] md:px-[35px]">
                 <div className="">{getCurrentWindow()}</div>
               </div>
             </div>

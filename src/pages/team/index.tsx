@@ -137,7 +137,7 @@ const TeamPage = (props: Props) => {
           <div className="w-full md:w-2/12">
             <SideBarMenu classname="" items={items} />
           </div>
-          <div className="w-full rounded-lg px-4 py-2 shadow-md md:min-h-[500px] md:w-9/12">
+          <div className="mb-[70px] w-full rounded-lg px-[5px] py-2 md:mb-[0px] md:min-h-[500px] md:w-9/12 md:px-[25px] md:shadow-md">
             {getWindow()}
           </div>
         </div>

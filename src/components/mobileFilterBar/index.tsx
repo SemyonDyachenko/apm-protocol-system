@@ -24,13 +24,14 @@ const MobileFilterBar = ({
   children,
 }: Props) => {
   const [opened, open] = useState(true)
+
   return (
     <div className={className}>
       <div className="mt-4 w-full px-2">
         <div className="flex w-full">
           <div className="w-full">
             <input
-              className="text-md w-full rounded-l-lg bg-gray-80 px-4 py-3 text-gray-700 outline-none transition "
+              className="text-md w-full rounded-l-lg rounded-r-none bg-gray-80 px-4 py-3 text-gray-700 outline-none transition "
               value={searchString}
               placeholder="Поиск"
               onChange={(e) => setSearchString(e.target.value)}

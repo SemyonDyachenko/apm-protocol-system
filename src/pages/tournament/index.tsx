@@ -210,8 +210,8 @@ const TournamentPage = (props: Props) => {
           <div className=" md:block md:w-2/12">
             <SideBarMenu classname="" items={menuItems} />
           </div>
-          <div className="w-full md:w-9/12">
-            <div className="min-h-[500px] w-full rounded-lg py-2 px-4 shadow-md">
+          <div className="mb-[70px] w-full md:mb-[0px] md:w-9/12">
+            <div className="min-h-[500px] w-full rounded-lg py-2 px-[5px] md:px-[30px] md:shadow-md">
               {getWindow()}
             </div>
           </div>

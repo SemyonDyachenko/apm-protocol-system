@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/hooks/redux"
+import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import { useState, useEffect } from "react"
 import PageNotFound from "../404/PageNotFound"
 import { tournamentAPI } from "@/services/tournamentsService"
@@ -7,10 +7,13 @@ import Loader from "@/components/loader"
 import { getCompetitorFullname } from "@/models/Competitor"
 import { text } from "stream/consumers"
 import ActionButton from "@/components/UI/Button"
+import { useForm } from "react-hook-form"
+import { createMatch } from "@/store/actions/matchAction"
 
 type Props = {}
 
 const TestSystem = (props: Props) => {
+  const dispatch = useAppDispatch()
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
   )
@@ -19,6 +22,19 @@ const TestSystem = (props: Props) => {
   const { data: competitors, isLoading: isLoadingCompetitors } =
     competitorAPI.useFetchAllCompetitorQuery(100)
 
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = (data: any) => {
+    if (data) {
+      dispatch(
+        createMatch({
+          created_at: new Date().toString(),
+          ...data,
+        })
+      )
+    }
+  }
+
   const selectStyles =
     "w-full md:max-w-[240px] outline-none rounded-lg border-r-4 bg-gray-200 py-2 px-4 font-medium"
 
@@ -26,7 +42,7 @@ const TestSystem = (props: Props) => {
 
   if (
     competitor &&
-    competitor.mode === "organizer" &&
+    competitor.mode !== "competitor" &&
     tournaments &&
     competitors
   )
@@ -40,7 +56,7 @@ const TestSystem = (props: Props) => {
             <div className="grid gap-x-6 gap-y-4 md:grid-cols-3">
               <div>
                 <div className="py-1 text-sm text-gray-400">Турнир:</div>
-                <select className={selectStyles}>
+                <select {...register("tournament")} className={selectStyles}>
                   {tournaments.map((tournament, index) => (
                     <option
                       className="font-medium"
@@ -54,7 +70,10 @@ const TestSystem = (props: Props) => {
               </div>
               <div>
                 <div className="py-1 text-sm text-gray-400">Спортсмен 1:</div>
-                <select className={selectStyles}>
+                <select
+                  {...register("first_competitor")}
+                  className={selectStyles}
+                >
                   {competitors.map((competitor, index) => (
                     <option
                       className="font-medium"
@@ -68,7 +87,10 @@ const TestSystem = (props: Props) => {
               </div>
               <div>
                 <div className="py-1 text-sm text-gray-400">Спортсмен 2:</div>
-                <select className={selectStyles}>
+                <select
+                  {...register("second_competitor")}
+                  className={selectStyles}
+                >
                   {competitors.map((competitor, index) => (
                     <option
                       className="font-medium"
@@ -83,7 +105,7 @@ const TestSystem = (props: Props) => {
 
               <div>
                 <div className="py-1 text-sm text-gray-400">Победитель</div>
-                <select className={selectStyles}>
+                <select {...register("winner")} className={selectStyles}>
                   {competitors.map((competitor, index) => (
                     <option
                       className="font-medium"
@@ -101,7 +123,7 @@ const TestSystem = (props: Props) => {
               </div>
               <div>
                 <div className="py-1 text-sm text-gray-400">Рука:</div>
-                <select className={selectStyles}>
+                <select {...register("hand")} className={selectStyles}>
                   <option className="font-medium" value="left">
                     Левая
                   </option>
@@ -114,7 +136,7 @@ const TestSystem = (props: Props) => {
             <div className="w-full py-8">
               <ActionButton
                 className="w-full py-3 font-semibold"
-                onClick={() => {}}
+                onClick={handleSubmit(onSubmit)}
               >
                 Добавить матч
               </ActionButton>

@@ -30,6 +30,11 @@ let upMenuButtons = [
     title: "Турниры",
     target: "tournaments",
   },
+  {
+    selected: false,
+    title: "Поединки",
+    target: "matches",
+  },
 ]
 
 const CompetitorCardPage = (props: Props) => {

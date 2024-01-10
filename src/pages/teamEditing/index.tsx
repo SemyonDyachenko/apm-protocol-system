@@ -139,7 +139,7 @@ const TeamEditingPage = (props: Props) => {
                 <select
                   {...register("status")}
                   className={`${inputStyle} border-r-4`}
-                  value={team.status}
+                  defaultValue={team.status}
                 >
                   <option value="pro">Профессиональная</option>
                   <option value="casual">Любительская</option>

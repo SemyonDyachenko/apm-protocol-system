@@ -34,6 +34,7 @@ import ReviewsPage from "./reviewsPage"
 import { reviewAPI } from "@/services/reviewService"
 import PageNotFound from "../404/PageNotFound"
 import Loader from "@/components/loader"
+import LeagueRegisterModal from "./leagueRegisterModal"
 
 type Props = {}
 
@@ -53,6 +54,8 @@ const LeaguePage = (props: Props) => {
   const { data: averageRating } = reviewAPI.useFetchLeagueRatingQuery(
     league?.id || 0
   )
+
+  const [registerWindow, openRegisterWindow] = useState(false)
 
   const menuItems: Array<sidebarItemData> = [
     {
@@ -94,13 +97,14 @@ const LeaguePage = (props: Props) => {
     }
   }
 
-  const requestToLeague = () => {
+  const requestToLeague = (role: string) => {
     if (league && competitor) {
       dispatch(
         createLeagueCompetitor(
           league.id,
           competitor.id,
-          formatDate(new Date()).toString()
+          formatDate(new Date()).toString(),
+          role
         )
       ).then((res) => window.location.reload())
     }
@@ -188,7 +192,7 @@ const LeaguePage = (props: Props) => {
           name={league.name}
           logo={league.logo}
           banner={league.banner}
-          onClick={requestToLeague}
+          onClick={() => openRegisterWindow(true)}
           onChangeName={() => {}}
           league
           onCameraClick={() => {}}
@@ -203,12 +207,17 @@ const LeaguePage = (props: Props) => {
           <div className="w-full md:block  md:w-1/5">
             <SideBarMenu classname="w-full" items={menuItems} />
           </div>
-          <div className="w-full md:w-9/12">
-            <div className="min-h-[500px] rounded-lg py-2 px-4 shadow-md">
+          <div className="mb-[70px] w-full md:mb-[0px] md:w-9/12">
+            <div className="min-h-[500px] rounded-lg py-2 px-[5px] md:px-[25px] md:shadow-md">
               {getSelectedWindow()}
             </div>
           </div>
         </div>
+        <LeagueRegisterModal
+          active={registerWindow}
+          closeFunc={() => openRegisterWindow(false)}
+          action={requestToLeague}
+        />
       </div>
     )
   else return <PageNotFound />

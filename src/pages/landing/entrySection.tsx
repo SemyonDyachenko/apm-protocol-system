@@ -21,7 +21,7 @@ const EntrySection = (props: Props) => {
         }}
         transition={{ delay: 0.2 }}
       >
-        <div className="relative z-[10] mx-auto h-auto min-h-screen w-11/12 px-4 pt-[160px] pb-[50px] text-white">
+        <div className="relative z-[10] mx-auto h-auto min-h-screen w-11/12 pt-[160px] pb-[50px] text-white md:px-4">
           <div className="relative w-full md:w-3/5">
             <div className="w-full space-x-2 text-3xl font-bold  leading-tight tracking-wider md:text-6xl">
               <div>
@@ -53,11 +53,11 @@ const EntrySection = (props: Props) => {
             </div>
             <div className="my-4">
               <div className="flex w-full justify-between gap-2 md:w-8/12 md:gap-4">
-                <Link to="/leagues" className="w-6/12 transition">
+                <Link to="/leagues" className="w-1/2 transition">
                   <div className={outlineButtonStyles}>Лиги</div>
                 </Link>
 
-                <Link to="/tournaments" className="w-6/12  transition">
+                <Link to="/tournaments" className="w-1/2  transition">
                   <div className={outlineButtonStyles}>Турниры</div>
                 </Link>
               </div>

@@ -103,7 +103,7 @@ const TournamentInfoPage = ({ tournament, editing, league }: Props) => {
           />
         )}
       </div>
-      <div className="gap-8 md:flex">
+      <div className="mt-4 gap-8 md:flex">
         {tournament.afisha && (
           <div className="flex w-full justify-center py-2 md:block md:w-auto md:py-0">
             <img

@@ -11,6 +11,7 @@ import {
   acceptCompetitorToLeague,
 } from "@/store/actions/leagueActon"
 import { getNormalizeDate } from "@/utils/date"
+import { getRoleTitle } from "@/utils/func"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
@@ -116,10 +117,8 @@ const LeagueMessages = ({ league }: Props) => {
                       </Link>
                     </div>
                   </div>
-                  <div className="w-1/5">{item.competitor.country}</div>
-                  <div className="w-1/4 text-2xl font-black text-secondary-500">
-                    {item.competitor.elo_rating}
-                  </div>
+                  <div className="w-1/5">{getRoleTitle(item.role)}</div>
+
                   <div className="flex gap-2">
                     {item.status === "sent" && (
                       <>

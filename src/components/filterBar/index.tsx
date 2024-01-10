@@ -47,7 +47,7 @@ const FilterBar = ({
       viewport={{ once: true, amount: 0.5 }}
     >
       <div className={` md:min-w-[300px] ${className}`}>
-        <div className=" mr-4  rounded-[10px]  bg-white p-4 shadow-md">
+        <div className=" mr-4  rounded-[10px]  bg-white p-4 shadow-sm">
           <div>
             <div className="flex cursor-pointer items-center justify-between">
               <div className="text-md font-semibold text-gray-700">Поиск</div>

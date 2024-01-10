@@ -6,7 +6,7 @@ export const getCompetitorsByRole = (
   role: string,
   competitors: Array<LeagueCompetitor>
 ): Array<LeagueCompetitor> => {
-  return competitors.filter((item) => item.competitor.mode === role)
+  return competitors.filter((item) => item.role === role)
 }
 
 export const getOnlyWeightClasses = (classes: TournamentWeightClass[]) => {

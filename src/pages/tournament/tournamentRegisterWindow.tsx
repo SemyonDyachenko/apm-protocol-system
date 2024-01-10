@@ -1,6 +1,7 @@
 import Checkbox from "@/components/UI/Checkbox"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux"
 import WeightClass, { TournamentWeightClass } from "@/models/WeightClass"
+import { teamAPI } from "@/services/teamService"
 import { refreshLogin } from "@/store/actions/authAction"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 import {
@@ -38,6 +39,10 @@ const TournamentRegisterWindow = ({
   const [weightClass, setWeightClass] = useState(weightClasses[0].id)
   const [successRegister, setSuccessRegister] = useState(false)
   const [privacyChecked, setPrivacyChecked] = useState(false)
+
+  const { data: competitorTeams } = teamAPI.useFetchCompetitorTeamsQuery(
+    competitor.id
+  )
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -112,14 +117,14 @@ const TournamentRegisterWindow = ({
               <div className="text-gray-400">Категория: </div>
               <select
                 className="mt-1 w-full rounded-md border-r-8 bg-gray-200 p-1 py-3 text-lg outline-none md:py-2"
-                defaultValue="Категория"
+                defaultValue="men"
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="old">Ветераны</option>
+                <option value="men">Мужчины</option>
+                <option value="women">Женщины</option>
                 <option value="juniors21">Юниоры 21+</option>
                 <option value="juniors18">Юниоры 18+</option>
-                <option value="women">Женщины</option>
-                <option value="men">Мужчины</option>
+                <option value="old">Ветераны</option>
               </select>
             </div>
             <div className="mt-2 w-full">
@@ -139,13 +144,17 @@ const TournamentRegisterWindow = ({
               </select>
             </div>
             <div className="mt-2 w-full">
-              <div className="text-gray-400">Команда: </div>
+              <div className="text-gray-400">Команда:</div>
               <select
                 className="mt-1 w-full rounded-md border-r-8 bg-gray-200 px-1 py-3 text-lg outline-none md:py-2"
                 defaultValue="Категория"
               >
-                <option>Отсутствует</option>
-                <option>APMTeam</option>
+                <option value={-1}>Отсутствует</option>
+                {competitorTeams?.map((item, index) => (
+                  <option key={index} value={item.team.id}>
+                    {item.team.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex items-start gap-1 py-3">
@@ -158,7 +167,10 @@ const TournamentRegisterWindow = ({
               </div>
               <div className="text-sm">
                 Согласен с{" "}
-                <Link className="gap-2 text-secondary-500" to="/">
+                <Link
+                  className="gap-2 text-secondary-500 transition hover:text-secondary-400 hover:underline"
+                  to="/"
+                >
                   условиями проведения
                 </Link>{" "}
                 турнира

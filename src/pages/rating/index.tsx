@@ -160,14 +160,34 @@ const RatingList = (props: Props) => {
                 </div>
               </div>
             </div>
+            <div className="mt-2">
+              <div className="mb-1 text-sm text-gray-400">Страна</div>
+              <div className="grid grid-cols-2 flex-wrap gap-2">
+                {countryItems.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleCheckboxChange(item.title as Country)}
+                    className={`rounded-md border-[1px] ${
+                      checkboxState[item.title as Country]
+                        ? "bg-secondary-500 text-white"
+                        : "bg-white"
+                    } w-full px-4 py-2 text-center font-medium`}
+                  >
+                    {item.title}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </MobileFilterBar>
+
         {/* competitors list*/}
-        <div className="flex w-full flex-wrap  justify-center  md:block md:w-auto md:px-0">
+        <div className="mb-[70px] flex w-full  flex-wrap  justify-center md:mb-[0px] md:block md:w-auto md:px-0">
           <PerfectScrollbar className="w-full">
             <div
               className="h-auto py-4
-             md:max-h-screen"
+              px-[8px] md:max-h-screen
+             md:px-[0px]"
             >
               <div className="">
                 {competitors

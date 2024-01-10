@@ -26,6 +26,7 @@ import PageNotFound from "./pages/404/PageNotFound"
 import LeagueEditingPage from "./pages/leagueEditing"
 
 const isAuth = localStorage.getItem("token")
+
 import { Routes, Route, Outlet } from "react-router-dom"
 import PasswordRestorePage from "./pages/passwordRestore"
 import FeedbackPage from "./pages/feedbackPage"
@@ -51,10 +52,7 @@ function App() {
         <Routes>
           <Route path="/" element={<NavbarWrapper />}>
             <Route index element={<StartPage />} />
-            <Route
-              path="login"
-              element={isAuth ? <PageNotFound /> : <LoginPage />}
-            />
+            <Route path="login" element={<LoginPage />} />
             <Route path="rating" element={<RatingList />} />
             <Route path="leagues" element={<LeagueList />} />
             <Route

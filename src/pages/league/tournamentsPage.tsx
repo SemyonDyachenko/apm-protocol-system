@@ -58,7 +58,7 @@ const LeagueTournaments = ({ league, count, rating }: Props) => {
         </div>
         <RatingInfo count={count.toString()} rating={rating.toString()} />
       </div>
-      <div>
+      <div className="mt-4">
         {getFilteredTournaments()?.map((element, index) => (
           <Link
             key={index}

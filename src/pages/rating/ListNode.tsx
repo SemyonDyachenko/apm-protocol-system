@@ -22,7 +22,7 @@ const CompetitorListNode = ({ place, data }: Props) => {
       <div className="flex w-4/5 items-center justify-start gap-2 md:w-2/6">
         <div className="">
           <img
-            className="h-[65px] w-[65px]  rounded-full border-2"
+            className="h-[60px] w-[60px] rounded-full border-2  md:h-[65px] md:w-[65px]"
             src={data.image?.toString() || "assets/utils/nonuserimage.jpg"}
             alt="image"
           />

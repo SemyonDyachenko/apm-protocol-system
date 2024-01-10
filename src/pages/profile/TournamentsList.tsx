@@ -53,6 +53,12 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
   const [removeWindow, setRemoveWindow] = useState(false)
   const [targetTournament, setTargetTournament] = useState(-1)
 
+  const [confirm, setConfirm] = useState(true)
+  const [selectedLeague, setSelectedLeague] = useState(-1)
+
+  const { data: competitorLeagues } =
+    leagueAPI.useFetchCompetitorLeaguesQuery(competitorId)
+
   const getFilteredTournaments = () => {
     const date = new Date()
     if (tournaments) {
@@ -74,18 +80,20 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
   }
 
   const createTournament = () => {
-    if (organizer)
-      dispatch(createDefaultTournament(competitorId)).then((res) => {
-        if (res) {
-          if (res.status !== 201) {
-            openErrorWindow(true)
+    if (organizer && selectedLeague !== -1)
+      dispatch(createDefaultTournament(competitorId, selectedLeague)).then(
+        (res) => {
+          if (res) {
+            if (res.status !== 201) {
+              openErrorWindow(true)
+            } else {
+              navigate(`/tournaments/editing/${res.data.id}`)
+            }
           } else {
-            navigate(`/tournaments/editing/${res.data.id}`)
+            openErrorWindow(true)
           }
-        } else {
-          openErrorWindow(true)
         }
-      })
+      )
   }
 
   const removeTournament = () => {
@@ -99,14 +107,14 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
   return (
     <div>
       <div className="flex items-end justify-between">
-        <div className={`${organizer ? "w-3/4" : "w-full"}`}>
+        <div className={`${organizer ? "w-full md:w-3/4" : "w-full"}`}>
           <UpMenuBar
             changeTarget={setTargetWindow}
             items={profileSettingsItems}
           />
         </div>
         {organizer && (
-          <div className="w-1/4">
+          <div className="hidden w-1/4 md:block">
             <div className="flex justify-end">
               <button
                 onClick={() => setConfirmWindow(true)}
@@ -120,12 +128,12 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
         )}
       </div>
 
-      <div className="pt-4">
+      <div className="md:text-md pt-4 text-sm">
         {getFilteredTournaments()?.map((element, index) => (
           <ListNode>
             {!element.active && element.organizer === competitorId && (
               <div
-                className="cursor-pointer"
+                className="w-1/4 cursor-pointer md:w-auto"
                 onClick={() => {
                   setTargetTournament(element.id)
                   setRemoveWindow(true)
@@ -137,11 +145,13 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
                 />
               </div>
             )}
-            <div className="text-md w-1/3 py-2 font-semibold">
+            <div className="text-md w-2/3 py-2 font-medium md:w-1/3 md:font-semibold">
               {element.name}
             </div>
-            <div className="text-md w-1/6 font-medium">{element.location}</div>
-            <div className="text-md w-1/6 font-medium">
+            <div className="text-md hidden w-1/6 font-medium md:block">
+              {element.location}
+            </div>
+            <div className="text-md hidden w-1/6 font-medium md:block">
               {getNormalizeDate(element.date)}
             </div>
             <div>
@@ -152,7 +162,7 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
                 }`}
                 key={index}
               >
-                <button className="rounded-lg bg-secondary-500 px-4 py-1 text-sm font-medium transition hover:bg-secondary-600">
+                <button className="rounded-lg bg-secondary-500 py-1 px-[8px] text-sm font-medium transition hover:bg-secondary-600 md:px-[25px]">
                   Подробнее
                 </button>
               </Link>
@@ -165,13 +175,35 @@ const CompetitorTournamentsList = ({ competitorId, organizer }: Props) => {
         active={errorWindow}
       />
       <ConfirmModal
+        disabledButton={!confirm || selectedLeague === -1}
         closeFunc={() => setConfirmWindow(false)}
         text="Вы хотите создать новый турнир?"
         active={confirmWindow}
         action={createTournament}
       >
+        <div className="my-2 w-full">
+          <div className="my-1 text-sm text-gray-400">Лига:</div>
+          <select
+            defaultValue={competitorLeagues && competitorLeagues[0].league.id}
+            onChange={(e) => setSelectedLeague(+e.target.value)}
+            className="w-full rounded-lg border-r-8 bg-gray-200 py-2 px-4 font-medium outline-none"
+          >
+            <option value={-1} className="font-medium">
+              Нет
+            </option>
+            {competitorLeagues?.map((item, index) => (
+              <option
+                value={item.league.id}
+                key={index}
+                className="font-medium"
+              >
+                {item.league.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="flex w-full gap-2 pt-2 text-sm">
-          <Checkbox className="" isChecked={true} changeState={() => {}} />
+          <Checkbox className="" isChecked={confirm} changeState={setConfirm} />
           <div className="-mt-1">
             Я ознакомился с{" "}
             <Link

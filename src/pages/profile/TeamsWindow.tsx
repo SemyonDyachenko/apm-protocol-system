@@ -26,7 +26,9 @@ const TeamsWindow = ({ competitor }: Props) => {
   const [leagueName, setLeagueName] = useState("")
   const [error, setError] = useState(false)
   const [saveButtonHidden, setSaveButtonHidden] = useState(true)
-  const [selectedTeam, setSelectedTeam] = useState(competitor.team)
+  const [selectedTeam, setSelectedTeam] = useState(
+    competitor.team ? competitor.team : 0
+  )
 
   const { data: competitorTeams } = teamAPI.useFetchCompetitorTeamsQuery(
     competitor.id
@@ -70,10 +72,10 @@ const TeamsWindow = ({ competitor }: Props) => {
   return (
     <div>
       <div className="flex items-end justify-between">
-        <div className="w-3/4">
+        <div className="w-full md:w-3/4">
           <UpMenuBar changeTarget={setTarget} items={teamsNavItems} />
         </div>
-        <div className="flex w-1/4 flex-wrap justify-end">
+        <div className="hidden w-1/4 flex-wrap justify-end md:flex">
           <div className="mb-3">
             <ActionButton
               onClick={() => setConfirm(true)}
@@ -85,8 +87,10 @@ const TeamsWindow = ({ competitor }: Props) => {
           <div className="h-[1px] w-full bg-gray-80"></div>
         </div>
       </div>
-      <div className="flex items-center gap-x-3 pt-4 pb-2">
-        <div className="text-sm text-gray-400">Команда в профиле:</div>
+      <div className="items-center gap-x-3 pt-4 pb-2 md:flex">
+        <div className="mb-[4px] text-sm text-gray-400 md:mb-[0px]">
+          Команда в профиле:
+        </div>
         <div>
           <select
             onChange={(e) => {
@@ -96,6 +100,11 @@ const TeamsWindow = ({ competitor }: Props) => {
             className="rounded-lg border-r-4 bg-gray-200 px-4 py-1 text-sm font-medium outline-none"
             value={selectedTeam}
           >
+            {!competitor.team && (
+              <option value={-1} className="font-medium">
+                Нет
+              </option>
+            )}
             {competitorTeams?.map((item, index) => (
               <option value={item.team.id} className="font-medium" key={index}>
                 {item.team.name}
@@ -115,10 +124,12 @@ const TeamsWindow = ({ competitor }: Props) => {
       </div>
       <div className="py-2">
         {getTeams()?.map((team, index) => (
-          <ListNode key={index} classname="font-medium">
-            <div className="w-1/4 font-semibold">{team.name}</div>
-            <div className="w-1/4">{team.country}</div>
-            <div className="w-1/4">{getLeagueStatus(team)}</div>
+          <ListNode key={index} classname="font-medium md:text-md text-sm">
+            <div className="w-1/4 font-medium md:font-semibold">
+              {team.name}
+            </div>
+            <div className="hidden w-1/4 md:block">{team.country}</div>
+            <div className="hidden w-1/4 md:block">{getLeagueStatus(team)}</div>
             <div>
               <Link
                 className="hover:text-gray-700"
@@ -129,7 +140,7 @@ const TeamsWindow = ({ competitor }: Props) => {
                 }
               >
                 <button
-                  className="rounded-lg bg-secondary-500 py-1 px-4 transition hover:bg-secondary-600"
+                  className="rounded-lg bg-secondary-500 py-1 px-[8px] text-sm transition hover:bg-secondary-600 md:px-[25px]"
                   onClick={() => {}}
                 >
                   Подробнее

@@ -8,4 +8,5 @@ export default interface LeagueCompetitor {
   accepted: boolean
   request_date: Date
   status: string
+  role: string
 }

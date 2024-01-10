@@ -67,7 +67,12 @@ export const acceptCompetitorToLeague =
   }
 
 export const createLeagueCompetitor =
-  (leagueId: number, competitorId: number, request_date: string) =>
+  (
+    leagueId: number,
+    competitorId: number,
+    request_date: string,
+    role: string
+  ) =>
   async (dispatch: AppDispatch) => {
     console.log(request_date)
     try {
@@ -77,6 +82,7 @@ export const createLeagueCompetitor =
           league: leagueId,
           competitor: competitorId,
           request_date,
+          role,
         }
       )
       return response

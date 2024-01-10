@@ -38,7 +38,7 @@ const TeamCompetitors = ({ team, competitors }: Props) => {
           />
           <FontAwesomeIcon className="text-secondary-500" icon={faSearch} />
         </div>
-        <div className="my-2 px-2">
+        <div className="my-2 md:px-2">
           {competitors
             ?.filter((item) =>
               item.competitor.last_name

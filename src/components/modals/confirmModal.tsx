@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { useRef, useEffect } from "react"
 import Checkbox from "../UI/Checkbox"
 import { Link } from "react-router-dom"
+import { applyScroll } from "@/utils/func"
 
 type Props = {
   active: boolean
@@ -11,14 +12,18 @@ type Props = {
   text: string
   action: () => void
   children?: React.ReactNode
+  disabledButton?: boolean
 }
 
-const ConfirmModal = ({ active, closeFunc, text, action, children }: Props) => {
+const ConfirmModal = ({
+  active,
+  closeFunc,
+  text,
+  action,
+  children,
+  disabledButton,
+}: Props) => {
   const popupRef = useRef<HTMLDivElement | null>(null)
-
-  const applyScroll = () => {
-    document.body.style.overflowY = "scroll"
-  }
 
   useEffect(() => {
     document.body.style.overflowY = active ? "hidden" : "scrollY"
@@ -62,7 +67,8 @@ const ConfirmModal = ({ active, closeFunc, text, action, children }: Props) => {
           <div className="flex w-full justify-end gap-2 pt-4">
             <div>
               <button
-                className="rounded-lg bg-secondary-500 px-8 py-2 font-medium transition hover:bg-secondary-600"
+                disabled={disabledButton}
+                className="rounded-lg bg-secondary-500 px-8 py-2 font-medium transition hover:bg-secondary-600 disabled:opacity-50"
                 onClick={() => {
                   applyScroll()
                   action()

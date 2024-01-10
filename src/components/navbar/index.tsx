@@ -135,7 +135,7 @@ const Navbar = (props: Props) => {
             ))}
           </div>
 
-          <div className="hidden items-center justify-center gap-3 md:flex">
+          <div className="hidden items-center gap-3  md:flex">
             <div className="hidden px-3 text-white md:block">
               <div
                 ref={langSwitchRef}
@@ -147,7 +147,9 @@ const Navbar = (props: Props) => {
 
               <LangSwitch active={langHidden} />
             </div>
+
             {localStorage.getItem("token") !== null && <NotificationBar />}
+
             {isAuth() ? (
               <div className="hidden md:block">
                 <Link to="/profile">
@@ -171,14 +173,21 @@ const Navbar = (props: Props) => {
 
           <div className="md:hidden">
             {competitor ? (
-              <Link to="/profile">
-                <div className="max-h-[65px] max-w-[65px]">
-                  <img
-                    className="h-[55px] w-[55px] rounded-full border-2 border-gray-200"
-                    src={competitor?.image?.toString() || NonImage}
-                  />
-                </div>
-              </Link>
+              <div
+                className={`flex items-center ${
+                  location.pathname === "/" ? "text-white" : "text-gray-700"
+                }`}
+              >
+                {localStorage.getItem("token") !== null && <NotificationBar />}
+                <Link to="/profile">
+                  <div className="max-h-[65px] max-w-[65px]">
+                    <img
+                      className="h-[55px] w-[55px] rounded-full border-2 border-gray-200"
+                      src={competitor?.image?.toString() || NonImage}
+                    />
+                  </div>
+                </Link>
+              </div>
             ) : (
               <div className="gap-2 md:hidden">
                 <Link

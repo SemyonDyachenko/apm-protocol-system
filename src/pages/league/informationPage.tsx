@@ -70,7 +70,7 @@ const LeagueInformationWindow = ({ league, count, rating }: Props) => {
         </div>
         <RatingInfo count={count.toString()} rating={rating.toString()} />
       </div>
-      <div>
+      <div className="mt-2">
         <div className="py-2">
           <span className="text-sm text-gray-400">Описание:</span>
           <p className="pt-1 text-sm font-medium text-gray-700">

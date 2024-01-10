@@ -3,7 +3,7 @@ import { notificationAPI } from "@/services/tournamentService"
 import { refreshLogin } from "@/store/actions/authAction"
 import { getCompetitorData } from "@/store/actions/competitorAction"
 import { getNormalizeDate, getNormalizeDateTime } from "@/utils/date"
-import { faBell } from "@fortawesome/free-solid-svg-icons"
+import { faBell, faClose } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
@@ -16,15 +16,19 @@ const NotificationBar = (props: Props) => {
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
   )
+
   const [hidden, setHidden] = useState(true)
+  const popupRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
+    document.body.style.overflowY = !hidden ? "hidden" : "scrollY"
     const handleClickOutside = (event: any) => {
       if (
         popupRef.current &&
         !popupRef.current.contains(event.target as HTMLElement)
       ) {
         setHidden(true)
+        document.body.style.overflowY = "scroll"
       }
     }
     document.addEventListener("mousedown", handleClickOutside)
@@ -33,8 +37,6 @@ const NotificationBar = (props: Props) => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   })
-
-  const popupRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     dispatch(refreshLogin()).then(() => {
@@ -69,12 +71,23 @@ const NotificationBar = (props: Props) => {
           icon={faBell}
         />
       </div>
-
-      <div
+      <motion.div
         hidden={hidden}
         ref={popupRef}
-        className={`absolute z-[10]  min-w-[300px] rounded-xl bg-gray-700 py-3 shadow-xl`}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.15 }}
+        className={`absolute left-0 top-0 right-0 z-[21] h-full w-full overflow-y-scroll bg-gray-700 py-3 shadow-xl md:top-auto md:left-auto md:h-auto md:w-[400px] md:rounded-xl`}
       >
+        <div
+          onClick={() => setHidden(true)}
+          className="flex w-full justify-end px-4 pt-2 pb-4 text-white md:hidden "
+        >
+          <FontAwesomeIcon
+            className="text-xl transition hover:text-secondary-500"
+            icon={faClose}
+          />
+        </div>
         {notifications &&
           notifications.map((notification, index) => (
             <div className="" key={index}>
@@ -98,7 +111,7 @@ const NotificationBar = (props: Props) => {
               </div>
             </div>
           ))}
-      </div>
+      </motion.div>
     </div>
   )
 }

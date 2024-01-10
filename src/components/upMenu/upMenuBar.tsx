@@ -82,7 +82,7 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
       <div className="w-full md:hidden">
         <div className="flex w-full items-center justify-between py-3">
           {items.length > 1 && (
-            <div onClick={setPreviousItem}>
+            <div className="px-3" onClick={setPreviousItem}>
               <FontAwesomeIcon
                 className={`text-xl font-medium ${
                   getSelectedIndex() === 0
@@ -106,7 +106,7 @@ const UpMenuBar = ({ items, changeTarget }: Props) => {
             </button>
           </div>
           {items.length > 1 && (
-            <div onClick={setNextItem}>
+            <div className="px-3" onClick={setNextItem}>
               <FontAwesomeIcon
                 className={`text-xl font-medium ${
                   getSelectedIndex() === items.length - 1

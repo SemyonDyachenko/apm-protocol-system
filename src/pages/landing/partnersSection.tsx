@@ -24,7 +24,7 @@ const contactItems = [
   {
     image: "assets/landing/image 32.png",
     title: "ПОЧТА",
-    value: "apm@league.com",
+    value: "mor.vel@yandex.ru",
   },
   {
     image: "assets/landing/image 33.png",

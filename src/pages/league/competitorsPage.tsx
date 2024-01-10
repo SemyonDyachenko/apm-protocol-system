@@ -62,7 +62,7 @@ const LeagueCompetitors = ({ league, count, rating }: Props) => {
       </div>
       <PerfectScrollbar>
         <div>
-          <div className="mb-2 w-full rounded-lg  px-1">
+          <div className="z-[1] mb-2 mt-3 w-full rounded-lg px-1">
             <div className="text-md flex items-center gap-3 px-2 pb-2 font-medium uppercase text-gray-700">
               <input
                 value={searchString}
@@ -74,7 +74,7 @@ const LeagueCompetitors = ({ league, count, rating }: Props) => {
             </div>
             <div>
               <div className="max-h-[550px]">
-                <div className="my-2 px-2">
+                <div className="my-2 px-0 md:px-2">
                   {competitors &&
                     getCompetitorsByRole(targetRole, competitors)
                       .filter((item) => item.accepted)

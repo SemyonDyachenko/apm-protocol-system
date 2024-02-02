@@ -7,11 +7,12 @@ import { faBell, faClose } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 type Props = {}
 
 const NotificationBar = (props: Props) => {
+  const location = useLocation()
   const dispatch = useAppDispatch()
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
@@ -55,7 +56,11 @@ const NotificationBar = (props: Props) => {
   }
 
   return (
-    <div className="mr-4 cursor-pointer px-2 text-lg md:mr-0 md:text-white">
+    <div
+      className={`mr-4 cursor-pointer px-2 text-lg md:mr-0 ${
+        location.pathname === "/" ? "md:text-white" : "text-gray-600"
+      } `}
+    >
       <div
         onClick={() => {
           getUnreadNotifcationsCount() > 0 && setHidden(!hidden)

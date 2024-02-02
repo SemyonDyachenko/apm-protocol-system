@@ -35,6 +35,10 @@ import TeamPage from "./pages/team"
 import TeamEditingPage from "./pages/teamEditing"
 import TestSystem from "./pages/tournamentSystem"
 import ConfirmPage from "./pages/confirm"
+import { useEffect } from "react"
+import { useAppDispatch } from "./hooks/redux"
+import { refreshLogin } from "./store/actions/authAction"
+import { getCompetitorData } from "./store/actions/competitorAction"
 
 function NavbarWrapper() {
   return (

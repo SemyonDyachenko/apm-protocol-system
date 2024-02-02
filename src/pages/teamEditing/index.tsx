@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form"
 import { getLeagueStatus } from "@/models/Team"
 import { updateTeam, updateTeamImages } from "@/store/actions/teamAction"
 import ErrorModal from "@/components/modals/errorModal"
+import { refreshLogin } from "@/store/actions/authAction"
+import { getCompetitorData } from "@/store/actions/competitorAction"
 
 type Props = {}
 
@@ -36,6 +38,12 @@ const TeamEditingPage = (props: Props) => {
   const [name, setName] = useState("")
   const inputStyle = "bg-gray-200 rounded-lg py-2 px-4 outline-none w-[240px]"
   const [errorModal, setErrorModal] = useState(false)
+
+  useEffect(() => {
+    dispatch(refreshLogin()).then(() => {
+      dispatch(getCompetitorData(localStorage.getItem("apm_protocols_token")))
+    })
+  }, [])
 
   const { competitor, loading } = useAppSelector((state) => state.competitors)
 

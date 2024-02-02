@@ -22,6 +22,8 @@ import { useParams } from "react-router-dom"
 import PageNotFound from "../404/PageNotFound"
 import Loader from "@/components/loader"
 import CategoryModal from "@/components/modals/categoryModal"
+import { refreshLogin } from "@/store/actions/authAction"
+import { getCompetitorData } from "@/store/actions/competitorAction"
 
 type Props = {}
 
@@ -38,6 +40,12 @@ const menuItems: Array<sidebarItemData> = [
 const TournamentEditingPage = (props: Props) => {
   const dispatch = useAppDispatch()
   const { tournamentId } = useParams()
+
+  useEffect(() => {
+    dispatch(refreshLogin()).then(() => {
+      dispatch(getCompetitorData(localStorage.getItem("apm_protocols_token")))
+    })
+  }, [])
 
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors

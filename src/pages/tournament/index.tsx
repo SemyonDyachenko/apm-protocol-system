@@ -74,7 +74,7 @@ const TournamentPage = (props: Props) => {
     document.body.style.overflowY = registerWindow ? "hidden" : "scroll"
 
     dispatch(refreshLogin()).then(() => {
-      dispatch(getCompetitorData(localStorage.getItem("token")))
+      dispatch(getCompetitorData(localStorage.getItem("apm_protocols_token")))
     })
   }, [registerWindow])
 

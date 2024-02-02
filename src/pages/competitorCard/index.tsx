@@ -97,14 +97,14 @@ const CompetitorCardPage = (props: Props) => {
 
   if (competitor)
     return (
-      <div className="w-full py-8">
+      <div className="mb-[50px] w-full py-8">
         <div className="mx-auto h-auto w-11/12 rounded-xl ">
           <div className="rounded-3xl md:rounded-t-3xl md:py-5">
             <div className="flex items-center justify-between px-2 py-2  md:py-3 md:px-5">
               <div className="text-lg font-extrabold uppercase text-gray-700 md:text-4xl">
                 {getCompetitorFullname(competitor)}
               </div>
-              <div className="cursor-default rounded-full bg-secondary-500 px-4 py-1 text-xl  font-bold text-gray-700 md:flex  md:px-3">
+              <div className="cursor-default rounded-full bg-secondary-500 px-4 py-1 text-lg  font-bold text-gray-700 md:flex  md:px-3">
                 {competitor.elo_rating}
               </div>
             </div>
@@ -112,7 +112,7 @@ const CompetitorCardPage = (props: Props) => {
           <div className="gap-10 rounded-xl py-2 md:flex md:shadow-sm">
             <div className="w-auto py-3 md:pl-4">
               <img
-                className="mx-auto h-[280px] w-[220px] rounded-full md:h-[400px]  md:w-[350px] md:rounded-lg"
+                className="mx-auto h-[250px] w-[200px] rounded-full md:h-[400px]  md:w-[350px] md:rounded-lg"
                 src={competitor.image?.toString() || Logo}
               />
             </div>

@@ -14,6 +14,8 @@ import { getCountries } from "react-phone-number-input"
 import { getCountriesList } from "@/utils/dataUtils"
 import { useForm } from "react-hook-form"
 import { updateLeague, updateLeagueImages } from "@/store/actions/leagueActon"
+import { refreshLogin } from "@/store/actions/authAction"
+import { getCompetitorData } from "@/store/actions/competitorAction"
 
 type Props = {}
 
@@ -31,6 +33,12 @@ const LeagueEditingPage = (props: Props) => {
   const dispatch = useAppDispatch()
   const { leagueId } = useParams()
   const inputStyle = "bg-gray-200 rounded-lg py-2 px-4 outline-none w-[240px]"
+
+  useEffect(() => {
+    dispatch(refreshLogin()).then(() => {
+      dispatch(getCompetitorData(localStorage.getItem("apm_protocols_token")))
+    })
+  }, [])
 
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors

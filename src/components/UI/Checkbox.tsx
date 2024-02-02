@@ -17,7 +17,9 @@ const Checkbox = ({ className, isChecked, changeState, register }: Props) => {
         {...register}
       />
       <span
-        className={`checkbox ${isChecked ? "checkbox--active" : ""}`}
+        className={`checkbox cursor-pointer ${
+          isChecked ? "checkbox--active" : ""
+        }`}
         aria-hidden="true"
       />
     </label>

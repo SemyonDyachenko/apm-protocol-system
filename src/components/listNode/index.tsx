@@ -15,7 +15,7 @@ const ListNode = ({ classname, children }: Props) => {
       viewport={{ once: true, amount: 0.5 }}
     >
       <div
-        className={`mb-2 w-full rounded-[10px] border-gray-300 bg-gray-70 shadow-sm transition hover:bg-gray-80`}
+        className={`mb-2 w-full rounded-[10px] border-[1px] border-gray-80 bg-gray-70  shadow-sm transition hover:bg-gray-80`}
       >
         <div
           className={`mx-4 flex items-center justify-between py-2 md:px-10 ${classname}`}

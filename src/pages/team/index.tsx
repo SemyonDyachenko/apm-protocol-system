@@ -21,6 +21,8 @@ import TeamCompetitors from "./competitorsPage"
 import { followTeam } from "@/store/actions/teamAction"
 import ErrorModal from "@/components/modals/errorModal"
 import TeamMessages from "./messagesPage"
+import { refreshLogin } from "@/store/actions/authAction"
+import { getCompetitorData } from "@/store/actions/competitorAction"
 
 type Props = {}
 
@@ -30,6 +32,12 @@ const TeamPage = (props: Props) => {
   const { data: team, isLoading } = teamAPI.useFetchTeamQuery(
     parseInt(teamId?.valueOf() || "")
   )
+
+  useEffect(() => {
+    dispatch(refreshLogin()).then(() => {
+      dispatch(getCompetitorData(localStorage.getItem("apm_protocols_token")))
+    })
+  }, [])
 
   const [targetWindow, setWindow] = useState("general")
   const [error, setError] = useState(false)

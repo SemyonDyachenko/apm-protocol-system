@@ -15,7 +15,7 @@ const CompetitorListNode = ({ place, data }: Props) => {
   return (
     <ListNode>
       <div
-        className={`font-extrabold ${baseNodeLabelStyles} hidden w-1/12  text-lg text-secondary-500 md:block`}
+        className={`font-extrabold ${baseNodeLabelStyles} hidden w-[5%]  text-lg text-secondary-500 md:block`}
       >
         {place}
       </div>

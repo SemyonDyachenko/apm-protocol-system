@@ -60,38 +60,37 @@ const LeagueCompetitors = ({ league, count, rating }: Props) => {
         </div>
         <RatingInfo count={count.toString()} rating={rating.toString()} />
       </div>
-      <PerfectScrollbar>
-        <div>
-          <div className="z-[1] mb-2 mt-3 w-full rounded-lg px-1">
-            <div className="text-md flex items-center gap-3 px-2 pb-2 font-medium uppercase text-gray-700">
-              <input
-                value={searchString}
-                onChange={(e) => setSearchString(e.target.value)}
-                placeholder="Поиск по фамилии"
-                className="rounded-lg border-2 border-gray-300 bg-gray-70 px-4 py-2 text-gray-600 outline-none"
-              />
-              <FontAwesomeIcon className="text-secondary-500" icon={faSearch} />
-            </div>
-            <div>
-              <div className="max-h-[550px]">
-                <div className="my-2 px-0 md:px-2">
-                  {competitors &&
-                    getCompetitorsByRole(targetRole, competitors)
-                      .filter((item) => item.accepted)
-                      .map((item, index) => (
-                        <div key={index}>
-                          <CompetitorLinkItem
-                            key={index}
-                            competitor={item.competitor}
-                          />
-                        </div>
-                      ))}
-                </div>
+
+      <div>
+        <div className="mb-2 mt-3 w-full rounded-lg px-1">
+          <div className="text-md flex items-center gap-3 px-2 pb-2 font-medium uppercase text-gray-700">
+            <input
+              value={searchString}
+              onChange={(e) => setSearchString(e.target.value)}
+              placeholder="Поиск по фамилии"
+              className="w-full rounded-lg border-2 border-gray-300 bg-gray-70 px-4 py-2 text-gray-600 outline-none md:w-auto"
+            />
+            <FontAwesomeIcon className="text-secondary-500" icon={faSearch} />
+          </div>
+          <div>
+            <div className="max-h-[550px]">
+              <div className="my-2 px-0 md:px-2">
+                {competitors &&
+                  getCompetitorsByRole(targetRole, competitors)
+                    .filter((item) => item.accepted)
+                    .map((item, index) => (
+                      <div key={index}>
+                        <CompetitorLinkItem
+                          key={index}
+                          competitor={item.competitor}
+                        />
+                      </div>
+                    ))}
               </div>
             </div>
           </div>
         </div>
-      </PerfectScrollbar>
+      </div>
     </div>
   )
 }

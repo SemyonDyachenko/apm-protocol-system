@@ -182,7 +182,7 @@ const TournamentsPage = (props: Props) => {
           </div>
           <div className="mt-3">
             <div className="flex cursor-pointer items-center justify-between">
-              <div className="text-lg font-semibold text-gray-700">Дата</div>
+              <div className="text-md font-semibold text-gray-700">Дата</div>
               <div>
                 <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
               </div>
@@ -190,14 +190,14 @@ const TournamentsPage = (props: Props) => {
             <div className="flex gap-2 py-3">
               <div className="flex items-center gap-2">
                 <input
-                  className="w-[100px] rounded-lg border-2 border-gray-400 bg-gray-70 px-2 py-1 text-sm text-gray-400"
+                  className="w-[100px] rounded-lg border-[1px] border-gray-400 bg-white px-2 py-1 text-sm text-gray-400 outline-none transition focus:border-gray-700 focus:shadow-md"
                   type="date"
                 />
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-400">до: </span>
                 <input
-                  className="w-[100px] rounded-lg border-2 border-gray-400 bg-gray-70 px-2 py-1 text-sm text-gray-400"
+                  className="w-[100px] rounded-lg border-[1px] border-gray-400 bg-white px-2 py-1 text-sm text-gray-400 outline-none transition focus:border-gray-700 focus:shadow-md"
                   type="date"
                 />
               </div>

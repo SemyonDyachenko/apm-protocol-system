@@ -56,13 +56,13 @@ const FilterBar = ({
               </div>
             </div>
             <div className="flex items-center  gap-3 py-3">
-              <div className="w-2/3">
+              <div className="w-full">
                 <input
                   value={searchString}
                   onChange={(e) => setSearchString(e.target.value)}
                   type="text"
                   placeholder="Поиск"
-                  className="w-full rounded-lg border-2  border-gray-400 bg-gray-70 p-3 py-1 text-sm font-medium text-gray-700 outline-none transition focus:border-gray-600"
+                  className=" w-full rounded-lg  border-[1px] border-gray-400 p-3 py-2 text-sm font-medium text-gray-700 outline-none transition focus:border-gray-600 focus:shadow-md"
                 />
               </div>
               <div>

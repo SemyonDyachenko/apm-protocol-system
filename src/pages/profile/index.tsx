@@ -126,19 +126,19 @@ const ProfilePage = (props: Props) => {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if (!localStorage.getItem("apm_protocols_token")) {
       navigate("/login")
     } else {
       try {
         dispatch(refreshLogin()).then(() => {
-          dispatch(getCompetitorData(localStorage.getItem("token"))).then(
-            (value) => {
-              if (!value) {
-                dispatch(logoutUser())
-                navigate("/login")
-              }
+          dispatch(
+            getCompetitorData(localStorage.getItem("apm_protocols_token"))
+          ).then((value) => {
+            if (!value) {
+              dispatch(logoutUser())
+              navigate("/login")
             }
-          )
+          })
         })
       } catch (err) {
         console.log(err)

@@ -34,7 +34,7 @@ const Navbar = (props: Props) => {
   )
 
   const isAuth = () => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("apm_protocols_token")
     return token ? true : false
   }
 
@@ -80,15 +80,13 @@ const Navbar = (props: Props) => {
   })
 
   const buttonStyles =
-    " rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]  text-gray-700 transition  hover:bg-secondary-400 text-md"
+    "rounded-xl font-semibold bg-secondary-500 px-8 py-[7px]  text-gray-700 transition  hover:bg-secondary-400 text-md"
 
   return (
     <div>
       <nav
         className={`  ${hidden} center ${fixed}  z-20 mx-auto  mt-3 w-11/12 rounded-[25px] ${
-          location.pathname === "/"
-            ? "bg-gray-700"
-            : " sm:bg-white md:bg-gray-700"
+          location.pathname === "/" ? "bg-gray-700" : "border-[0.5px] bg-white"
         }  shadow-sm transition duration-300 md:border-b-0 md:shadow-md`}
       >
         <div className="flex items-center justify-between py-3 px-10 md:px-16">
@@ -96,7 +94,7 @@ const Navbar = (props: Props) => {
             <Link to="/">
               <img
                 className="hidden h-[50px] md:block"
-                src={MainLogo}
+                src={location.pathname === "/" ? MainLogo : DarkLogo}
                 alt="image"
               />
               <img
@@ -106,14 +104,18 @@ const Navbar = (props: Props) => {
               />
             </Link>
           </div>
-          <div className="hidden items-center justify-center text-sm font-medium text-white md:flex">
+          <div
+            className={`hidden items-center justify-center text-sm font-medium ${
+              location.pathname === "/" ? "text-white" : "text-gray-600"
+            }  md:flex`}
+          >
             {navLinks.map((element, index) => (
               <Link
                 key={`${element}+${index}`}
                 to={element.path}
                 className={`${
                   !element.disabled
-                    ? "transition hover:text-secondary-400"
+                    ? "font-semibold transition hover:text-secondary-400"
                     : "link-disabled hover:text-gray-disabled"
                 }  `}
               >
@@ -136,7 +138,11 @@ const Navbar = (props: Props) => {
           </div>
 
           <div className="hidden items-center gap-3  md:flex">
-            <div className="hidden px-3 text-white md:block">
+            <div
+              className={`hidden px-3  ${
+                location.pathname === "/" ? "text-white" : "text-gray-600"
+              }   md:block`}
+            >
               <div
                 ref={langSwitchRef}
                 onClick={() => setLangHidden(!langHidden)}
@@ -161,7 +167,12 @@ const Navbar = (props: Props) => {
               </div>
             ) : (
               <div className="hidden gap-2 md:flex">
-                <Link className="text-white " to="/login">
+                <Link
+                  className={`${
+                    location.pathname === "/" ? "text-white" : "text-gray-600"
+                  } `}
+                  to="/login"
+                >
                   <div className="text-md flex items-center gap-2 rounded-lg px-0 py-2 font-medium transition hover:text-secondary-500">
                     <div>Войти</div>
                     <FontAwesomeIcon icon={faRightToBracket} />

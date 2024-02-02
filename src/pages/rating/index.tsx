@@ -92,7 +92,7 @@ const RatingList = (props: Props) => {
           <div className="flex w-full">
             <div className="w-full">
               <input
-                className="text-md w-full rounded-l-lg bg-gray-80 px-4 py-3 text-gray-700 outline-none transition "
+                className="text-md w-full rounded-l-lg border-[1px] bg-gray-70 px-4 py-3 font-medium text-gray-600 outline-none transition "
                 value={search}
                 placeholder="Поиск"
                 onChange={(e) => setSearch(e.target.value)}

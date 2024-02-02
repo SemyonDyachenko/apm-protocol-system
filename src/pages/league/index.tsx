@@ -35,12 +35,21 @@ import { reviewAPI } from "@/services/reviewService"
 import PageNotFound from "../404/PageNotFound"
 import Loader from "@/components/loader"
 import LeagueRegisterModal from "./leagueRegisterModal"
+import { refreshLogin } from "@/store/actions/authAction"
+import { getCompetitorData } from "@/store/actions/competitorAction"
 
 type Props = {}
 
 const LeaguePage = (props: Props) => {
   const dispatch = useAppDispatch()
   const { leagueId } = useParams()
+
+  useEffect(() => {
+    dispatch(refreshLogin()).then(() => {
+      dispatch(getCompetitorData(localStorage.getItem("apm_protocols_token")))
+    })
+  }, [])
+
   const { competitor, loading, error } = useAppSelector(
     (state) => state.competitors
   )

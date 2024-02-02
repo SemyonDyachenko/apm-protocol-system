@@ -42,7 +42,6 @@ const StatsList = ({ competitor, place }: Props) => {
   ]
   return (
     <div>
-      {" "}
       <div className="flex gap-6 pt-3 pb-2 text-lg">
         <div className="text-xl font-extrabold text-gray-700">
           Информация о спортсмене
@@ -64,7 +63,7 @@ const StatsList = ({ competitor, place }: Props) => {
             </div>
           ))}
         </div>
-        <div className="flex gap-12 md:mt-0 md:flex-col">
+        <div className="hidden gap-12 md:mt-0 md:flex md:flex-col">
           <div className="flex gap-3">
             <div className="flex w-1/2 justify-end text-3xl font-extrabold text-secondary-500 md:text-5xl">
               {competitor.elo_rating}
